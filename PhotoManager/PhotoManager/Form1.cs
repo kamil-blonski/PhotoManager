@@ -17,7 +17,6 @@ namespace PhotoManager
         {
             InitializeComponent();
             Test();
-
         }
 
         public void Test()

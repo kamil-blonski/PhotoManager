@@ -25,6 +25,14 @@ namespace PhotoManager
 			return obj;
 		}
 
+		private void logInButton_Click(object sender, EventArgs e)
+		{
+			new Form1().Show();
+		}
 
+		private void registerButton_Click(object sender, EventArgs e)
+		{
+
+		}
 	}
 }

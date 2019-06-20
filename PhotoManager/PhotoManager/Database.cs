@@ -54,11 +54,6 @@ namespace PhotoManager
         {
             connection.Close();
         }
-
-
     }
 
-    /*
-        https://stackoverflow.com/questions/21618015/how-to-connect-to-mysql-database
-    */
 }

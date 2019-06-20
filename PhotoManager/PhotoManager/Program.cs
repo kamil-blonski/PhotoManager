@@ -14,9 +14,12 @@ namespace PhotoManager
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
+			
+			Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+			
+			Application.Run(LoggingWindow.getInstance());
+            //Application.Run(new Form1());
         }
     }
 }

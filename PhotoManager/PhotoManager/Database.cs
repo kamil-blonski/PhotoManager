@@ -42,7 +42,9 @@ namespace PhotoManager
             {
                 if (String.IsNullOrEmpty(databaseName))
                     return false;
-                string connstring = string.Format("Server=localhost; database={0}; UID=root; password=", databaseName);
+				//Server = localhost
+
+				string connstring = string.Format("Server=localhost; database={0}; UID=root; password=", databaseName);
                 connection = new MySqlConnection(connstring);
                 connection.Open(); //exception
             }

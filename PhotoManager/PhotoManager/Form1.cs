@@ -16,7 +16,7 @@ namespace PhotoManager
         public Form1()
         {
             InitializeComponent();
-            Test();
+            //Test();
         }
 
         public void Test()

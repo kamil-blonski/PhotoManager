@@ -17,8 +17,12 @@ namespace PhotoManager
 			
 			Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-			
-			Application.Run(LoggingWindow.getInstance());
+
+			IView view = LoggingWindow.getInstance();
+			Model.Model model = new Model.Model();
+			Presenter presenter = new Presenter(view,model);
+			Application.Run((Form)view);
+			//Application.Run(LoggingWindow.getInstance());
             //Application.Run(new Form1());
         }
     }

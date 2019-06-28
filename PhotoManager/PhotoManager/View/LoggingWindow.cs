@@ -11,13 +11,17 @@ using MySql.Data.MySqlClient;
 
 namespace PhotoManager
 {
-	public partial class LoggingWindow : Form
+	public partial class LoggingWindow : Form, IView
 	{
 		private static LoggingWindow obj;
 		private LoggingWindow()
 		{
 			InitializeComponent();
 		}
+
+		// implement interface
+		public event Action<string, string> LoggingEvent;
+
 
 		public static LoggingWindow getInstance()
 		{
@@ -40,11 +44,8 @@ namespace PhotoManager
 				while (reader.Read())
 				{
 					string passwdFromDatabase = reader.GetString(0);
-					if(passwordTextBox.Text == passwdFromDatabase)
-					{
-						new Form1().Show();
-					}
-					Console.WriteLine(passwdFromDatabase);
+					LoggingEvent(passwordTextBox.Text, passwdFromDatabase);
+					//Console.WriteLine(passwdFromDatabase);
 				}
 				dbCon.Close();
 			}

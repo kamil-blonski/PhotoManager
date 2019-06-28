@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace PhotoManager
 {
-	interface IViewLogging
+	public interface IView
 	{
+		event Action<string,string> LoggingEvent;
 	}
 }

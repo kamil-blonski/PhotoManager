@@ -6,7 +6,25 @@ using System.Threading.Tasks;
 
 namespace PhotoManager
 {
-	interface Presenter
+	class Presenter
 	{
+		IView view;
+		Model.Model model;
+
+		public Presenter(IView view, Model.Model model)
+		{
+			this.view = view;
+			this.model = model;
+			this.view.LoggingEvent += LoggingEvent;
+			
+		}
+
+
+		private void LoggingEvent(string formPassword, string dbPassword)
+		{
+			model.checkPassword(formPassword, dbPassword);
+		}
+
+
 	}
 }

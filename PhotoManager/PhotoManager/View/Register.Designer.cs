@@ -28,61 +28,71 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.tbEmail = new System.Windows.Forms.TextBox();
+            this.tbName = new System.Windows.Forms.TextBox();
+            this.tbSurname = new System.Windows.Forms.TextBox();
+            this.tbPassword = new System.Windows.Forms.TextBox();
+            this.tbLogin = new System.Windows.Forms.TextBox();
             this.lName = new System.Windows.Forms.Label();
             this.lSurname = new System.Windows.Forms.Label();
             this.lEmail = new System.Windows.Forms.Label();
             this.lLogin = new System.Windows.Forms.Label();
             this.lPassword = new System.Windows.Forms.Label();
             this.gbRegisterForm = new System.Windows.Forms.GroupBox();
-            this.bCreateAccount = new System.Windows.Forms.Button();
             this.bGoBack = new System.Windows.Forms.Button();
+            this.bCreateAccount = new System.Windows.Forms.Button();
+            this.lNameValidation = new System.Windows.Forms.Label();
+            this.lSurnameValidation = new System.Windows.Forms.Label();
+            this.lEmailWalidation = new System.Windows.Forms.Label();
+            this.lLoginValidation = new System.Windows.Forms.Label();
+            this.lPasswordValidation = new System.Windows.Forms.Label();
             this.gbRegisterForm.SuspendLayout();
             this.SuspendLayout();
             // 
-            // textBox1
+            // tbEmail
             // 
-            this.textBox1.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBox1.Location = new System.Drawing.Point(126, 136);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(299, 27);
-            this.textBox1.TabIndex = 0;
+            this.tbEmail.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.tbEmail.Location = new System.Drawing.Point(126, 136);
+            this.tbEmail.Name = "tbEmail";
+            this.tbEmail.Size = new System.Drawing.Size(299, 27);
+            this.tbEmail.TabIndex = 2;
+            this.tbEmail.Leave += new System.EventHandler(this.EmailValidation);
             // 
-            // textBox2
+            // tbName
             // 
-            this.textBox2.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBox2.Location = new System.Drawing.Point(126, 54);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(299, 27);
-            this.textBox2.TabIndex = 1;
+            this.tbName.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.tbName.Location = new System.Drawing.Point(126, 54);
+            this.tbName.Name = "tbName";
+            this.tbName.Size = new System.Drawing.Size(299, 27);
+            this.tbName.TabIndex = 0;
+            this.tbName.Leave += new System.EventHandler(this.NameValidation);
             // 
-            // textBox3
+            // tbSurname
             // 
-            this.textBox3.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBox3.Location = new System.Drawing.Point(126, 97);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(299, 27);
-            this.textBox3.TabIndex = 2;
+            this.tbSurname.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.tbSurname.Location = new System.Drawing.Point(126, 97);
+            this.tbSurname.Name = "tbSurname";
+            this.tbSurname.Size = new System.Drawing.Size(299, 27);
+            this.tbSurname.TabIndex = 1;
+            this.tbSurname.Leave += new System.EventHandler(this.SurnameValidation);
             // 
-            // textBox4
+            // tbPassword
             // 
-            this.textBox4.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBox4.Location = new System.Drawing.Point(126, 224);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(299, 27);
-            this.textBox4.TabIndex = 3;
+            this.tbPassword.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.tbPassword.Location = new System.Drawing.Point(126, 224);
+            this.tbPassword.Name = "tbPassword";
+            this.tbPassword.Size = new System.Drawing.Size(299, 27);
+            this.tbPassword.TabIndex = 4;
+            this.tbPassword.Leave += new System.EventHandler(this.PasswordValidation);
             // 
-            // textBox5
+            // tbLogin
             // 
-            this.textBox5.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBox5.Location = new System.Drawing.Point(126, 179);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(299, 27);
-            this.textBox5.TabIndex = 4;
+            this.tbLogin.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.tbLogin.Location = new System.Drawing.Point(126, 179);
+            this.tbLogin.Name = "tbLogin";
+            this.tbLogin.Size = new System.Drawing.Size(299, 27);
+            this.tbLogin.TabIndex = 3;
+            this.tbLogin.Leave += new System.EventHandler(this.LoginValidation);
             // 
             // lName
             // 
@@ -137,35 +147,30 @@
             // 
             // gbRegisterForm
             // 
+            this.gbRegisterForm.Controls.Add(this.lPasswordValidation);
+            this.gbRegisterForm.Controls.Add(this.lLoginValidation);
+            this.gbRegisterForm.Controls.Add(this.lEmailWalidation);
+            this.gbRegisterForm.Controls.Add(this.lSurnameValidation);
+            this.gbRegisterForm.Controls.Add(this.lNameValidation);
             this.gbRegisterForm.Controls.Add(this.bGoBack);
             this.gbRegisterForm.Controls.Add(this.bCreateAccount);
             this.gbRegisterForm.Controls.Add(this.lName);
-            this.gbRegisterForm.Controls.Add(this.textBox1);
-            this.gbRegisterForm.Controls.Add(this.textBox2);
-            this.gbRegisterForm.Controls.Add(this.textBox5);
+            this.gbRegisterForm.Controls.Add(this.tbEmail);
+            this.gbRegisterForm.Controls.Add(this.tbName);
+            this.gbRegisterForm.Controls.Add(this.tbLogin);
             this.gbRegisterForm.Controls.Add(this.lPassword);
-            this.gbRegisterForm.Controls.Add(this.textBox4);
-            this.gbRegisterForm.Controls.Add(this.textBox3);
+            this.gbRegisterForm.Controls.Add(this.tbPassword);
+            this.gbRegisterForm.Controls.Add(this.tbSurname);
             this.gbRegisterForm.Controls.Add(this.lLogin);
             this.gbRegisterForm.Controls.Add(this.lSurname);
             this.gbRegisterForm.Controls.Add(this.lEmail);
             this.gbRegisterForm.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.gbRegisterForm.Location = new System.Drawing.Point(3, 5);
             this.gbRegisterForm.Name = "gbRegisterForm";
-            this.gbRegisterForm.Size = new System.Drawing.Size(445, 345);
+            this.gbRegisterForm.Size = new System.Drawing.Size(473, 345);
             this.gbRegisterForm.TabIndex = 10;
             this.gbRegisterForm.TabStop = false;
             this.gbRegisterForm.Text = "Create an account:";
-            // 
-            // bCreateAccount
-            // 
-            this.bCreateAccount.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.bCreateAccount.Location = new System.Drawing.Point(295, 284);
-            this.bCreateAccount.Name = "bCreateAccount";
-            this.bCreateAccount.Size = new System.Drawing.Size(130, 39);
-            this.bCreateAccount.TabIndex = 10;
-            this.bCreateAccount.Text = "Create Account";
-            this.bCreateAccount.UseVisualStyleBackColor = true;
             // 
             // bGoBack
             // 
@@ -173,16 +178,73 @@
             this.bGoBack.Location = new System.Drawing.Point(126, 284);
             this.bGoBack.Name = "bGoBack";
             this.bGoBack.Size = new System.Drawing.Size(134, 39);
-            this.bGoBack.TabIndex = 11;
+            this.bGoBack.TabIndex = 6;
             this.bGoBack.Text = "Go back";
             this.bGoBack.UseVisualStyleBackColor = true;
             // 
+            // bCreateAccount
+            // 
+            this.bCreateAccount.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.bCreateAccount.Location = new System.Drawing.Point(266, 284);
+            this.bCreateAccount.Name = "bCreateAccount";
+            this.bCreateAccount.Size = new System.Drawing.Size(159, 39);
+            this.bCreateAccount.TabIndex = 5;
+            this.bCreateAccount.Text = "Create Account";
+            this.bCreateAccount.UseVisualStyleBackColor = true;
+            this.bCreateAccount.Click += new System.EventHandler(this.CreateAccount);
+            // 
+            // lNameValidation
+            // 
+            this.lNameValidation.AutoSize = true;
+            this.lNameValidation.Location = new System.Drawing.Point(431, 54);
+            this.lNameValidation.Name = "lNameValidation";
+            this.lNameValidation.Size = new System.Drawing.Size(26, 29);
+            this.lNameValidation.TabIndex = 12;
+            this.lNameValidation.Text = "*";
+            // 
+            // lSurnameValidation
+            // 
+            this.lSurnameValidation.AutoSize = true;
+            this.lSurnameValidation.Location = new System.Drawing.Point(431, 97);
+            this.lSurnameValidation.Name = "lSurnameValidation";
+            this.lSurnameValidation.Size = new System.Drawing.Size(26, 29);
+            this.lSurnameValidation.TabIndex = 13;
+            this.lSurnameValidation.Text = "*";
+            // 
+            // lEmailWalidation
+            // 
+            this.lEmailWalidation.AutoSize = true;
+            this.lEmailWalidation.Location = new System.Drawing.Point(431, 136);
+            this.lEmailWalidation.Name = "lEmailWalidation";
+            this.lEmailWalidation.Size = new System.Drawing.Size(26, 29);
+            this.lEmailWalidation.TabIndex = 14;
+            this.lEmailWalidation.Text = "*";
+            // 
+            // lLoginValidation
+            // 
+            this.lLoginValidation.AutoSize = true;
+            this.lLoginValidation.Location = new System.Drawing.Point(431, 179);
+            this.lLoginValidation.Name = "lLoginValidation";
+            this.lLoginValidation.Size = new System.Drawing.Size(26, 29);
+            this.lLoginValidation.TabIndex = 15;
+            this.lLoginValidation.Text = "*";
+            // 
+            // lPasswordValidation
+            // 
+            this.lPasswordValidation.AutoSize = true;
+            this.lPasswordValidation.Location = new System.Drawing.Point(431, 224);
+            this.lPasswordValidation.Name = "lPasswordValidation";
+            this.lPasswordValidation.Size = new System.Drawing.Size(26, 29);
+            this.lPasswordValidation.TabIndex = 16;
+            this.lPasswordValidation.Text = "*";
+            // 
             // Register
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(452, 354);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.ClientSize = new System.Drawing.Size(488, 354);
             this.Controls.Add(this.gbRegisterForm);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Register";
             this.Text = "Register";
             this.gbRegisterForm.ResumeLayout(false);
@@ -193,11 +255,11 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox tbEmail;
+        private System.Windows.Forms.TextBox tbName;
+        private System.Windows.Forms.TextBox tbSurname;
+        private System.Windows.Forms.TextBox tbPassword;
+        private System.Windows.Forms.TextBox tbLogin;
         private System.Windows.Forms.Label lName;
         private System.Windows.Forms.Label lSurname;
         private System.Windows.Forms.Label lEmail;
@@ -206,5 +268,10 @@
         private System.Windows.Forms.GroupBox gbRegisterForm;
         private System.Windows.Forms.Button bGoBack;
         private System.Windows.Forms.Button bCreateAccount;
+        private System.Windows.Forms.Label lPasswordValidation;
+        private System.Windows.Forms.Label lLoginValidation;
+        private System.Windows.Forms.Label lEmailWalidation;
+        private System.Windows.Forms.Label lSurnameValidation;
+        private System.Windows.Forms.Label lNameValidation;
     }
 }

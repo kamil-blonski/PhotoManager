@@ -8,7 +8,7 @@ namespace PhotoManager
 {
     interface IRegisterViev
     {
-        string Name { get; set; }
+        string NameR { get; set; }
         string Surname { get; set; }
         string UserName { get; set; }
         string Password { get; set; }

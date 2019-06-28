@@ -64,7 +64,9 @@ namespace PhotoManager
 
 		private void registerButton_Click(object sender, EventArgs e)
 		{
-
+            //+zamknięcie okna logowania
+            Register register = new Register();
+            register.Show();
 		}
 	}
 }

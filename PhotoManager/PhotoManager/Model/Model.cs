@@ -27,6 +27,8 @@ namespace PhotoManager.Model
         public void CreateAcconut(int? id, string name, string surname, string email, string username, string password)
         {
             Console.WriteLine(id + " " + name + " " + surname + " " + email + " " + username + " " + password);
+            //sprawdzenie czy istnieje juz takie email
+            //sprawdzenie czy istnieje juz taki login
             //zapytanie dodające rekord
         }
 	}

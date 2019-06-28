@@ -22,6 +22,10 @@ namespace PhotoManager
 		// implement interface
 		public event Action<string, string> LoggingEvent;
 
+		public void ShowMessage(bool success, string message)
+		{
+			MessageBox.Show(message, success ? "Message" : "Error", MessageBoxButtons.OK);
+		}
 
 		public static LoggingWindow getInstance()
 		{
@@ -33,18 +37,25 @@ namespace PhotoManager
 		private void logInButton_Click(object sender, EventArgs e)
 		{
 			string login = loginTextBox.Text;
-			//new Form1().Show();
 			var dbCon = Database.Instance();
 			dbCon.DatabaseName = "photomanager";
 			if (dbCon.IsConnect())
 			{ 
 				string passQuery = "select password from users where login = \""+login+"\"";
+
+				if(dbCon.Connection.State != ConnectionState.Open)
+				{
+					dbCon.Connection.Open();
+				}
 				var cmd = new MySqlCommand(passQuery, dbCon.Connection);
+
 				var reader = cmd.ExecuteReader();
 				while (reader.Read())
 				{
 					string passwdFromDatabase = reader.GetString(0);
-					LoggingEvent(passwordTextBox.Text, passwdFromDatabase);
+					
+						LoggingEvent(passwordTextBox.Text, passwdFromDatabase);
+					
 					//Console.WriteLine(passwdFromDatabase);
 				}
 				dbCon.Close();

@@ -13,12 +13,15 @@ namespace PhotoManager.Model
 
 		}
 
-		public void checkPassword(string formPassword, string dbPassword)
+		public bool checkPassword(string formPassword, string dbPassword)
 		{
 			if (formPassword == dbPassword)
 			{
 				new Form1().ShowDialog();
+				return true;
 			}
+			else
+				return false;
 		}
 	}
 }

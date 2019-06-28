@@ -9,5 +9,6 @@ namespace PhotoManager
 	public interface IView
 	{
 		event Action<string,string> LoggingEvent;
+		void ShowMessage(bool success, string message);
 	}
 }

@@ -16,15 +16,30 @@ namespace PhotoManager
 			this.view = view;
 			this.model = model;
 			this.view.LoggingEvent += LoggingEvent;
-			
+		
+
+
 		}
 
 
 		private void LoggingEvent(string formPassword, string dbPassword)
 		{
-			model.checkPassword(formPassword, dbPassword);
+			try
+			{
+				if (model.checkPassword(formPassword, dbPassword) == false)
+				{
+					view.ShowMessage(false, "Incorrect password");
+				}
+			}
+			catch (Exception exc)
+			{
+				view.ShowMessage(false, exc.Message);
+			}
+
 		}
 
+		
+		
 
 	}
 }

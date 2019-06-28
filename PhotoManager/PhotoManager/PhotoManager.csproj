@@ -81,6 +81,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\User.cs" />
+    <EmbeddedResource Include="View\LoggingWindow.en.resx">
+      <DependentUpon>LoggingWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\LoggingWindow.resx">
       <DependentUpon>LoggingWindow.cs</DependentUpon>
     </EmbeddedResource>

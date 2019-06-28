@@ -23,5 +23,11 @@ namespace PhotoManager.Model
 			else
 				return false;
 		}
+
+        public void CreateAcconut(int? id, string name, string surname, string email, string username, string password)
+        {
+            Console.WriteLine(id + " " + name + " " + surname + " " + email + " " + username + " " + password);
+            //zapytanie dodające rekord
+        }
 	}
 }

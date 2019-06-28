@@ -38,9 +38,9 @@ namespace PhotoManager
 		}
 
 		
-		private void CreateAccount(int? id, string name, string surname, string password, string email, string login)
+		private void CreateAccount()
         {
-            Console.WriteLine(this.view.IVievRegister.Email);
+            model.CreateAcconut(null, view.IVievRegister.NameR, view.IVievRegister.Surname, view.IVievRegister.Email, view.IVievRegister.UserName, view.IVievRegister.Password);
         }
 
 	}

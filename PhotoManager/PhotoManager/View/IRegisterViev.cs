@@ -13,6 +13,6 @@ namespace PhotoManager
         string UserName { get; set; }
         string Password { get; set; }
         string Email { get; set; }
-        event Action <int?, string, string ,string ,string ,string > CreateAccountEvent;
+        event Action CreateAccountEvent;
     }
 }

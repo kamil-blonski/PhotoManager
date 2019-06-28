@@ -73,7 +73,7 @@ namespace PhotoManager
 
 		private void registerButton_Click(object sender, EventArgs e)
 		{
-            this.Visible = false;
+            //this.Visible = false;
            
             Register.RegisterInstance.Show();
 		}

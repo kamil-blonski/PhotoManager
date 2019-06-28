@@ -13,6 +13,7 @@ namespace PhotoManager
 {
     public partial class Register : Form, IRegisterViev
     {
+        //Rejestracia wciśnięciem entera ??
         private static Register registerInstance;
         private Register()
         {
@@ -34,12 +35,11 @@ namespace PhotoManager
         #endregion Fields;
 
         #region Events
-        public event Action<int?, string, string, string, string, string> CreateAccountEvent;
+        public event Action CreateAccountEvent;
         #endregion Events
 
 
         #region Properties
-
 
         public static Register RegisterInstance
         {
@@ -117,9 +117,9 @@ namespace PhotoManager
         #endregion Properties
 
         //Function used to data validation. AFTER posotive evaluation, data go throught presenter to model.
-        #region Validation
-        //maksymalna długość wpisywanych rzeczy
         //spacja w wyrażeniu regularnym a nie przy pomocy Contains
+        #region Validation
+
         private bool IsEmpty(string tb)
         {
             if (tb.Trim() == string.Empty)
@@ -247,7 +247,7 @@ namespace PhotoManager
             if(nameCorrect && surnameCorrect && emailCorrect && loginCorrect && passwordCorrect)
             {
                 if (CreateAccountEvent != null)
-                    CreateAccountEvent(null, name, surname, email, username, password);
+                    CreateAccountEvent();
             }
             else
             {

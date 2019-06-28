@@ -53,6 +53,7 @@
             // 
             this.tbEmail.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.tbEmail.Location = new System.Drawing.Point(126, 136);
+            this.tbEmail.MaxLength = 50;
             this.tbEmail.Name = "tbEmail";
             this.tbEmail.Size = new System.Drawing.Size(299, 27);
             this.tbEmail.TabIndex = 2;
@@ -62,6 +63,7 @@
             // 
             this.tbName.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.tbName.Location = new System.Drawing.Point(126, 54);
+            this.tbName.MaxLength = 30;
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(299, 27);
             this.tbName.TabIndex = 0;
@@ -71,6 +73,7 @@
             // 
             this.tbSurname.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.tbSurname.Location = new System.Drawing.Point(126, 97);
+            this.tbSurname.MaxLength = 30;
             this.tbSurname.Name = "tbSurname";
             this.tbSurname.Size = new System.Drawing.Size(299, 27);
             this.tbSurname.TabIndex = 1;
@@ -80,7 +83,9 @@
             // 
             this.tbPassword.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.tbPassword.Location = new System.Drawing.Point(126, 224);
+            this.tbPassword.MaxLength = 10;
             this.tbPassword.Name = "tbPassword";
+            this.tbPassword.PasswordChar = '*';
             this.tbPassword.Size = new System.Drawing.Size(299, 27);
             this.tbPassword.TabIndex = 4;
             this.tbPassword.Leave += new System.EventHandler(this.PasswordValidation);
@@ -89,6 +94,7 @@
             // 
             this.tbLogin.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.tbLogin.Location = new System.Drawing.Point(126, 179);
+            this.tbLogin.MaxLength = 30;
             this.tbLogin.Name = "tbLogin";
             this.tbLogin.Size = new System.Drawing.Size(299, 27);
             this.tbLogin.TabIndex = 3;
@@ -181,6 +187,7 @@
             this.bGoBack.TabIndex = 6;
             this.bGoBack.Text = "Go back";
             this.bGoBack.UseVisualStyleBackColor = true;
+            this.bGoBack.Click += new System.EventHandler(this.bGoBack_Click);
             // 
             // bCreateAccount
             // 

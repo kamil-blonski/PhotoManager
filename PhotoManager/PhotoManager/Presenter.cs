@@ -10,13 +10,12 @@ namespace PhotoManager
 	{
 		IView view;
 		Model.Model model;
-
 		public Presenter(IView view, Model.Model model)
 		{
 			this.view = view;
 			this.model = model;
 			this.view.LoggingEvent += LoggingEvent;
-		
+            this.view.IVievRegister.CreateAccountEvent += CreateAccount;
 
 
 		}
@@ -39,7 +38,10 @@ namespace PhotoManager
 		}
 
 		
-		
+		private void CreateAccount(int? id, string name, string surname, string password, string email, string login)
+        {
+            Console.WriteLine(this.view.IVievRegister.Email);
+        }
 
 	}
 }

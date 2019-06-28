@@ -10,5 +10,6 @@ namespace PhotoManager
 	{
 		event Action<string,string> LoggingEvent;
 		void ShowMessage(bool success, string message);
+        IRegisterViev IVievRegister { get; }
 	}
 }

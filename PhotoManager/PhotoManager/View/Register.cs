@@ -13,6 +13,13 @@ namespace PhotoManager
 {
     public partial class Register : Form, IRegisterViev
     {
+        private static Register registerInstance;
+        private Register()
+        {
+            InitializeComponent();
+            this.CenterToScreen();
+        }
+
         #region Fields
         private string name;
         private string surname;
@@ -26,23 +33,21 @@ namespace PhotoManager
         private bool passwordCorrect = false;
         #endregion Fields;
 
-        public Register()
-        {
-            InitializeComponent();
-            this.CenterToScreen();
-        }
+        #region Events
+        public event Action<int?, string, string, string, string, string> CreateAccountEvent;
+        #endregion Events
 
-        #region Propertis
-        public string Surname
+
+        #region Properties
+
+
+        public static Register RegisterInstance
         {
             get
             {
-                return surname;
-            }
-
-            set
-            {
-                this.surname = value;
+                if (registerInstance == null)
+                    registerInstance = new Register();
+                return registerInstance;
             }
         }
 
@@ -97,10 +102,24 @@ namespace PhotoManager
                 this.name = value;
             }
         }
-        #endregion Propertis
+        public string Surname
+        {
+            get
+            {
+                return surname;
+            }
+
+            set
+            {
+                this.surname = value;
+            }
+        }
+        #endregion Properties
 
         //Function used to data validation. AFTER posotive evaluation, data go throught presenter to model.
         #region Validation
+        //maksymalna długość wpisywanych rzeczy
+        //spacja w wyrażeniu regularnym a nie przy pomocy Contains
         private bool IsEmpty(string tb)
         {
             if (tb.Trim() == string.Empty)
@@ -120,7 +139,7 @@ namespace PhotoManager
         }
         private bool HasNumbers(string tb)
         {
-            Regex regNumbers = new Regex("[0-9]"); //dopracowaćwyrażenie regularne, spacja w imieniu
+            Regex regNumbers = new Regex("[0-9]"); 
             if (regNumbers.IsMatch(tb) || tb.Contains(" "))
             {
                 return true;
@@ -130,7 +149,8 @@ namespace PhotoManager
 
         private void NameValidation(object sender, EventArgs e)
         {
-            if (IsEmpty(tbName.Text) || HasNumbers(tbName.Text) || HasSpecialSIgns(tbName.Text))
+            NameR = tbName.Text;
+            if (IsEmpty(name) || HasNumbers(name) || HasSpecialSIgns(name))
             {
                 lNameValidation.ForeColor = Color.Red;
                 nameCorrect = false;
@@ -140,13 +160,13 @@ namespace PhotoManager
             {
                 lNameValidation.ForeColor = Color.Green;
             }
-
             nameCorrect = true;
         }
 
         private void SurnameValidation(object sender, EventArgs e)
         {
-            if (IsEmpty(tbSurname.Text) || HasNumbers(tbSurname.Text) || HasSpecialSIgns(tbSurname.Text))
+            Surname = tbSurname.Text;
+            if (IsEmpty(surname) || HasNumbers(surname) || HasSpecialSIgns(surname))
             {
                 lSurnameValidation.ForeColor = Color.Red;
                 surnameCorrect = false;
@@ -156,14 +176,16 @@ namespace PhotoManager
             {
                 lSurnameValidation.ForeColor = Color.Green;
             }
+
             surnameCorrect = true;
         }
 
         private void EmailValidation(object sender, EventArgs e)
         {
+            Email = tbEmail.Text;
             Regex reg = new Regex(@"^(?!\.)(""([^""\r\\]|\\[""\r\\])*""|" + @"([-a-z0-9!#$%&'*+/=?^_`{|}~]|(?<!\.)\.)*)(?<!\.)" + @"@[a-z0-9][\w\.-]*[a-z0-9]\.[a-z][a-z\.]*[a-z]$");
 
-            if (IsEmpty(tbEmail.Text) || !reg.IsMatch(tbEmail.Text))
+            if (IsEmpty(email) || !reg.IsMatch(email))
             {
                 lEmailWalidation.ForeColor = Color.Red;
                 emailCorrect = false;
@@ -179,7 +201,8 @@ namespace PhotoManager
 
         private void LoginValidation(object sender, EventArgs e)
         {
-            if (IsEmpty(tbLogin.Text) || HasSpecialSIgns(tbLogin.Text))
+            UserName = tbLogin.Text;
+            if (IsEmpty(username) || HasSpecialSIgns(username))
             {
                 lLoginValidation.ForeColor = Color.Red;
                 loginCorrect = false;
@@ -195,7 +218,8 @@ namespace PhotoManager
 
         private void PasswordValidation(object sender, EventArgs e)
         {
-            if (IsEmpty(tbPassword.Text))
+            Password = tbPassword.Text;
+            if (IsEmpty(password))
             {
                 lPasswordValidation.ForeColor = Color.Red;
                 passwordCorrect = false;
@@ -206,7 +230,8 @@ namespace PhotoManager
                 lPasswordValidation.ForeColor = Color.Green;
             }
 
-            passwordCorrect = false;
+            
+            passwordCorrect = true;
         }
         
         #endregion Validation
@@ -221,12 +246,19 @@ namespace PhotoManager
             
             if(nameCorrect && surnameCorrect && emailCorrect && loginCorrect && passwordCorrect)
             {
-                Console.WriteLine("Rejestruje");
+                if (CreateAccountEvent != null)
+                    CreateAccountEvent(null, name, surname, email, username, password);
             }
             else
             {
                 MessageBox.Show("You must correctly innput all data. Check your input with red dots.", "Error", MessageBoxButtons.OK);
             }
+
+        }
+
+        private void bGoBack_Click(object sender, EventArgs e)
+        {
+            //pojawienie się z powrotem kokna logowania
 
         }
     }

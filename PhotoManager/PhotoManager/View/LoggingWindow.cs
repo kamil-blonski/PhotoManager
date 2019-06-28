@@ -14,7 +14,16 @@ namespace PhotoManager
 	public partial class LoggingWindow : Form, IView
 	{
 		private static LoggingWindow obj;
-		private LoggingWindow()
+        
+        public IRegisterViev IVievRegister
+        {
+            get
+            {
+                return Register.RegisterInstance;
+            }
+        }
+
+        private LoggingWindow()
 		{
 			InitializeComponent();
 		}
@@ -64,9 +73,9 @@ namespace PhotoManager
 
 		private void registerButton_Click(object sender, EventArgs e)
 		{
-            //+zamknięcie okna logowania
-            Register register = new Register();
-            register.Show();
+            this.Visible = false;
+           
+            Register.RegisterInstance.Show();
 		}
 	}
 }

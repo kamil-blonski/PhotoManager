@@ -15,6 +15,7 @@ namespace PhotoManager
     {
         //Rejestracia wciśnięciem entera ??
         private static Register registerInstance;
+		private Database db;
         private Register()
         {
             InitializeComponent();
@@ -35,7 +36,7 @@ namespace PhotoManager
         #endregion Fields;
 
         #region Events
-        public event Action CreateAccountEvent;
+        public event Action<User> CreateAccountEvent;
         #endregion Events
 
 
@@ -51,70 +52,74 @@ namespace PhotoManager
             }
         }
 
-        public string UserName
-        {
-            get
-            {
-                return username;
-            }
+        //public string UserName
+        //{
+        //    get
+        //    {
+        //        return username;
+        //    }
 
-            set
-            {
-                this.username = value;
-            }
-        }
+        //    set
+        //    {
+        //        this.username = value;
+        //    }
+        //}
 
-        public string Password
-        {
-            get
-            {
-                return password;
-            }
+        //public string Password
+        //{
+        //    get
+        //    {
+        //        return password;
+        //    }
 
-            set
-            {
-                this.password = value;
-            }
-        }
+        //    set
+        //    {
+        //        this.password = value;
+        //    }
+        //}
 
-        public string Email
-        {
-            get
-            {
-                return email;
-            }
+        //public string Email
+        //{
+        //    get
+        //    {
+        //        return email;
+        //    }
 
-            set
-            {
-                this.email = value;
-            }
-        }
+        //    set
+        //    {
+        //        this.email = value;
+        //    }
+        //}
 
-        public string NameR
-        {
-            get
-            {
-                return name;
-            }
+        //public string NameR
+        //{
+        //    get
+        //    {
+        //        return name;
+        //    }
 
-            set
-            {
-                this.name = value;
-            }
-        }
-        public string Surname
-        {
-            get
-            {
-                return surname;
-            }
+        //    set
+        //    {
+        //        this.name = value;
+        //    }
+        //}
+        //public string Surname
+        //{
+        //    get
+        //    {
+        //        return surname;
+        //    }
 
-            set
-            {
-                this.surname = value;
-            }
-        }
-        #endregion Properties
+        //    set
+        //    {
+        //        this.surname = value;
+        //    }
+        //}
+		#endregion Properties
+
+
+		//private User tempUser = new User();
+
 
         //Function used to data validation. AFTER posotive evaluation, data go throught presenter to model.
         //spacja w wyrażeniu regularnym a nie przy pomocy Contains
@@ -149,8 +154,8 @@ namespace PhotoManager
 
         private void NameValidation(object sender, EventArgs e)
         {
-            NameR = tbName.Text;
-            if (IsEmpty(name) || HasNumbers(name) || HasSpecialSIgns(name))
+            //NameR = tbName.Text;
+            if (IsEmpty(tbName.Text) || HasNumbers(tbName.Text) || HasSpecialSIgns(tbName.Text))
             {
                 lNameValidation.ForeColor = Color.Red;
                 nameCorrect = false;
@@ -165,8 +170,9 @@ namespace PhotoManager
 
         private void SurnameValidation(object sender, EventArgs e)
         {
-            Surname = tbSurname.Text;
-            if (IsEmpty(surname) || HasNumbers(surname) || HasSpecialSIgns(surname))
+			//Surname = tbSurname.Text;
+			//tempUser.Surname = tbSurname.Text;
+            if (IsEmpty(tbSurname.Text) || HasNumbers(tbSurname.Text) || HasSpecialSIgns(tbSurname.Text))
             {
                 lSurnameValidation.ForeColor = Color.Red;
                 surnameCorrect = false;
@@ -182,10 +188,10 @@ namespace PhotoManager
 
         private void EmailValidation(object sender, EventArgs e)
         {
-            Email = tbEmail.Text;
+            //Email = tbEmail.Text;
             Regex reg = new Regex(@"^(?!\.)(""([^""\r\\]|\\[""\r\\])*""|" + @"([-a-z0-9!#$%&'*+/=?^_`{|}~]|(?<!\.)\.)*)(?<!\.)" + @"@[a-z0-9][\w\.-]*[a-z0-9]\.[a-z][a-z\.]*[a-z]$");
 
-            if (IsEmpty(email) || !reg.IsMatch(email))
+            if (IsEmpty(tbEmail.Text) || !reg.IsMatch(tbEmail.Text))
             {
                 lEmailWalidation.ForeColor = Color.Red;
                 emailCorrect = false;
@@ -201,8 +207,8 @@ namespace PhotoManager
 
         private void LoginValidation(object sender, EventArgs e)
         {
-            UserName = tbLogin.Text;
-            if (IsEmpty(username) || HasSpecialSIgns(username))
+            //UserName = tbLogin.Text;
+            if (IsEmpty(tbLogin.Text) || HasSpecialSIgns(tbLogin.Text))
             {
                 lLoginValidation.ForeColor = Color.Red;
                 loginCorrect = false;
@@ -218,8 +224,8 @@ namespace PhotoManager
 
         private void PasswordValidation(object sender, EventArgs e)
         {
-            Password = tbPassword.Text;
-            if (IsEmpty(password))
+            //Password = tbPassword.Text;
+            if (IsEmpty(tbPassword.Text))
             {
                 lPasswordValidation.ForeColor = Color.Red;
                 passwordCorrect = false;
@@ -235,11 +241,6 @@ namespace PhotoManager
         }
         
         #endregion Validation
-        private void label3_Click(object sender, EventArgs e)
-        {
-            
-
-        }
 
         private void CreateAccount(object sender, EventArgs e)
         {
@@ -247,7 +248,8 @@ namespace PhotoManager
             if(nameCorrect && surnameCorrect && emailCorrect && loginCorrect && passwordCorrect)
             {
                 if (CreateAccountEvent != null)
-                    CreateAccountEvent();
+
+                    CreateAccountEvent(new User());
             }
             else
             {
@@ -261,5 +263,20 @@ namespace PhotoManager
             //pojawienie się z powrotem kokna logowania
 
         }
-    }
+
+		private void bCreateAccount_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				CreateAccountEvent(new User(null, tbName.Text, tbSurname.Text, tbLogin.Text, tbPassword.Text, tbEmail.Text));
+
+			}
+			catch(Exception exc)
+			{
+				MessageBox.Show(exc.ToString());
+			}
+		}
+
+	
+	}
 }

@@ -8,12 +8,12 @@ using MySql.Data.MySqlClient;
 
 namespace PhotoManager
 {
-    class Database
+    public class Database
     {
         private MySqlConnection connection = null;
         private static Database _instance = null;
 
-        private Database() { Console.WriteLine("XD"); }
+        private Database() { Console.WriteLine("Kontruktor domyślny Database"); }
 
         private string databaseName = string.Empty;
         public string DatabaseName
@@ -57,8 +57,38 @@ namespace PhotoManager
             connection.Close();
         }
 
+		static public bool RecordExist(string query)
+		{
+			int? amountOfRecords = null;
+			var dbCon = Database.Instance();
+			dbCon.DatabaseName = "photomanager";
+			if (dbCon.IsConnect())
+			{
+				
+				string passQuery = query;
+				if (dbCon.Connection.State != System.Data.ConnectionState.Open)
+				{
+					dbCon.Connection.Open();
+				}
 
-    }
+				var cmd = new MySqlCommand(passQuery, dbCon.Connection);
+				var reader = cmd.ExecuteReader();
+				while (reader.Read())
+				{
+					amountOfRecords = int.Parse(reader.GetString(0));
+					Console.WriteLine(amountOfRecords);
+				}
+				dbCon.Close();
+			}
+
+			if (amountOfRecords != null && amountOfRecords > 0)
+				return true;
+			else
+				return false;
+		}
+
+
+	}
 
     /*
         https://stackoverflow.com/questions/21618015/how-to-connect-to-mysql-database

@@ -16,8 +16,6 @@ namespace PhotoManager
 			this.model = model;
 			this.view.LoggingEvent += LoggingEvent;
             this.view.IVievRegister.CreateAccountEvent += CreateAccount;
-
-
 		}
 
 
@@ -37,10 +35,10 @@ namespace PhotoManager
 
 		}
 
-		
-		private void CreateAccount()
+		private void CreateAccount(User user)
         {
-            model.CreateAcconut(null, view.IVievRegister.NameR, view.IVievRegister.Surname, view.IVievRegister.Email, view.IVievRegister.UserName, view.IVievRegister.Password);
+			//model.CreateAcconut(null, view.IVievRegister.NameR, view.IVievRegister.Surname, view.IVievRegister.Email, view.IVievRegister.UserName, view.IVievRegister.Password);
+			model.CreateAccount(user);
         }
 
 	}

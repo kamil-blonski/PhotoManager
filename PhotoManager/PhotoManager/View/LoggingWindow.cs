@@ -14,18 +14,19 @@ namespace PhotoManager
 	public partial class LoggingWindow : Form, IView
 	{
 		private static LoggingWindow obj;
-        
-        public IRegisterViev IVievRegister
-        {
-            get
-            {
-                return Register.RegisterInstance;
-            }
-        }
 
-        private LoggingWindow()
+		public IRegisterViev IVievRegister
+		{
+			get
+			{
+				return Register.RegisterInstance;
+			}
+		}
+
+		private LoggingWindow()
 		{
 			InitializeComponent();
+
 		}
 
 		// implement interface
@@ -40,6 +41,7 @@ namespace PhotoManager
 		{
 			if (obj == null)
 				obj = new LoggingWindow();
+			
 			return obj;
 		}
 

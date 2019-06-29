@@ -5,6 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Windows.Media.Imaging;
+/*
+ https://docs.microsoft.com/en-us/dotnet/framework/wpf/graphics-multimedia/how-to-encode-and-decode-a-jpeg-image
+*/
 
 namespace PhotoManager.Model
 {
@@ -16,6 +20,8 @@ namespace PhotoManager.Model
 		private string description;
 		private ImageFormat format;
 		private Size photoSize;
+		//private string path;
+
 
 		public Photo(int id, string name, DateTime creationDate,
 			string description, ImageFormat format, Size photoSize)
@@ -31,10 +37,12 @@ namespace PhotoManager.Model
 
 		public void EncodePhoto()
 		{
-			// hex
+			
+		}
+
+		public void DecodePhoto()
+		{
+
 		}
 	}
-
-	
-
 }

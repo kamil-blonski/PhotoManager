@@ -12,9 +12,11 @@ namespace PhotoManager.View
 {
 	public partial class imgViewer : Form
 	{
+
 		public imgViewer()
 		{
 			InitializeComponent();
+			this.panel.Size = Screen.FromControl(this).Bounds.Size;
 		}
 
 		public Image ImgBox
@@ -22,7 +24,14 @@ namespace PhotoManager.View
 			set
 			{
 				this.pictureBox.Image = value;
-				this.pictureBox.Size = value.Size;
+				//if (value.Size.Width > Screen.FromControl(this).Bounds.Size.Width)
+				//{
+				//	int scale = Screen.FromControl(this).Bounds.Size.Width / value.Size.Width;
+				//	this.pictureBox.Width = value.Size.Width * scale;
+				//	this.pictureBox.Height = value.Size.Height * scale;
+				//}
+				//else
+					this.pictureBox.Size = value.Size;
 			}
 		}
 

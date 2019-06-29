@@ -16,12 +16,20 @@ namespace PhotoManager
     public partial class Form1 : Form
     {
 		private List<String> fileNames = new List<string>();
+		private Size screenSize;
+		private int X;
+		private int Y;
 
         public Form1()
         {
             InitializeComponent();
-            //Test();
-        }
+			this.screenSize = Screen.FromControl(this).Bounds.Size;
+			X = screenSize.Width - 100;
+			Y = screenSize.Height - 100;
+			this.imgListView.Size = new Size(X, Y);
+
+			//Test();
+		}
 
 		private void openToolStripMenuItem_Click(object sender, EventArgs e)
 		{

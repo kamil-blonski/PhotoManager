@@ -27,6 +27,7 @@ namespace PhotoManager.Model
 			else
 				return false;
 		}
+
 		#endregion Login
 
 		#region Register
@@ -64,11 +65,7 @@ namespace PhotoManager.Model
 						command.Parameters.AddWithValue("@login", user.Login);
 						command.Parameters.AddWithValue("@password", user.Password);
 						command.Parameters.AddWithValue("@email", user.Email);
-						//dbCon.Connection.Open();
-						if (dbCon.Connection.State != ConnectionState.Open)
-						{
-							dbCon.Connection.Open();
-						}
+						dbCon.Connection.Open();
 						try
 						{
 							int result = command.ExecuteNonQuery();
@@ -91,6 +88,10 @@ namespace PhotoManager.Model
 			}
 
 		}
+
+
+
+
 
 		//public void CreateAcconut(int? id, string name, string surname, string email, string username, string password)
 		//{

@@ -39,9 +39,6 @@ namespace PhotoManager
         public event Action<User> CreateAccountEvent;
         #endregion Events
 
-
-        #region Properties
-
         public static Register RegisterInstance
         {
             get
@@ -51,75 +48,6 @@ namespace PhotoManager
                 return registerInstance;
             }
         }
-
-        //public string UserName
-        //{
-        //    get
-        //    {
-        //        return username;
-        //    }
-
-        //    set
-        //    {
-        //        this.username = value;
-        //    }
-        //}
-
-        //public string Password
-        //{
-        //    get
-        //    {
-        //        return password;
-        //    }
-
-        //    set
-        //    {
-        //        this.password = value;
-        //    }
-        //}
-
-        //public string Email
-        //{
-        //    get
-        //    {
-        //        return email;
-        //    }
-
-        //    set
-        //    {
-        //        this.email = value;
-        //    }
-        //}
-
-        //public string NameR
-        //{
-        //    get
-        //    {
-        //        return name;
-        //    }
-
-        //    set
-        //    {
-        //        this.name = value;
-        //    }
-        //}
-        //public string Surname
-        //{
-        //    get
-        //    {
-        //        return surname;
-        //    }
-
-        //    set
-        //    {
-        //        this.surname = value;
-        //    }
-        //}
-		#endregion Properties
-
-
-		//private User tempUser = new User();
-
 
         //Function used to data validation. AFTER posotive evaluation, data go throught presenter to model.
         //spacja w wyrażeniu regularnym a nie przy pomocy Contains

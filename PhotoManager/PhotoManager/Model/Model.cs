@@ -57,10 +57,11 @@ namespace PhotoManager.Model
                     using (MySqlCommand command = dbCon.Connection.CreateCommand())
                     {
                         command.CommandText = "insert into users values(@id,@name,@surname,@login,@password,@email);";
-                        command.Parameters.AddWithValue("@id", null);
+                        command.Parameters.AddWithValue("@id", 10);
                         command.Parameters.AddWithValue("@name", name);
                         command.Parameters.AddWithValue("@surname", surname);
                         command.Parameters.AddWithValue("@login", username);
+                        command.Parameters.AddWithValue("@password", password);
                         command.Parameters.AddWithValue("@email", email);
                         dbCon.Connection.Open();
 						try

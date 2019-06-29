@@ -52,7 +52,7 @@ namespace PhotoManager
 			{ 
 				string passQuery = "select password from users where login = \""+login+"\"";
 
-				if(dbCon.Connection.State != ConnectionState.Open)
+				if (dbCon.Connection.State != ConnectionState.Open)
 				{
 					dbCon.Connection.Open();
 				}

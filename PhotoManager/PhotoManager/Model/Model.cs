@@ -63,11 +63,20 @@ namespace PhotoManager.Model
                         command.Parameters.AddWithValue("@login", username);
                         command.Parameters.AddWithValue("@email", email);
                         dbCon.Connection.Open();
-                        int result = command.ExecuteNonQuery();
-                        if (result < 0)
-                            MessageBox.Show("Error during inserting data into Database.", "Error", MessageBoxButtons.OK);
-                        else
-                            MessageBox.Show("New account created correctly.", "Success", MessageBoxButtons.OK);
+						try
+						{
+							int result = command.ExecuteNonQuery();
+							if (result < 0)
+								MessageBox.Show("Error during inserting data into Database.", "Error", MessageBoxButtons.OK);
+							else
+								MessageBox.Show("New account created correctly.", "Success", MessageBoxButtons.OK);
+						}
+						catch(Exception exc)
+						{
+							MessageBox.Show(exc.ToString());
+						}
+                        
+                       
                     }
                 }
 

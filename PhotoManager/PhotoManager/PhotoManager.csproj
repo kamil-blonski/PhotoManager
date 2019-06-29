@@ -88,6 +88,9 @@
     <Compile Include="View\Register.Designer.cs">
       <DependentUpon>Register.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\LoggingWindow.en.resx">
       <DependentUpon>LoggingWindow.cs</DependentUpon>
     </EmbeddedResource>

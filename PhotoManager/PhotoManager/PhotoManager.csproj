@@ -72,6 +72,12 @@
     <Compile Include="Model\Album.cs" />
     <Compile Include="Model\Camera.cs" />
     <Compile Include="Model\Photo.cs" />
+    <Compile Include="View\imgViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\imgViewer.Designer.cs">
+      <DependentUpon>imgViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\IRegisterViev.cs" />
     <Compile Include="View\IView.cs" />
     <Compile Include="View\LoggingWindow.cs">
@@ -93,6 +99,9 @@
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\imgViewer.resx">
+      <DependentUpon>imgViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\LoggingWindow.en.resx">
       <DependentUpon>LoggingWindow.cs</DependentUpon>

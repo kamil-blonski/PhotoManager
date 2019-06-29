@@ -3,41 +3,77 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using PhotoManager.View;
 
 namespace PhotoManager
 {
     public partial class Form1 : Form
     {
+		private List<String> fileNames = new List<string>();
+
         public Form1()
         {
             InitializeComponent();
             //Test();
         }
 
-        public void Test()
-        {
-            var dbCon = Database.Instance();
-            dbCon.DatabaseName = "photomanager";
-            if (dbCon.IsConnect())
-            {
-                Console.WriteLine("if");
-                //suppose col0 and col1 are defined as VARCHAR in the DB
-                string query = "SELECT * FROM users";
-                var cmd = new MySqlCommand(query, dbCon.Connection);
-                var reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    string someStringFromColumnZero = reader.GetString(0);
-                    string someStringFromColumnOne = reader.GetString(1);
-                    Console.WriteLine(someStringFromColumnZero + "," + someStringFromColumnOne);
-                }
-                dbCon.Close();
-            }
-        }
-    }
+		private void openToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			using (OpenFileDialog ofd = new OpenFileDialog() { Multiselect = true,
+			ValidateNames = true, Filter = "JPEG|*.jpg"})
+			{
+				if(ofd.ShowDialog() == DialogResult.OK)
+				{
+					fileNames.Clear();
+					imgListView.Items.Clear();
+					foreach(string fileName in ofd.FileNames)
+					{
+						FileInfo fi = new FileInfo(fileName);
+						fileNames.Add(fi.FullName);
+						imgListView.Items.Add(fi.Name, 0);
+					}
+				}
+			}
+		}
+
+		private void imgListView_ItemActivate(object sender, EventArgs e)
+		{
+			if(imgListView.FocusedItem != null)
+			{
+				using (imgViewer iv = new imgViewer())
+				{
+					Image img = Image.FromFile(fileNames[imgListView.FocusedItem.Index]);
+					iv.ImgBox = img;
+					iv.ShowDialog();
+				}
+			}
+		}
+
+		//public void Test()
+		//{
+		//    var dbCon = Database.Instance();
+		//    dbCon.DatabaseName = "photomanager";
+		//    if (dbCon.IsConnect())
+		//    {
+		//        Console.WriteLine("if");
+		//        //suppose col0 and col1 are defined as VARCHAR in the DB
+		//        string query = "SELECT * FROM users";
+		//        var cmd = new MySqlCommand(query, dbCon.Connection);
+		//        var reader = cmd.ExecuteReader();
+		//        while (reader.Read())
+		//        {
+		//            string someStringFromColumnZero = reader.GetString(0);
+		//            string someStringFromColumnOne = reader.GetString(1);
+		//            Console.WriteLine(someStringFromColumnZero + "," + someStringFromColumnOne);
+		//        }
+		//        dbCon.Close();
+		//    }
+		//}
+	}
 }

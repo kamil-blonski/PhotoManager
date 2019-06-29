@@ -8,11 +8,6 @@ namespace PhotoManager
 {
     public interface IRegisterViev
     {
-        //string NameR { get; set; }
-        //string Surname { get; set; }
-        //string UserName { get; set; }
-        //string Password { get; set; }
-        //string Email { get; set; }
         event Action<User> CreateAccountEvent;
     }
 }

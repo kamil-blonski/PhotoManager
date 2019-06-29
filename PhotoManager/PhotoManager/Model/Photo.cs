@@ -25,6 +25,7 @@ namespace PhotoManager.Model
 			this.description = description;
 			this.format = format;
 			this.photoSize = photoSize;
+			this.creationDate = creationDate;
 		}
 
 

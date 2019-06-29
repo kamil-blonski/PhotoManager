@@ -8,7 +8,7 @@ namespace PhotoManager.Model
 {
 	public class Album
 	{
-		private int id;
+		
 		private List<Photo> photos;
 		private List<User> owners;
 		private string name;
@@ -20,10 +20,13 @@ namespace PhotoManager.Model
 			PC
 		}
 
-		public Album()
+		public Album(string name, string desc, DateTime dt)
 		{
 			photos = new List<Photo>();
 			owners = new List<User>();
+			this.name = name;
+			this.description = desc;
+			this.creationDate = dt;
 		}
 
 		public void addPhoto(Photo photo)

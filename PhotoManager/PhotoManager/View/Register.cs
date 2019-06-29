@@ -15,7 +15,6 @@ namespace PhotoManager
     {
         //Rejestracia wciśnięciem entera ??
         private static Register registerInstance;
-		private Database db;
         private Register()
         {
             InitializeComponent();
@@ -23,11 +22,6 @@ namespace PhotoManager
         }
 
         #region Fields
-        private string name;
-        private string surname;
-        private string username;
-        private string password;
-        private string email;
         private bool nameCorrect = false;
         private bool surnameCorrect = false;
         private bool emailCorrect = false;

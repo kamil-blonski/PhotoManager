@@ -23,6 +23,7 @@ namespace PhotoManager
 		private int Y;
         private static Form1 instance = null;
         public event Action<string, Photo> AddPhotoEvent;
+        
         private Form1()
         {
             InitializeComponent();

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System:;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -105,20 +105,14 @@ namespace PhotoManager.Model
         }
         #endregion Register
 
+         
+
         #region Pictures
 
         public bool AddPhoto(string path, Photo photo)
         {
             try
             {
-                FileStream fStream = new FileStream(path, FileMode.Open, FileAccess.Read);
-                byte[] data = new byte[fStream.Length];
-                fStream.Read(data, 0, (int)fStream.Length);
-                fStream.Close();
-                //konwertowanie bajtów odczytanych na tekst
-                string hex = BitConverter.ToString(data);
-                hex = hex.Replace("-", "");
-
                 var dbCon = Database.Instance();
                 dbCon.DatabaseName = "photomanager";
                 if (dbCon.IsConnect())
@@ -134,7 +128,7 @@ namespace PhotoManager.Model
                             command.Parameters.AddWithValue("@description", photo.Description);
                             command.Parameters.AddWithValue("@format", photo.Format);
                             command.Parameters.AddWithValue("@size", photo.PhotoSize);
-                            command.Parameters.AddWithValue("@pictureB", hex);
+                            command.Parameters.AddWithValue("@pictureB", photo.EncodePhoto(path));
                             dbCon.Connection.Open();
                             try
                             {
@@ -146,7 +140,7 @@ namespace PhotoManager.Model
                             }
                             catch (Exception exc)
                             {
-                                MessageBox.Show(exc.ToString());
+                                MessageBox.Show("Problem podczas dodawania zdjęcia.", exc.ToString());
                             }
                         }
                     }
@@ -159,6 +153,11 @@ namespace PhotoManager.Model
                 MessageBox.Show("DODAWANIE ZDJĘCIA BŁĄD", "Error", MessageBoxButtons.OK); //tego tu nie bedzie
             }
             return false;
+        }
+
+        public void ReadPhoto(int AlbumID)
+        {
+            //To dopiero jak bede meić liste obiektów obiekt Album dla zalogowanego Usera, bo jest tam lista zdjęć. 
         }
 
         #endregion Pictures

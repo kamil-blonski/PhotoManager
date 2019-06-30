@@ -1,4 +1,4 @@
-﻿using System:;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +18,7 @@ namespace PhotoManager.Model
 		{
 
 		}
+
         #region Login
         public bool checkPassword(string formLogin, string formPassword)
         {
@@ -104,8 +105,6 @@ namespace PhotoManager.Model
             return true;
         }
         #endregion Register
-
-         
 
         #region Pictures
 

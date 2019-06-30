@@ -94,5 +94,9 @@ namespace PhotoManager
 			}
 		}
 
-	}
+        private void AddAlbum(object sender, EventArgs e)
+        {
+            new AddAlbum().ShowDialog();
+        }
+    }
 }

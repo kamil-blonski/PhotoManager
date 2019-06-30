@@ -8,6 +8,7 @@ using System.Data;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
+using System.IO;
 
 namespace PhotoManager.Model
 {
@@ -103,6 +104,64 @@ namespace PhotoManager.Model
             return true;
         }
         #endregion Register
+
+        #region Pictures
+
+        public bool AddPhoto(string path, Photo photo)
+        {
+            try
+            {
+                FileStream fStream = new FileStream(path, FileMode.Open, FileAccess.Read);
+                byte[] data = new byte[fStream.Length];
+                fStream.Read(data, 0, (int)fStream.Length);
+                fStream.Close();
+                //konwertowanie bajtów odczytanych na tekst
+                string hex = BitConverter.ToString(data);
+                hex = hex.Replace("-", "");
+
+                var dbCon = Database.Instance();
+                dbCon.DatabaseName = "photomanager";
+                if (dbCon.IsConnect())
+                {
+                    if (dbCon.Connection.State != ConnectionState.Open)
+                    {
+                        using (MySqlCommand command = dbCon.Connection.CreateCommand())
+                        {
+                            command.CommandText = "insert into photos values(@id,@name,@creationdate,@description,@format,@size,@pictureB);";
+                            command.Parameters.AddWithValue("@id", null);
+                            command.Parameters.AddWithValue("@name", photo.Name);
+                            command.Parameters.AddWithValue("@creationdate", photo.CreationDate);
+                            command.Parameters.AddWithValue("@description", photo.Description);
+                            command.Parameters.AddWithValue("@format", photo.Format);
+                            command.Parameters.AddWithValue("@size", photo.PhotoSize);
+                            command.Parameters.AddWithValue("@pictureB", hex);
+                            dbCon.Connection.Open();
+                            try
+                            {
+                                int result = command.ExecuteNonQuery();
+                                if (result < 0)
+                                    return false;
+                                else
+                                    return true;
+                            }
+                            catch (Exception exc)
+                            {
+                                MessageBox.Show(exc.ToString());
+                            }
+                        }
+                    }
+                    dbCon.Close();
+                }
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("DODAWANIE ZDJĘCIA BŁĄD", "Error", MessageBoxButtons.OK); //tego tu nie bedzie
+            }
+            return false;
+        }
+
+        #endregion Pictures
 
         #region Other
         public string SHA1Hash(string s)

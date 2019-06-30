@@ -14,6 +14,6 @@ namespace PhotoManager
         string TBPassword { set; }
 		void ShowMessage(bool success, string message);
         IRegisterView IVievRegister { get; }
-        IForm1View IFormView { get; }
+        IForm1View IVievForm { get; }
 	}
 }

@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using PhotoManager.View;
+using PhotoManager.Model;
+using System.Drawing.Imaging;
 
 namespace PhotoManager
 {
@@ -20,6 +22,7 @@ namespace PhotoManager
 		private int X;
 		private int Y;
         private static Form1 instance = null;
+        public event Action<string, Photo> AddPhotoEvent;
         private Form1()
         {
             InitializeComponent();
@@ -65,8 +68,9 @@ namespace PhotoManager
 						FileInfo fi = new FileInfo(fileName);
 						fileNames.Add(fi.FullName);
 						imgListView.Items.Add(fi.Name, 0);
-                        
-                        //Zdarzenie dodające zdjęcie.
+
+                        if (AddPhotoEvent != null)
+                            AddPhotoEvent(fi.FullName, new Photo(null, fi.Name, fi.CreationTime, "OPIS",  fi.Extension, imgListView.Size ));
 					}
 				}
 			}

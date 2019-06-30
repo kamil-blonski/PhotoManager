@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using PhotoManager.Model;
 namespace PhotoManager
 {
 	public class User
@@ -14,7 +14,7 @@ namespace PhotoManager
 		private string login;
 		private string password;
 		private string email;
-		private List<Model.Album> albums;
+		private List<Album> albums;
 
 
 		public User()

@@ -23,7 +23,7 @@ namespace PhotoManager
 			}
 		}
 
-        public IForm1View IFormView
+        public IForm1View IVievForm
         {
             get
             {

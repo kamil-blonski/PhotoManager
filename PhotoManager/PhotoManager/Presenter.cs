@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using PhotoManager.Model;
 namespace PhotoManager
 {
 	class Presenter
@@ -16,6 +16,7 @@ namespace PhotoManager
 			this.model = model;
 			this.view.LoggingEvent += LoggingEvent;
             this.view.IVievRegister.CreateAccountEvent += CreateAccountEvent;
+            this.view.IVievForm.AddPhotoEvent += AddPhotoEvent;
 		}
         private void LoggingEvent(string formLogin, string formPassword)
         {
@@ -64,6 +65,11 @@ namespace PhotoManager
             }
             else
                 view.IVievRegister.ShowMessage(false, "Account creation failed. Try one more time.");
+        }
+
+        private void AddPhotoEvent(string imgPath, Photo photo)
+        {
+            model.AddPhoto(imgPath, photo);
         }
 
 	}

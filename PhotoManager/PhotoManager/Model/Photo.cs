@@ -14,16 +14,17 @@ namespace PhotoManager.Model
 {
 	public class Photo
 	{
-		private int id;
+		private int? id;
 		private string name;
 		private DateTime creationDate;
 		private string description;
 		private ImageFormat format;
 		private Size photoSize;
+        private string formatS;
 		//private string path;
 
 
-		public Photo(int id, string name, DateTime creationDate,
+		public Photo(int? id, string name, DateTime creationDate,
 			string description, ImageFormat format, Size photoSize)
 		{
 			this.id = id;
@@ -34,8 +35,48 @@ namespace PhotoManager.Model
 			this.creationDate = creationDate;
 		}
 
+        public Photo(int? id, string name, DateTime creationDate,
+    string description, string format, Size photoSize)
+        {
+            this.id = id;
+            this.name = name;
+            this.description = description;
+            this.formatS = format;
+            this.photoSize = photoSize;
+            this.creationDate = creationDate;
+        }
 
-		public void EncodePhoto()
+        #region Properties
+        public string Name
+        {
+            set { name = value;}
+            get { return name; }
+        }
+        public DateTime CreationDate
+        {
+            set { creationDate = value; }
+            get { return creationDate; }
+        }
+        public string Description
+        {
+            set { description = value; }
+            get { return description; }
+        }
+        public string Format
+        {
+            set { formatS = value; }
+            get { return formatS; }
+        }
+        public Size PhotoSize
+        {
+            set { photoSize = value; }
+            get { return photoSize; }
+        }
+
+        #endregion Properties
+
+
+        public void EncodePhoto()
 		{
 			
 		}

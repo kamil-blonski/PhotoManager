@@ -15,7 +15,7 @@ namespace PhotoManager
 	{
 		private static LoggingWindow obj;
 
-		public IRegisterViev IVievRegister
+		public IRegisterView IVievRegister
 		{
 			get
 			{
@@ -23,7 +23,15 @@ namespace PhotoManager
 			}
 		}
 
-		private LoggingWindow()
+        public IForm1View IFormView
+        {
+            get
+            {
+                return Form1.InstanceForm1;
+            }
+        }
+
+        private LoggingWindow()
 		{
 			InitializeComponent();
 
@@ -44,6 +52,15 @@ namespace PhotoManager
 			
 			return obj;
 		}
+
+        public string TBUserName
+        {
+            set { loginTextBox.Text = value; }
+        }
+        public string TBPassword
+        {
+            set { passwordTextBox.Text = value; }
+        }
 
 		private void logInButton_Click(object sender, EventArgs e)
 		{

@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace PhotoManager
 {
-    public partial class Register : Form, IRegisterViev
+    public partial class Register : Form, IRegisterView
     {
         //Rejestracia wciśnięciem entera ??
         private static Register registerInstance;

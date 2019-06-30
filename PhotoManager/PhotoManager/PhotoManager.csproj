@@ -80,7 +80,8 @@
     <Compile Include="View\imgViewer.Designer.cs">
       <DependentUpon>imgViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\IRegisterViev.cs" />
+    <Compile Include="View\IRegisterView.cs" />
+    <Compile Include="View\IForm1View.cs" />
     <Compile Include="View\IView.cs" />
     <Compile Include="View\LoggingWindow.cs">
       <SubType>Form</SubType>

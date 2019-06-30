@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PhotoManager
 {
-    public interface IRegisterViev
+    public interface IRegisterView
     {
         event Action<User> CreateAccountEvent;
         string TBName{set;}

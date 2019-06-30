@@ -42,7 +42,7 @@ namespace PhotoManager.Model
             }
             if (passwdFromDatabase != null && SHA1Hash(formPassword) == passwdFromDatabase)
             {
-                new Form1().ShowDialog();
+                //new Form1().ShowDialog();
                 return true;
             }
             else

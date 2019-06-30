@@ -13,14 +13,34 @@ using PhotoManager.View;
 
 namespace PhotoManager
 {
-    public partial class Form1 : Form
+    public partial class Form1 : Form, IForm1View
     {
 		private List<String> fileNames = new List<string>();
 		private Size screenSize;
 		private int X;
 		private int Y;
+        private static Form1 instance = null;
+        private Form1()
+        {
+            InitializeComponent();
+            this.screenSize = Screen.FromControl(this).Bounds.Size;
+            X = screenSize.Width - 100;
+            Y = screenSize.Height - 100;
+            this.imgListView.Size = new Size(X, Y);
 
-        public Form1()
+            //Test();
+        }
+
+        public static Form1 InstanceForm1
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new Form1();
+                return instance;
+            }
+        }
+        /*public Form1()
         {
             InitializeComponent();
 			this.screenSize = Screen.FromControl(this).Bounds.Size;
@@ -29,9 +49,9 @@ namespace PhotoManager
 			this.imgListView.Size = new Size(X, Y);
 
 			//Test();
-		}
+		}*/
 
-		private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			using (OpenFileDialog ofd = new OpenFileDialog() { Multiselect = true,
 			ValidateNames = true, Filter = "JPEG|*.jpg"})
@@ -45,6 +65,8 @@ namespace PhotoManager
 						FileInfo fi = new FileInfo(fileName);
 						fileNames.Add(fi.FullName);
 						imgListView.Items.Add(fi.Name, 0);
+                        
+                        //Zdarzenie dodające zdjęcie.
 					}
 				}
 			}
@@ -52,13 +74,17 @@ namespace PhotoManager
 
 		private void imgListView_ItemActivate(object sender, EventArgs e)
 		{
-			if(imgListView.FocusedItem != null)
+            Console.WriteLine("powiększenie");
+            //powiększenie miniaturki
+            if (imgListView.FocusedItem != null)
 			{
 				using (imgViewer iv = new imgViewer())
 				{
 					Image img = Image.FromFile(fileNames[imgListView.FocusedItem.Index]);
 					iv.ImgBox = img;
 					iv.ShowDialog();
+                    Console.WriteLine("pomniejszenie");
+                    //zamknięcie miniaturki
 				}
 			}
 		}

@@ -10,7 +10,10 @@ namespace PhotoManager
 	{
         event Action<string, string> LoggingEvent;
 		//event Action<string,string> LoggingEvent;
+        string TBUserName { set; }
+        string TBPassword { set; }
 		void ShowMessage(bool success, string message);
-        IRegisterViev IVievRegister { get; }
+        IRegisterView IVievRegister { get; }
+        IForm1View IFormView { get; }
 	}
 }

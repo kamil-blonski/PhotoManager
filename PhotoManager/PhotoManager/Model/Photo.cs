@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Media.Imaging;
+using System.IO;
 /*
- https://docs.microsoft.com/en-us/dotnet/framework/wpf/graphics-multimedia/how-to-encode-and-decode-a-jpeg-image
+https://docs.microsoft.com/en-us/dotnet/framework/wpf/graphics-multimedia/how-to-encode-and-decode-a-jpeg-image
 */
 
 namespace PhotoManager.Model
@@ -76,14 +77,26 @@ namespace PhotoManager.Model
         #endregion Properties
 
 
-        public void EncodePhoto()
+        /*public void EncodePhoto()
 		{
 			
-		}
+		}*/
 
-		public void DecodePhoto()
+        public string EncodePhoto(string path)
+        {
+            FileStream fStream = new FileStream(path, FileMode.Open, FileAccess.Read);
+            byte[] data = new byte[fStream.Length];
+            fStream.Read(data, 0, (int)fStream.Length);
+            fStream.Close();
+
+            string hex = BitConverter.ToString(data);
+            hex = hex.Replace("-", "");
+            return hex;
+        }
+
+		public string DecodePhoto()
 		{
-
+            return "";
 		}
 	}
 }

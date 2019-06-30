@@ -76,7 +76,6 @@ namespace PhotoManager
 				while (reader.Read())
 				{
 					amountOfRecords = int.Parse(reader.GetString(0));
-					Console.WriteLine(amountOfRecords);
 				}
 				dbCon.Close();
 			}

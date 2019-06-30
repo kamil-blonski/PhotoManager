@@ -29,6 +29,29 @@ namespace PhotoManager
         private bool passwordCorrect = false;
         #endregion Fields;
 
+        #region Properties
+        public string TBName
+        {
+            set { tbName.Text = value; }
+        }
+        public string TBSurname
+        {
+            set { tbSurname.Text = value; }
+        }
+        public string TBEmail
+        {
+            set { tbEmail.Text = value; }
+        }
+        public string TBUserName
+        {
+            set { tbLogin.Text = value; }
+        }
+        public string TBPassword
+        {
+            set { tbPassword.Text = value; }
+        }
+        #endregion Properties
+
         #region Events
         public event Action<User> CreateAccountEvent;
         #endregion Events

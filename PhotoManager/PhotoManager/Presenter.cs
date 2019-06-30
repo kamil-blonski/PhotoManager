@@ -24,7 +24,7 @@ namespace PhotoManager
             {
                 if (model.checkPassword(formLogin, formPassword) == false)
                 {
-                    view.ShowMessage(false, "Incorrect password");
+                    view.ShowMessage(false, "Incorrect login or password.");
                 }
             }
             catch (Exception exc)
@@ -46,7 +46,15 @@ namespace PhotoManager
                 return;
             }
             if (model.CreateAccount(user))
+            {
+                view.IVievRegister.TBName = string.Empty;
+                view.IVievRegister.TBSurname = string.Empty;
+                view.IVievRegister.TBEmail = string.Empty;
+                view.IVievRegister.TBUserName = string.Empty;
+                view.IVievRegister.TBPassword = string.Empty;
                 view.IVievRegister.ShowMessage(true, "An account was created sucessfully.");
+                
+            }
             else
                 view.IVievRegister.ShowMessage(false, "Account creation failed. Try one more time.");
         }

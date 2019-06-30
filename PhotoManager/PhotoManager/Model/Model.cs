@@ -43,8 +43,10 @@ namespace PhotoManager.Model
             }
             if (passwdFromDatabase != null && SHA1Hash(formPassword) == passwdFromDatabase)
             {
+				LoggingWindow.hideLoggingWindow();
 				Form1.InstanceForm1.ShowDialog();
-                return true;
+
+				return true;
             }
             else
                 return false;
@@ -138,7 +140,7 @@ namespace PhotoManager.Model
                             }
                             catch (Exception exc)
                             {
-                                MessageBox.Show("Problem podczas dodawania zdjęcia.", exc.ToString());
+                                MessageBox.Show(exc.ToString(), "Problem podczas dodawania zdjęcia.");
                             }
                         }
                     }

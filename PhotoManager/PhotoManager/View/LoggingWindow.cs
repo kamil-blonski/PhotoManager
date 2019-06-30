@@ -53,6 +53,12 @@ namespace PhotoManager
 			return obj;
 		}
 
+		public static void hideLoggingWindow()
+		{
+				obj.Hide();
+		}
+
+
         //public string TBUserName
         //{
         //    set { loginTextBox.Text = value; }

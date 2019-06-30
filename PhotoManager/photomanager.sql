@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Czas wygenerowania: 21 Cze 2019, 10:14
+-- Czas wygenerowania: 30 Cze 2019, 22:45
 -- Wersja serwera: 5.5.21-log
 -- Wersja PHP: 5.3.20
 
@@ -101,8 +101,9 @@ CREATE TABLE IF NOT EXISTS `photos` (
   `description` char(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `format` char(5) COLLATE utf8_unicode_ci NOT NULL,
   `size` double NOT NULL,
+  `pictureB` longblob NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=20 ;
 
 -- --------------------------------------------------------
 
@@ -119,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` char(50) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `login` (`login`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=21 ;
 
 --
 -- Ograniczenia dla zrzutów tabel

@@ -43,6 +43,11 @@ namespace PhotoManager
             }
         }
 
+        public void ShowMessage(bool success, string message)
+        {
+            MessageBox.Show(message, success ? "Message" : "Error", MessageBoxButtons.OK);
+        }
+
         //Function used to data validation. AFTER posotive evaluation, data go throught presenter to model.
         //spacja w wyrażeniu regularnym a nie przy pomocy Contains
         #region Validation
@@ -54,7 +59,6 @@ namespace PhotoManager
             else
                 return false;
         }
-
         private bool HasSpecialSIgns(string tb)
         {
             Regex regNumbers = new Regex("[@#$%^&*()]"); 
@@ -76,7 +80,6 @@ namespace PhotoManager
 
         private void NameValidation(object sender, EventArgs e)
         {
-            //NameR = tbName.Text;
             if (IsEmpty(tbName.Text) || HasNumbers(tbName.Text) || HasSpecialSIgns(tbName.Text))
             {
                 lNameValidation.ForeColor = Color.Red;
@@ -92,8 +95,6 @@ namespace PhotoManager
 
         private void SurnameValidation(object sender, EventArgs e)
         {
-			//Surname = tbSurname.Text;
-			//tempUser.Surname = tbSurname.Text;
             if (IsEmpty(tbSurname.Text) || HasNumbers(tbSurname.Text) || HasSpecialSIgns(tbSurname.Text))
             {
                 lSurnameValidation.ForeColor = Color.Red;
@@ -110,7 +111,6 @@ namespace PhotoManager
 
         private void EmailValidation(object sender, EventArgs e)
         {
-            //Email = tbEmail.Text;
             Regex reg = new Regex(@"^(?!\.)(""([^""\r\\]|\\[""\r\\])*""|" + @"([-a-z0-9!#$%&'*+/=?^_`{|}~]|(?<!\.)\.)*)(?<!\.)" + @"@[a-z0-9][\w\.-]*[a-z0-9]\.[a-z][a-z\.]*[a-z]$");
 
             if (IsEmpty(tbEmail.Text) || !reg.IsMatch(tbEmail.Text))
@@ -129,7 +129,6 @@ namespace PhotoManager
 
         private void LoginValidation(object sender, EventArgs e)
         {
-            //UserName = tbLogin.Text;
             if (IsEmpty(tbLogin.Text) || HasSpecialSIgns(tbLogin.Text))
             {
                 lLoginValidation.ForeColor = Color.Red;
@@ -146,7 +145,6 @@ namespace PhotoManager
 
         private void PasswordValidation(object sender, EventArgs e)
         {
-            //Password = tbPassword.Text;
             if (IsEmpty(tbPassword.Text))
             {
                 lPasswordValidation.ForeColor = Color.Red;
@@ -164,22 +162,6 @@ namespace PhotoManager
         
         #endregion Validation
 
-        private void CreateAccount(object sender, EventArgs e)
-        {
-            
-            if(nameCorrect && surnameCorrect && emailCorrect && loginCorrect && passwordCorrect)
-            {
-                if (CreateAccountEvent != null)
-
-                    CreateAccountEvent(new User());
-            }
-            else
-            {
-                MessageBox.Show("You must correctly innput all data. Check your input with red dots.", "Error", MessageBoxButtons.OK);
-            }
-
-        }
-
         private void bGoBack_Click(object sender, EventArgs e)
         {
             //pojawienie się z powrotem kokna logowania
@@ -188,16 +170,36 @@ namespace PhotoManager
 
 		private void bCreateAccount_Click(object sender, EventArgs e)
 		{
-			try
-			{
-				CreateAccountEvent(new User(null, tbName.Text, tbSurname.Text, tbLogin.Text, tbPassword.Text, tbEmail.Text));
+            if (nameCorrect && surnameCorrect && emailCorrect && loginCorrect && passwordCorrect)
+            {
+                try
+                {
+                    CreateAccountEvent(new User(null, tbName.Text, tbSurname.Text, tbLogin.Text, tbPassword.Text, tbEmail.Text));
 
-			}
-			catch(Exception exc)
-			{
-				MessageBox.Show(exc.ToString());
-			}
-		}
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show(exc.ToString());
+                }
+            }
+            else
+            {
+                if(String.IsNullOrEmpty(tbName.Text.Trim()))
+                    lNameValidation.ForeColor = Color.Red;
+                if (String.IsNullOrEmpty(tbSurname.Text.Trim()))
+                    lSurnameValidation.ForeColor = Color.Red;
+                if (String.IsNullOrEmpty(tbEmail.Text.Trim()))
+                    lEmailWalidation.ForeColor = Color.Red;
+                if (String.IsNullOrEmpty(tbLogin.Text.Trim()))
+                    lLoginValidation.ForeColor = Color.Red;
+                if (String.IsNullOrEmpty(tbPassword.Text.Trim()))
+                    lPasswordValidation.ForeColor = Color.Red;
+
+                ShowMessage(false, "You must correctly innput all data. Check your input with red dots.");
+            }
+
+
+        }
 
 	
 	}

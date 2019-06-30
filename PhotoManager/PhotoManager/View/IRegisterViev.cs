@@ -9,5 +9,6 @@ namespace PhotoManager
     public interface IRegisterViev
     {
         event Action<User> CreateAccountEvent;
+        void ShowMessage(bool success, string message);
     }
 }

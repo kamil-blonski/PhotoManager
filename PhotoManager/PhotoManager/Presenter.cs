@@ -15,30 +15,40 @@ namespace PhotoManager
 			this.view = view;
 			this.model = model;
 			this.view.LoggingEvent += LoggingEvent;
-            this.view.IVievRegister.CreateAccountEvent += CreateAccount;
+            this.view.IVievRegister.CreateAccountEvent += CreateAccountEvent;
 		}
-
-
-		private void LoggingEvent(string formPassword, string dbPassword)
-		{
-			try
-			{
-				if (model.checkPassword(formPassword, dbPassword) == false)
-				{
-					view.ShowMessage(false, "Incorrect password");
-				}
-			}
-			catch (Exception exc)
-			{
-				view.ShowMessage(false, exc.Message);
-			}
-
-		}
-
-		private void CreateAccount(User user)
+        private void LoggingEvent(string formLogin, string formPassword)
         {
-			//model.CreateAcconut(null, view.IVievRegister.NameR, view.IVievRegister.Surname, view.IVievRegister.Email, view.IVievRegister.UserName, view.IVievRegister.Password);
-			model.CreateAccount(user);
+
+            try
+            {
+                if (model.checkPassword(formLogin, formPassword) == false)
+                {
+                    view.ShowMessage(false, "Incorrect password");
+                }
+            }
+            catch (Exception exc)
+            {
+                view.ShowMessage(false, exc.Message);
+            }
+        }
+
+        private void CreateAccountEvent(User user)
+        {
+            if (model.UserExists(user))
+            {
+                view.IVievRegister.ShowMessage(false, "A user with the same login already exists.");
+                return;
+            }
+            if(model.EmailExists(user))
+            {
+                view.IVievRegister.ShowMessage(false, "An account with the same e-mail address already exists.");
+                return;
+            }
+            if (model.CreateAccount(user))
+                view.IVievRegister.ShowMessage(true, "An account was created sucessfully.");
+            else
+                view.IVievRegister.ShowMessage(false, "Account creation failed. Try one more time.");
         }
 
 	}

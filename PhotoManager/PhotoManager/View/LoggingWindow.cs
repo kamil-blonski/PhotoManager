@@ -29,10 +29,10 @@ namespace PhotoManager
 
 		}
 
-		// implement interface
-		public event Action<string, string> LoggingEvent;
-
-		public void ShowMessage(bool success, string message)
+        // implement interface
+        //public event Action<string, string> LoggingEvent;
+        public event Action<string, string> LoggingEvent;
+        public void ShowMessage(bool success, string message)
 		{
 			MessageBox.Show(message, success ? "Message" : "Error", MessageBoxButtons.OK);
 		}
@@ -47,31 +47,14 @@ namespace PhotoManager
 
 		private void logInButton_Click(object sender, EventArgs e)
 		{
-			string login = loginTextBox.Text;
-			var dbCon = Database.Instance();
-			dbCon.DatabaseName = "photomanager";
-			if (dbCon.IsConnect())
-			{ 
-				string passQuery = "select password from users where login = \""+login+"\"";
-
-				if (dbCon.Connection.State != ConnectionState.Open)
-				{
-					dbCon.Connection.Open();
-				}
-				var cmd = new MySqlCommand(passQuery, dbCon.Connection);
-
-				var reader = cmd.ExecuteReader();
-				while (reader.Read())
-				{
-					string passwdFromDatabase = reader.GetString(0);
-					
-						LoggingEvent(passwordTextBox.Text, passwdFromDatabase);
-					
-					//Console.WriteLine(passwdFromDatabase);
-				}
-				dbCon.Close();
-			}
-		}
+            if((loginTextBox.Text == string.Empty) || (passwordTextBox.Text == string.Empty))
+            {
+                ShowMessage(false, "Login fields can not be empty.");
+                return;
+            }
+            if (LoggingEvent != null)
+                LoggingEvent(loginTextBox.Text, passwordTextBox.Text);
+        }
 
 		private void registerButton_Click(object sender, EventArgs e)
 		{

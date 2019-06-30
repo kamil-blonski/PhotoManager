@@ -53,14 +53,14 @@ namespace PhotoManager
 			return obj;
 		}
 
-        public string TBUserName
-        {
-            set { loginTextBox.Text = value; }
-        }
-        public string TBPassword
-        {
-            set { passwordTextBox.Text = value; }
-        }
+        //public string TBUserName
+        //{
+        //    set { loginTextBox.Text = value; }
+        //}
+        //public string TBPassword
+        //{
+        //    set { passwordTextBox.Text = value; }
+        //}
 
 		private void logInButton_Click(object sender, EventArgs e)
 		{

@@ -9,7 +9,6 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.IO;
-
 namespace PhotoManager.Model
 {
 	class Model
@@ -44,7 +43,7 @@ namespace PhotoManager.Model
             }
             if (passwdFromDatabase != null && SHA1Hash(formPassword) == passwdFromDatabase)
             {
-                //new Form1().ShowDialog();
+				Form1.InstanceForm1.ShowDialog();
                 return true;
             }
             else

@@ -27,12 +27,12 @@ namespace PhotoManager
                 {
                     view.ShowMessage(false, "Incorrect login or password.");
                 }
-                else
-                {
-                    view.TBUserName = string.Empty;
-                    view.TBPassword = string.Empty;
-                    Form1.InstanceForm1.ShowDialog();
-                }
+                //else
+                //{
+                //    view.TBUserName = string.Empty;
+                //    view.TBPassword = string.Empty;
+                //    Form1.InstanceForm1.ShowDialog();
+                //}
 
             }
             catch (Exception exc)

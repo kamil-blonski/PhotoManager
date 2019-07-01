@@ -8,20 +8,27 @@ namespace PhotoManager
 {
 	public class User
 	{
-		private object id = null;
+        #region Fields
+        private int id_;
+        private object id = null;
 		private string name;
 		private string surname;
 		private string login;
 		private string password;
 		private string email;
 		private List<Album> albums;
+        #endregion Fields
 
-
-		public User()
+        #region Constructors
+        public User()
 		{
 
 		}
-
+        public User(string login, string password)
+        {
+            this.login = login;
+            this.password = password;
+        }
 		public User(object id, string name, string surname,
 			string login, string password, string email)
 		{
@@ -34,7 +41,15 @@ namespace PhotoManager
 			this.albums = new List<Model.Album>();
 		}
 
-		public string Name
+        #endregion Constructors
+
+        #region Properties
+        public int ID
+        {
+            get { return id_; }
+            set { this.id_ = value; }
+        }
+        public string Name
 		{
 			get { return name; }
 			set { this.name = value; }
@@ -63,12 +78,14 @@ namespace PhotoManager
 			get { return login; }
 			set { this.login = value; }
 		}
+        #endregion Properties
 
-		public void addAlbum(Model.Album album)
+        #region Methods
+        public void addAlbum(Model.Album album)
 		{
 			albums.Add(album);
 		}
 
-
-	}
+        #endregion Methods
+    }
 }

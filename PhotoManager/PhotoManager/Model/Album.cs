@@ -11,7 +11,8 @@ namespace PhotoManager.Model
         #region Fields
         private List<Photo> photos;
 		private List<User> owners;
-		private string name;
+        private int id;
+        private string name;
 		private string description;
         private string selectedType;
 		private DateTime creationDate;
@@ -51,6 +52,11 @@ namespace PhotoManager.Model
         #endregion Constructors
 
         #region Properties
+        public int ID
+        {
+            get { return id; }
+            set { id = value; }
+        }
         public string Name
         {
             get { return name; }
@@ -62,7 +68,13 @@ namespace PhotoManager.Model
 
         public string SelectedType
         {
-            get { return selectedType; }
+            get
+            {
+                if (selectedType == "Private")
+                    return "PE";
+                else
+                    return "PC";
+            }
         }
 
         public DateTime CreationDate

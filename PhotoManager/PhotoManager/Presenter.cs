@@ -26,12 +26,12 @@ namespace PhotoManager
 			return model.GetAlbums();
 		}
 
-        private void LoggingEvent(string formLogin, string formPassword)
+        private void LoggingEvent(User user)
         {
 
             try
             {
-                if (model.checkPassword(formLogin, formPassword) == false)
+                if (model.checkPassword(user) == false)
                 {
                     view.ShowMessage(false, "Incorrect login or password.");
                 }

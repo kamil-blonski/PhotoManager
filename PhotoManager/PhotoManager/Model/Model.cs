@@ -13,28 +13,30 @@ namespace PhotoManager.Model
 {
     class Model
     {
+        #region Fields
+        private User CurrentUser;
+        private Album CurrentAlbum;
+        private Photo CurrentPhoto;
 		private List<Album> albums;
-		public List<Album> Albums
+        #endregion Fields
+
+        #region Propetries
+        public List<Album> Albums
 		{
 			get { return albums; }
 			set { albums = value; }
 		}
-
-		public Model()
-        {
-
-        }
-
+        #endregion Properties
 
         #region Login
-        public bool checkPassword(string formLogin, string formPassword)
+        public bool checkPassword(User user)
         {
             var dbCon = Database.Instance();
             string passwdFromDatabase = null;
             dbCon.DatabaseName = "photomanager";
             if (dbCon.IsConnect())
             {
-                string passQuery = "select password from users where login = \"" + formLogin + "\"";
+                string passQuery = "select password from users where login = \"" + user.Login + "\"";
 
                 if (dbCon.Connection.State != ConnectionState.Open)
                 {
@@ -49,8 +51,10 @@ namespace PhotoManager.Model
                 }
                 dbCon.Close();
             }
-            if (passwdFromDatabase != null && SHA1Hash(formPassword) == passwdFromDatabase)
+            if (passwdFromDatabase != null && SHA1Hash(user.Password) == passwdFromDatabase)
             {
+                CurrentUser = user; //żeby była referencja do obiektu aktualnie zalogowanego uzytkownika w modelu
+                GetUserID(CurrentUser);
                 LoggingWindow.hideLoggingWindow();
                 Form1.InstanceForm1.ShowDialog();
 
@@ -58,6 +62,33 @@ namespace PhotoManager.Model
             }
             else
                 return false;
+        }
+
+        private void GetUserID(User user)
+        {
+            int id = 0;
+            var dbCon = Database.Instance();
+            dbCon.DatabaseName = "photomanager";
+            if (dbCon.IsConnect())
+            {
+                string passQuery = "select id from users where login = \"" + user.Login + "\";";
+
+                if (dbCon.Connection.State != ConnectionState.Open)
+                {
+                    dbCon.Connection.Open();
+                }
+                var cmd = new MySqlCommand(passQuery, dbCon.Connection);
+
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    id = int.Parse(reader.GetString(0));
+                }
+                dbCon.Close();
+            }
+            if (id == 0)
+                MessageBox.Show("Błąd");
+            CurrentUser.ID = id;
         }
         #endregion Login
 
@@ -117,6 +148,45 @@ namespace PhotoManager.Model
 
         #region Album
 
+        private void AddCreation(User user, Album album)
+        {
+            try
+            {
+                var dbCon = Database.Instance();
+                dbCon.DatabaseName = "photomanager";
+                if (dbCon.IsConnect())
+                {
+                    if (dbCon.Connection.State != ConnectionState.Open)
+                    {
+                        using (MySqlCommand command = dbCon.Connection.CreateCommand())
+                        {
+                            command.CommandText = "insert into creation values(@id_u,@id_a);";
+                            command.Parameters.AddWithValue("@id_u", CurrentUser.ID);
+                            command.Parameters.AddWithValue("@id_a", CurrentAlbum.ID);
+                            dbCon.Connection.Open();
+                            try
+                            {
+                                int result = command.ExecuteNonQuery();
+                                if (result < 0)
+                                    throw new Exception();
+                            }
+                            catch (Exception exc)
+                            {
+                                MessageBox.Show(exc.ToString(), "Problem podczas dodawania albumu.");
+                            }
+                        }
+                    }
+                    dbCon.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("DODAWANIE ZDJĘCIA BŁĄD", "Error", MessageBoxButtons.OK); //tego tu nie bedzie
+            }
+
+        }
+
 		// załadowanie albumów do comboBoxa z bazy
 		public List<Album> GetAlbums()
 		{
@@ -149,7 +219,8 @@ namespace PhotoManager.Model
 
         public bool AddAlbum(Album album)
         {
-            Console.WriteLine(album.Name + " | " + album.Description + " | " + album.SelectedType+ " | " + album.CreationDate.ToString());
+            string typeOfAlbum;
+            //Console.WriteLine(album.Name + " | " + album.Description + " | " + album.SelectedType+ " | " + album.CreationDate.ToString());
             try
             {
                 var dbCon = Database.Instance();
@@ -167,6 +238,7 @@ namespace PhotoManager.Model
                             command.Parameters.AddWithValue("@description", album.Description);
                             command.Parameters.AddWithValue("@type", album.SelectedType);
 
+
                             dbCon.Connection.Open();
                             try
                             {
@@ -174,7 +246,13 @@ namespace PhotoManager.Model
                                 if (result < 0)
                                     return false;
                                 else
+                                {
+                                    CurrentAlbum = album;
+                                    GetAlbumID();
+                                    Console.WriteLine("ALBUM: " + CurrentUser.ID + " | " + CurrentAlbum.ID);
+                                    AddCreation(CurrentUser, CurrentAlbum);
                                     return true;
+                                }
                             }
                             catch (Exception exc)
                             {
@@ -193,6 +271,31 @@ namespace PhotoManager.Model
             return true;
         }
     
+        private void GetAlbumID()
+        {
+            int id = 0;
+            var dbCon = Database.Instance();
+            dbCon.DatabaseName = "photomanager";
+            if (dbCon.IsConnect())
+            {
+                string passQuery = "select id from albums order by id desc limit 1;";
+
+                if (dbCon.Connection.State != ConnectionState.Open)
+                {
+                    dbCon.Connection.Open();
+                }
+                var cmd = new MySqlCommand(passQuery, dbCon.Connection);
+
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    id = int.Parse(reader.GetString(0));
+                }
+                dbCon.Close();
+            }
+
+            CurrentAlbum.ID = id;
+        }
         #endregion Album
 
         #region Pictures

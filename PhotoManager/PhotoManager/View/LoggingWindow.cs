@@ -39,7 +39,8 @@ namespace PhotoManager
 
         // implement interface
         //public event Action<string, string> LoggingEvent;
-        public event Action<string, string> LoggingEvent;
+        public event Action<User> LoggingEvent;
+        
         public void ShowMessage(bool success, string message)
 		{
 			MessageBox.Show(message, success ? "Message" : "Error", MessageBoxButtons.OK);
@@ -75,8 +76,11 @@ namespace PhotoManager
                 ShowMessage(false, "Login fields can not be empty.");
                 return;
             }
+            /*if (LoggingEvent != null)
+                LoggingEvent(loginTextBox.Text, passwordTextBox.Text);*/
+
             if (LoggingEvent != null)
-                LoggingEvent(loginTextBox.Text, passwordTextBox.Text);
+                LoggingEvent(new User(loginTextBox.Text, passwordTextBox.Text));
         }
 
 		private void registerButton_Click(object sender, EventArgs e)

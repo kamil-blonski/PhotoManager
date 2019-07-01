@@ -8,7 +8,7 @@ namespace PhotoManager
 {
 	public interface IView
 	{
-        event Action<string, string> LoggingEvent;
+        event Action<User> LoggingEvent;
 		
 		void ShowMessage(bool success, string message);
         IRegisterView IVievRegister { get; }

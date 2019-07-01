@@ -110,7 +110,7 @@ namespace PhotoManager.Model
         #region Album
         public bool AddAlbum(Album album)
         {
-            //Console.WriteLine(album.Name + " | " + album.Description + " | " + album.SelectedType+ " | " + album.CreationDate.ToString());
+            Console.WriteLine(album.Name + " | " + album.Description + " | " + album.SelectedType+ " | " + album.CreationDate.ToString());
             try
             {
                 var dbCon = Database.Instance();
@@ -151,7 +151,7 @@ namespace PhotoManager.Model
             {
                 MessageBox.Show("DODAWANIE ZDJĘCIA BŁĄD", "Error", MessageBoxButtons.OK); //tego tu nie bedzie
             }
-            return false;
+            return true;
         }
     
         #endregion Album
@@ -201,7 +201,7 @@ namespace PhotoManager.Model
             {
                 MessageBox.Show("DODAWANIE ZDJĘCIA BŁĄD", "Error", MessageBoxButtons.OK); //tego tu nie bedzie
             }
-            return false;
+            return true;
         }
 
         public void ReadPhoto(int AlbumID)

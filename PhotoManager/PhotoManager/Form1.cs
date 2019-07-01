@@ -29,6 +29,7 @@ namespace PhotoManager
         #region Events
         public event Action<string, Photo> AddPhotoEvent;
 		public event Func<List<Album>> GetAlbums;
+       // public event Action<Album> RefreshAlbumList;
         #endregion Events
 
         #region Constructors
@@ -79,7 +80,9 @@ namespace PhotoManager
 						imgListView.Items.Add(fi.Name, 0);
 
                         if (AddPhotoEvent != null)
-                            AddPhotoEvent(fi.FullName, new Photo(null, fi.Name, fi.CreationTime, "OPIS",  fi.Extension, imgListView.Size ));
+                        {
+                            AddPhotoEvent(fi.FullName, new Photo(null, fi.Name, fi.CreationTime, "OPIS", fi.Extension, imgListView.Size));
+                        }
 					}
 				}
 			}
@@ -88,12 +91,12 @@ namespace PhotoManager
         private void createNewAlbumToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddAlbum.AddAlbumInstance.ShowDialog();
+
         }
 
         #endregion MenuMethods
 
         #region OtherMethods
-
         private void imgListView_ItemActivate(object sender, EventArgs e)
         {
             Console.WriteLine("powiększenie");
@@ -122,6 +125,12 @@ namespace PhotoManager
 				albumsComboBox.Items.Add(item.Name);
 			}
 		}
+
+        public void AddNewAlbumToList(Album album)
+        {
+            albumsComboBox.Items.Add(album.Name);
+        }
+
         #endregion OtherMethods
 
     }

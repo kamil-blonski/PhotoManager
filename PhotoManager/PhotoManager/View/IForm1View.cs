@@ -11,6 +11,8 @@ namespace PhotoManager
 	{
         event Action<string, Photo> AddPhotoEvent;
 		event Func<List<Album>> GetAlbums;
+        //event Action<Album> RefreshAlbumList;
 		IAddAlbumView IAddAlbumView { get; }
+        void AddNewAlbumToList(Album album);
 	}
 }

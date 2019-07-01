@@ -19,6 +19,7 @@ namespace PhotoManager
             this.view.IVievForm.AddPhotoEvent += AddPhotoEvent;
             this.view.IVievForm.IAddAlbumView.AddAlbumEvent += AddAlbumEvent;
 			this.view.IVievForm.GetAlbums += GetAlbums;
+            this.view.IVievForm.IAddAlbumView.RefreshAlbumListInForm1Event += RefreshAlbumListInForm1Event;
 		}
 
 		private List<Album> GetAlbums()
@@ -87,5 +88,11 @@ namespace PhotoManager
             else
                 view.IVievForm.IAddAlbumView.ShowMessage(false, "Error during creating an album.");
         }
-	}
+
+        private void RefreshAlbumListInForm1Event()
+        {
+            this.view.IVievForm.AddNewAlbumToList(model.NewAlbumListElement());
+        }
+
+    }
 }

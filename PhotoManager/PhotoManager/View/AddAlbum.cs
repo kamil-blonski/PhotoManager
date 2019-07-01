@@ -14,6 +14,7 @@ namespace PhotoManager.View
     public partial class AddAlbum : Form, IAddAlbumView
     {
         public event Action<Album> AddAlbumEvent;
+        public event Action RefreshAlbumListInForm1Event;
         private static AddAlbum instance = null;
         private AddAlbum()
         {
@@ -41,6 +42,8 @@ namespace PhotoManager.View
                 if (AddAlbumEvent != null)
                 {
                     AddAlbumEvent(new Album(NameTextBox.Text, TypeComboBox.SelectedItem.ToString(), DescriptionRTextBox.Text, DateTime.Now));
+                    if (RefreshAlbumListInForm1Event != null)
+                        RefreshAlbumListInForm1Event();
                 }
             }
             else

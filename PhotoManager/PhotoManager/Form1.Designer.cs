@@ -37,8 +37,8 @@ namespace PhotoManager
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.albumsComboBox = new System.Windows.Forms.ComboBox();
             this.createNewAlbumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.albumsComboBox = new System.Windows.Forms.ComboBox();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,7 +54,7 @@ namespace PhotoManager
             // 
             this.imgListView.LargeImageList = this.imgList;
             this.imgListView.Location = new System.Drawing.Point(16, 49);
-            this.imgListView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.imgListView.Margin = new System.Windows.Forms.Padding(4);
             this.imgListView.Name = "imgListView";
             this.imgListView.Size = new System.Drawing.Size(756, 274);
             this.imgListView.TabIndex = 0;
@@ -89,22 +89,22 @@ namespace PhotoManager
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
-            // albumsComboBox
-            // 
-            this.albumsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.albumsComboBox.FormattingEnabled = true;
-            this.albumsComboBox.Location = new System.Drawing.Point(325, 14);
-            this.albumsComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.albumsComboBox.Name = "albumsComboBox";
-            this.albumsComboBox.Size = new System.Drawing.Size(160, 24);
-            this.albumsComboBox.TabIndex = 3;
-            // 
             // createNewAlbumToolStripMenuItem
             // 
             this.createNewAlbumToolStripMenuItem.Name = "createNewAlbumToolStripMenuItem";
             this.createNewAlbumToolStripMenuItem.Size = new System.Drawing.Size(209, 26);
             this.createNewAlbumToolStripMenuItem.Text = "Create New Album";
             this.createNewAlbumToolStripMenuItem.Click += new System.EventHandler(this.createNewAlbumToolStripMenuItem_Click);
+            // 
+            // albumsComboBox
+            // 
+            this.albumsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.albumsComboBox.FormattingEnabled = true;
+            this.albumsComboBox.Location = new System.Drawing.Point(612, 13);
+            this.albumsComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.albumsComboBox.Name = "albumsComboBox";
+            this.albumsComboBox.Size = new System.Drawing.Size(160, 24);
+            this.albumsComboBox.TabIndex = 3;
             // 
             // Form1
             // 
@@ -117,11 +117,10 @@ namespace PhotoManager
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Photo Manager";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();

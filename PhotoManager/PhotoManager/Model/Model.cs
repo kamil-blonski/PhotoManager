@@ -252,7 +252,8 @@ namespace PhotoManager.Model
                                 {
                                     CurrentAlbum = album;
                                     GetAlbumID();
-                                    Console.WriteLine("ALBUM: " + CurrentUser.ID + " | " + CurrentAlbum.ID);
+                                    //Console.WriteLine("ALBUM: " + CurrentUser.ID + " | " + CurrentAlbum.ID);
+                                    // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                                     AddCreation(CurrentUser, CurrentAlbum);
                                     return true;
                                 }
@@ -272,6 +273,12 @@ namespace PhotoManager.Model
                 MessageBox.Show("DODAWANIE ZDJĘCIA BŁĄD", "Error", MessageBoxButtons.OK); //tego tu nie bedzie
             }
             return true;
+        }
+
+        public Album NewAlbumListElement()
+        {
+            albums.Add(CurrentAlbum);
+            return CurrentAlbum;
         }
     
         private void GetAlbumID()

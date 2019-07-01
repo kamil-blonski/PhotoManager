@@ -11,12 +11,12 @@ using System.Security.Cryptography;
 using System.IO;
 namespace PhotoManager.Model
 {
-	class Model
-	{
-		public Model()
-		{
+    class Model
+    {
+        public Model()
+        {
 
-		}
+        }
 
         #region Login
         public bool checkPassword(string formLogin, string formPassword)
@@ -43,10 +43,10 @@ namespace PhotoManager.Model
             }
             if (passwdFromDatabase != null && SHA1Hash(formPassword) == passwdFromDatabase)
             {
-				LoggingWindow.hideLoggingWindow();
-				Form1.InstanceForm1.ShowDialog();
+                LoggingWindow.hideLoggingWindow();
+                Form1.InstanceForm1.ShowDialog();
 
-				return true;
+                return true;
             }
             else
                 return false;
@@ -68,7 +68,7 @@ namespace PhotoManager.Model
                 return true;
             return false;
         }
-            
+
         public bool CreateAccount(User user)
         {
             var dbCon = Database.Instance();
@@ -110,9 +110,8 @@ namespace PhotoManager.Model
         #region Album
         public bool AddAlbum(Album album)
         {
-            Console.WriteLine(album.Name + " | " + album.Description + " | " + album.SelectedType);
-            return true;
-            /*try
+            //Console.WriteLine(album.Name + " | " + album.Description + " | " + album.SelectedType+ " | " + album.CreationDate.ToString());
+            try
             {
                 var dbCon = Database.Instance();
                 dbCon.DatabaseName = "photomanager";
@@ -122,14 +121,13 @@ namespace PhotoManager.Model
                     {
                         using (MySqlCommand command = dbCon.Connection.CreateCommand())
                         {
-                            command.CommandText = "insert into photos values(@id,@name,@creationdate,@description,@format,@size,@pictureB);";
+                            command.CommandText = "insert into albums values(@id,@name,@creationdate,@description,@type);";
                             command.Parameters.AddWithValue("@id", null);
-                            command.Parameters.AddWithValue("@name", photo.Name);
-                            command.Parameters.AddWithValue("@creationdate", photo.CreationDate);
-                            command.Parameters.AddWithValue("@description", photo.Description);
-                            command.Parameters.AddWithValue("@format", photo.Format);
-                            command.Parameters.AddWithValue("@size", photo.PhotoSize);
-                            command.Parameters.AddWithValue("@pictureB", photo.EncodePhoto(path));
+                            command.Parameters.AddWithValue("@name", album.Name);
+                            command.Parameters.AddWithValue("@creationdate", album.CreationDate.ToString("yyyy-MM-dd HH:mm:ss"));
+                            command.Parameters.AddWithValue("@description", album.Description);
+                            command.Parameters.AddWithValue("@type", album.SelectedType);
+
                             dbCon.Connection.Open();
                             try
                             {
@@ -141,14 +139,21 @@ namespace PhotoManager.Model
                             }
                             catch (Exception exc)
                             {
-                                MessageBox.Show(exc.ToString(), "Problem podczas dodawania zdjęcia.");
+                                MessageBox.Show(exc.ToString(), "Problem podczas dodawania albumu.");
                             }
                         }
                     }
                     dbCon.Close();
                 }
-                return true;*/
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("DODAWANIE ZDJĘCIA BŁĄD", "Error", MessageBoxButtons.OK); //tego tu nie bedzie
+            }
+            return false;
         }
+    
         #endregion Album
 
         #region Pictures

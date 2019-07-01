@@ -41,7 +41,7 @@ namespace PhotoManager.View
         private void AddButton_Click(object sender, EventArgs e)
         {
             if (AddAlbumEvent != null)
-                AddAlbumEvent(new Album(NameTextBox.Text, TypeComboBox.SelectedItem.ToString(), DescriptionRTextBox.Text));
+                AddAlbumEvent(new Album(NameTextBox.Text, TypeComboBox.SelectedItem.ToString(), DescriptionRTextBox.Text, DateTime.Now));
         }
 
         public string Test

@@ -69,25 +69,28 @@
             // 
             // DescriptionRTextBox
             // 
-            this.DescriptionRTextBox.Location = new System.Drawing.Point(13, 134);
+            this.DescriptionRTextBox.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.DescriptionRTextBox.Location = new System.Drawing.Point(6, 134);
             this.DescriptionRTextBox.Name = "DescriptionRTextBox";
-            this.DescriptionRTextBox.Size = new System.Drawing.Size(485, 96);
+            this.DescriptionRTextBox.Size = new System.Drawing.Size(492, 96);
             this.DescriptionRTextBox.TabIndex = 7;
             this.DescriptionRTextBox.Text = "";
             // 
             // TypeComboBox
             // 
+            this.TypeComboBox.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.TypeComboBox.FormattingEnabled = true;
             this.TypeComboBox.Location = new System.Drawing.Point(83, 70);
             this.TypeComboBox.Name = "TypeComboBox";
-            this.TypeComboBox.Size = new System.Drawing.Size(121, 30);
+            this.TypeComboBox.Size = new System.Drawing.Size(173, 27);
             this.TypeComboBox.TabIndex = 6;
             // 
             // NameTextBox
             // 
-            this.NameTextBox.Location = new System.Drawing.Point(83, 32);
+            this.NameTextBox.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.NameTextBox.Location = new System.Drawing.Point(83, 37);
             this.NameTextBox.Name = "NameTextBox";
-            this.NameTextBox.Size = new System.Drawing.Size(100, 30);
+            this.NameTextBox.Size = new System.Drawing.Size(415, 27);
             this.NameTextBox.TabIndex = 5;
             // 
             // TypeLabel

@@ -27,11 +27,12 @@ namespace PhotoManager.Model
         {
 
         }
-        public Album(string name, string selectedType, string description)
+        public Album(string name, string selectedType, string description, DateTime currentDate)
         {
             this.name = name;
             this.selectedType = selectedType;
             this.description = description;
+            this.creationDate = currentDate;
         }
 		public Album(string name, string desc, DateTime dt)
 		{
@@ -56,6 +57,11 @@ namespace PhotoManager.Model
         public string SelectedType
         {
             get { return selectedType; }
+        }
+
+        public DateTime CreationDate
+        {
+            get { return creationDate; }
         }
         #endregion Properties
 

@@ -18,7 +18,14 @@ namespace PhotoManager
             this.view.IVievRegister.CreateAccountEvent += CreateAccountEvent;
             this.view.IVievForm.AddPhotoEvent += AddPhotoEvent;
             this.view.IVievForm.IAddAlbumView.AddAlbumEvent += AddAlbumEvent;
+			this.view.IVievForm.GetAlbums += GetAlbums;
 		}
+
+		private List<Album> GetAlbums()
+		{
+			return model.GetAlbums();
+		}
+
         private void LoggingEvent(string formLogin, string formPassword)
         {
 

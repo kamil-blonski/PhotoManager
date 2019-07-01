@@ -13,10 +13,18 @@ namespace PhotoManager.Model
 {
     class Model
     {
-        public Model()
+		private List<Album> albums;
+		public List<Album> Albums
+		{
+			get { return albums; }
+			set { albums = value; }
+		}
+
+		public Model()
         {
 
         }
+
 
         #region Login
         public bool checkPassword(string formLogin, string formPassword)
@@ -108,6 +116,37 @@ namespace PhotoManager.Model
         #endregion Register
 
         #region Album
+
+		// załadowanie albumów do comboBoxa z bazy
+		public List<Album> GetAlbums()
+		{
+			albums = new List<Album>();
+
+			var dbCon = Database.Instance();
+			//string passwdFromDatabase = null;
+			dbCon.DatabaseName = "photomanager";
+			if (dbCon.IsConnect())
+			{
+				string passQuery = "select name from albums";
+
+				if (dbCon.Connection.State != ConnectionState.Open)
+				{
+					dbCon.Connection.Open();
+				}
+				var cmd = new MySqlCommand(passQuery, dbCon.Connection);
+
+				var reader = cmd.ExecuteReader();
+				while (reader.Read())
+				{
+					albums.Add(new Album(reader.GetString(0)));
+					//passwdFromDatabase = reader.GetString(0);
+				}
+				dbCon.Close();
+			}
+
+			return albums;
+		}
+
         public bool AddAlbum(Album album)
         {
             Console.WriteLine(album.Name + " | " + album.Description + " | " + album.SelectedType+ " | " + album.CreationDate.ToString());

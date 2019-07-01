@@ -27,6 +27,12 @@ namespace PhotoManager.Model
         {
 
         }
+
+		public Album(string name)
+		{
+			this.name = name;
+		}
+
         public Album(string name, string selectedType, string description, DateTime currentDate)
         {
             this.name = name;

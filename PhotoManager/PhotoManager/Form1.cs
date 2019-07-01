@@ -22,11 +22,12 @@ namespace PhotoManager
 		private int X;
 		private int Y;
         private static Form1 instance = null;
-        private Album album;
+		private List<Album> albums;
 
         public event Action<string, Photo> AddPhotoEvent;
-        
-        private Form1()
+		public event Func<List<Album>> GetAlbums;
+
+		private Form1()
         {
             InitializeComponent();
             this.screenSize = Screen.FromControl(this).Bounds.Size;
@@ -36,7 +37,8 @@ namespace PhotoManager
 
             //Test();
         }
-        public static Form1 InstanceForm1
+
+		public static Form1 InstanceForm1
         {
             get
             {
@@ -109,5 +111,18 @@ namespace PhotoManager
         {
             AddAlbum.AddAlbumInstance.ShowDialog();
         }
-    }
+		
+		private void Form1_Load(object sender, EventArgs e)
+		{
+			albums = new List<Album>();
+			
+			albums = GetAlbums();
+			
+			albumsComboBox.Items.Clear();
+			foreach (var item in albums)
+			{
+				albumsComboBox.Items.Add(item.Name);
+			}
+		}
+	}
 }

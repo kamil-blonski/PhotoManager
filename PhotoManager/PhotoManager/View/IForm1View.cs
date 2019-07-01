@@ -10,6 +10,7 @@ namespace PhotoManager
 	public interface IForm1View
 	{
         event Action<string, Photo> AddPhotoEvent;
-        IAddAlbumView IAddAlbumView { get; }
+		event Func<List<Album>> GetAlbums;
+		IAddAlbumView IAddAlbumView { get; }
 	}
 }

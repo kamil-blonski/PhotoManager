@@ -22,6 +22,8 @@ namespace PhotoManager
 		private int X;
 		private int Y;
         private static Form1 instance = null;
+        private Album album;
+
         public event Action<string, Photo> AddPhotoEvent;
         
         private Form1()
@@ -34,7 +36,6 @@ namespace PhotoManager
 
             //Test();
         }
-
         public static Form1 InstanceForm1
         {
             get
@@ -44,16 +45,25 @@ namespace PhotoManager
                 return instance;
             }
         }
-        /*public Form1()
-        {
-            InitializeComponent();
-			this.screenSize = Screen.FromControl(this).Bounds.Size;
-			X = screenSize.Width - 100;
-			Y = screenSize.Height - 100;
-			this.imgListView.Size = new Size(X, Y);
 
-			//Test();
-		}*/
+        public IAddAlbumView IAddAlbumView
+        {
+            get
+            {
+                return AddAlbum.AddAlbumInstance;
+            }
+        }
+
+        /*public Form1()
+{
+   InitializeComponent();
+   this.screenSize = Screen.FromControl(this).Bounds.Size;
+   X = screenSize.Width - 100;
+   Y = screenSize.Height - 100;
+   this.imgListView.Size = new Size(X, Y);
+
+   //Test();
+}*/
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
 		{
@@ -94,9 +104,10 @@ namespace PhotoManager
 			}
 		}
 
-        private void AddAlbum(object sender, EventArgs e)
+
+        private void AddAlbumButton_Click(object sender, EventArgs e)
         {
-            new AddAlbum().ShowDialog();
+            AddAlbum.AddAlbumInstance.ShowDialog();
         }
     }
 }

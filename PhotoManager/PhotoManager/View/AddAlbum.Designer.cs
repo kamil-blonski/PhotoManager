@@ -29,23 +29,23 @@
         private void InitializeComponent()
         {
             this.AddAlbumGroupBox = new System.Windows.Forms.GroupBox();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.NameLabel = new System.Windows.Forms.Label();
-            this.DescriptionLabel = new System.Windows.Forms.Label();
-            this.TypeLabel = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.AddButton = new System.Windows.Forms.Button();
+            this.DescriptionRTextBox = new System.Windows.Forms.RichTextBox();
+            this.TypeComboBox = new System.Windows.Forms.ComboBox();
+            this.NameTextBox = new System.Windows.Forms.TextBox();
+            this.TypeLabel = new System.Windows.Forms.Label();
+            this.DescriptionLabel = new System.Windows.Forms.Label();
+            this.NameLabel = new System.Windows.Forms.Label();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.AddAlbumGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // AddAlbumGroupBox
             // 
             this.AddAlbumGroupBox.Controls.Add(this.AddButton);
-            this.AddAlbumGroupBox.Controls.Add(this.richTextBox1);
-            this.AddAlbumGroupBox.Controls.Add(this.comboBox1);
-            this.AddAlbumGroupBox.Controls.Add(this.textBox1);
+            this.AddAlbumGroupBox.Controls.Add(this.DescriptionRTextBox);
+            this.AddAlbumGroupBox.Controls.Add(this.TypeComboBox);
+            this.AddAlbumGroupBox.Controls.Add(this.NameTextBox);
             this.AddAlbumGroupBox.Controls.Add(this.TypeLabel);
             this.AddAlbumGroupBox.Controls.Add(this.DescriptionLabel);
             this.AddAlbumGroupBox.Controls.Add(this.NameLabel);
@@ -57,23 +57,38 @@
             this.AddAlbumGroupBox.TabStop = false;
             this.AddAlbumGroupBox.Text = "Add new album";
             // 
-            // NameLabel
+            // AddButton
             // 
-            this.NameLabel.AutoSize = true;
-            this.NameLabel.Location = new System.Drawing.Point(6, 40);
-            this.NameLabel.Name = "NameLabel";
-            this.NameLabel.Size = new System.Drawing.Size(62, 22);
-            this.NameLabel.TabIndex = 1;
-            this.NameLabel.Text = "Name:";
+            this.AddButton.Location = new System.Drawing.Point(410, 236);
+            this.AddButton.Name = "AddButton";
+            this.AddButton.Size = new System.Drawing.Size(88, 38);
+            this.AddButton.TabIndex = 8;
+            this.AddButton.Text = "Add";
+            this.AddButton.UseVisualStyleBackColor = true;
+            this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
-            // DescriptionLabel
+            // DescriptionRTextBox
             // 
-            this.DescriptionLabel.AutoSize = true;
-            this.DescriptionLabel.Location = new System.Drawing.Point(6, 109);
-            this.DescriptionLabel.Name = "DescriptionLabel";
-            this.DescriptionLabel.Size = new System.Drawing.Size(107, 22);
-            this.DescriptionLabel.TabIndex = 3;
-            this.DescriptionLabel.Text = "Desctiption:";
+            this.DescriptionRTextBox.Location = new System.Drawing.Point(13, 134);
+            this.DescriptionRTextBox.Name = "DescriptionRTextBox";
+            this.DescriptionRTextBox.Size = new System.Drawing.Size(485, 96);
+            this.DescriptionRTextBox.TabIndex = 7;
+            this.DescriptionRTextBox.Text = "";
+            // 
+            // TypeComboBox
+            // 
+            this.TypeComboBox.FormattingEnabled = true;
+            this.TypeComboBox.Location = new System.Drawing.Point(83, 70);
+            this.TypeComboBox.Name = "TypeComboBox";
+            this.TypeComboBox.Size = new System.Drawing.Size(121, 30);
+            this.TypeComboBox.TabIndex = 6;
+            // 
+            // NameTextBox
+            // 
+            this.NameTextBox.Location = new System.Drawing.Point(83, 32);
+            this.NameTextBox.Name = "NameTextBox";
+            this.NameTextBox.Size = new System.Drawing.Size(100, 30);
+            this.NameTextBox.TabIndex = 5;
             // 
             // TypeLabel
             // 
@@ -84,37 +99,23 @@
             this.TypeLabel.TabIndex = 4;
             this.TypeLabel.Text = "Type:";
             // 
-            // textBox1
+            // DescriptionLabel
             // 
-            this.textBox1.Location = new System.Drawing.Point(83, 32);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 30);
-            this.textBox1.TabIndex = 5;
+            this.DescriptionLabel.AutoSize = true;
+            this.DescriptionLabel.Location = new System.Drawing.Point(6, 109);
+            this.DescriptionLabel.Name = "DescriptionLabel";
+            this.DescriptionLabel.Size = new System.Drawing.Size(107, 22);
+            this.DescriptionLabel.TabIndex = 3;
+            this.DescriptionLabel.Text = "Desctiption:";
             // 
-            // comboBox1
+            // NameLabel
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(83, 70);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 30);
-            this.comboBox1.TabIndex = 6;
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(13, 134);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(485, 96);
-            this.richTextBox1.TabIndex = 7;
-            this.richTextBox1.Text = "";
-            // 
-            // AddButton
-            // 
-            this.AddButton.Location = new System.Drawing.Point(410, 236);
-            this.AddButton.Name = "AddButton";
-            this.AddButton.Size = new System.Drawing.Size(88, 38);
-            this.AddButton.TabIndex = 8;
-            this.AddButton.Text = "Add";
-            this.AddButton.UseVisualStyleBackColor = true;
+            this.NameLabel.AutoSize = true;
+            this.NameLabel.Location = new System.Drawing.Point(6, 40);
+            this.NameLabel.Name = "NameLabel";
+            this.NameLabel.Size = new System.Drawing.Size(62, 22);
+            this.NameLabel.TabIndex = 1;
+            this.NameLabel.Text = "Name:";
             // 
             // AddAlbum
             // 
@@ -135,9 +136,9 @@
         private System.Windows.Forms.GroupBox AddAlbumGroupBox;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Button AddButton;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.RichTextBox DescriptionRTextBox;
+        private System.Windows.Forms.ComboBox TypeComboBox;
+        private System.Windows.Forms.TextBox NameTextBox;
         private System.Windows.Forms.Label TypeLabel;
         private System.Windows.Forms.Label DescriptionLabel;
         private System.Windows.Forms.Label NameLabel;

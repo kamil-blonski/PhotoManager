@@ -80,6 +80,7 @@
     <Compile Include="View\AddAlbum.Designer.cs">
       <DependentUpon>AddAlbum.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\IAddAlbumView.cs" />
     <Compile Include="View\imgViewer.cs">
       <SubType>Form</SubType>
     </Compile>

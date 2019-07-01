@@ -8,18 +8,31 @@ namespace PhotoManager.Model
 {
 	public class Album
 	{
-		
-		private List<Photo> photos;
+        #region Fields
+        private List<Photo> photos;
 		private List<User> owners;
 		private string name;
 		private string description;
+        private string selectedType;
 		private DateTime creationDate;
 		private enum type
 		{
 			PE,
 			PC
 		}
+        #endregion Fields
 
+        #region Constructors
+        public Album()
+        {
+
+        }
+        public Album(string name, string selectedType, string description)
+        {
+            this.name = name;
+            this.selectedType = selectedType;
+            this.description = description;
+        }
 		public Album(string name, string desc, DateTime dt)
 		{
 			photos = new List<Photo>();
@@ -28,8 +41,26 @@ namespace PhotoManager.Model
 			this.description = desc;
 			this.creationDate = dt;
 		}
+        #endregion Constructors
 
-		public void addPhoto(Photo photo)
+        #region Properties
+        public string Name
+        {
+            get { return name; }
+        }
+        public string Description
+        {
+            get { return description; }
+        }
+
+        public string SelectedType
+        {
+            get { return selectedType; }
+        }
+        #endregion Properties
+
+        #region Methods
+        public void addPhoto(Photo photo)
 		{
 			this.photos.Add(photo);
 		}
@@ -38,6 +69,6 @@ namespace PhotoManager.Model
 		{
 			this.photos.Remove(photo);
 		}
-
-	}
+        #endregion Methods
+    }
 }

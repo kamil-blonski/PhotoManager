@@ -7,9 +7,9 @@ using PhotoManager.Model;
 
 namespace PhotoManager
 {
-	public interface IForm1View
+	public interface IAddAlbumView
 	{
-        event Action<string, Photo> AddPhotoEvent;
-        IAddAlbumView IAddAlbumView { get; }
+        event Action<Album> AddAlbumEvent;
+        string Test { get; }
 	}
 }

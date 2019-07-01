@@ -1,4 +1,6 @@
-﻿namespace PhotoManager
+﻿using System;
+
+namespace PhotoManager
 {
     partial class Form1
     {
@@ -51,7 +53,7 @@
             // 
             this.imgListView.LargeImageList = this.imgList;
             this.imgListView.Location = new System.Drawing.Point(16, 49);
-            this.imgListView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.imgListView.Margin = new System.Windows.Forms.Padding(4);
             this.imgListView.Name = "imgListView";
             this.imgListView.Size = new System.Drawing.Size(756, 274);
             this.imgListView.TabIndex = 0;
@@ -93,7 +95,7 @@
             this.AddAlbumButton.TabIndex = 2;
             this.AddAlbumButton.Text = "Add Album";
             this.AddAlbumButton.UseVisualStyleBackColor = true;
-            this.AddAlbumButton.Click += new System.EventHandler(this.AddAlbum);
+            this.AddAlbumButton.Click += new System.EventHandler(this.AddAlbumButton_Click);
             // 
             // Form1
             // 
@@ -106,7 +108,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Photo Manager";
@@ -118,9 +120,10 @@
 
         }
 
-		#endregion
 
-		private System.Windows.Forms.ImageList imgList;
+        #endregion
+
+        private System.Windows.Forms.ImageList imgList;
 		private System.Windows.Forms.ListView imgListView;
 		private System.Windows.Forms.MenuStrip menuStrip;
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;

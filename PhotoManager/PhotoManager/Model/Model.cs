@@ -107,6 +107,50 @@ namespace PhotoManager.Model
         }
         #endregion Register
 
+        #region Album
+        public bool AddAlbum(Album album)
+        {
+            Console.WriteLine(album.Name + " | " + album.Description + " | " + album.SelectedType);
+            return true;
+            /*try
+            {
+                var dbCon = Database.Instance();
+                dbCon.DatabaseName = "photomanager";
+                if (dbCon.IsConnect())
+                {
+                    if (dbCon.Connection.State != ConnectionState.Open)
+                    {
+                        using (MySqlCommand command = dbCon.Connection.CreateCommand())
+                        {
+                            command.CommandText = "insert into photos values(@id,@name,@creationdate,@description,@format,@size,@pictureB);";
+                            command.Parameters.AddWithValue("@id", null);
+                            command.Parameters.AddWithValue("@name", photo.Name);
+                            command.Parameters.AddWithValue("@creationdate", photo.CreationDate);
+                            command.Parameters.AddWithValue("@description", photo.Description);
+                            command.Parameters.AddWithValue("@format", photo.Format);
+                            command.Parameters.AddWithValue("@size", photo.PhotoSize);
+                            command.Parameters.AddWithValue("@pictureB", photo.EncodePhoto(path));
+                            dbCon.Connection.Open();
+                            try
+                            {
+                                int result = command.ExecuteNonQuery();
+                                if (result < 0)
+                                    return false;
+                                else
+                                    return true;
+                            }
+                            catch (Exception exc)
+                            {
+                                MessageBox.Show(exc.ToString(), "Problem podczas dodawania zdjęcia.");
+                            }
+                        }
+                    }
+                    dbCon.Close();
+                }
+                return true;*/
+        }
+        #endregion Album
+
         #region Pictures
 
         public bool AddPhoto(string path, Photo photo)

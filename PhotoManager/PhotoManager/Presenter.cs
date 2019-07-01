@@ -28,19 +28,19 @@ namespace PhotoManager
 
         private void LoggingEvent(User user)
         {
-
+            view.ClearTextBoxes();
             try
             {
                 if (model.checkPassword(user) == false)
                 {
                     view.ShowMessage(false, "Incorrect login or password.");
                 }
-                //else
-                //{
-                //    view.TBUserName = string.Empty;
-                //    view.TBPassword = string.Empty;
-                //    Form1.InstanceForm1.ShowDialog();
-                //}
+                else
+                {
+                    view.ClearTextBoxes();
+                    view.hideLoggingWindow();
+                    model.LoadForm1Instance();
+                }
 
             }
             catch (Exception exc)
@@ -63,11 +63,7 @@ namespace PhotoManager
             }
             if (model.CreateAccount(user))
             {
-                view.IVievRegister.TBName = string.Empty;
-                view.IVievRegister.TBSurname = string.Empty;
-                view.IVievRegister.TBEmail = string.Empty;
-                view.IVievRegister.TBUserName = string.Empty;
-                view.IVievRegister.TBPassword = string.Empty;
+                view.IVievRegister.ClearTextBoxes();
                 view.IVievRegister.ShowMessage(true, "An account was created sucessfully.");
                 
             }
@@ -83,7 +79,11 @@ namespace PhotoManager
         private void AddAlbumEvent(Album album)
         {
             if (model.AddAlbum(album))
+            {
+                view.IVievForm.IAddAlbumView.ClearTextBoxes();
                 view.IVievForm.IAddAlbumView.ShowMessage(true, "Album created successfully.");
+            }
+                
             else
                 view.IVievForm.IAddAlbumView.ShowMessage(false, "Error during creating an album.");
         }

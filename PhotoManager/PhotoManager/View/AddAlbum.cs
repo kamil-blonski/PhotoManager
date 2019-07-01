@@ -5,7 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading.Tasks; 
 using System.Windows.Forms;
 using PhotoManager.Model;
 
@@ -13,11 +13,7 @@ namespace PhotoManager.View
 {
     public partial class AddAlbum : Form, IAddAlbumView
     {
- 
-           
-
         public event Action<Album> AddAlbumEvent;
-        
         private static AddAlbum instance = null;
         private AddAlbum()
         {
@@ -37,6 +33,7 @@ namespace PhotoManager.View
             }
         }
 
+        #region Methods
         private void AddButton_Click(object sender, EventArgs e)
         {
             if (!(string.IsNullOrEmpty(NameTextBox.Text.Trim()) || string.IsNullOrEmpty(DescriptionRTextBox.Text.Trim())))
@@ -57,5 +54,13 @@ namespace PhotoManager.View
         {
             MessageBox.Show(message, success ? "Message" : "Error", MessageBoxButtons.OK);
         }
+
+        public void ClearTextBoxes()
+        {
+            NameTextBox.Text = string.Empty;
+            DescriptionRTextBox.Text = string.Empty;
+        }
+
+        #endregion Methods
     }
 }

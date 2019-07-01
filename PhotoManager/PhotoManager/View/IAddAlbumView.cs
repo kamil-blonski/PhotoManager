@@ -11,5 +11,6 @@ namespace PhotoManager
 	{
         event Action<Album> AddAlbumEvent;
         void ShowMessage(bool success, string message);
+        void ClearTextBoxes();
 	}
 }

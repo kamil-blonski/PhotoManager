@@ -9,8 +9,9 @@ namespace PhotoManager
 	public interface IView
 	{
         event Action<User> LoggingEvent;
-		
-		void ShowMessage(bool success, string message);
+        void ClearTextBoxes();
+        void hideLoggingWindow();
+        void ShowMessage(bool success, string message);
         IRegisterView IVievRegister { get; }
         IForm1View IVievForm { get; }
 	}

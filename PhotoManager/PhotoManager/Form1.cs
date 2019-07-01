@@ -17,28 +17,33 @@ namespace PhotoManager
 {
     public partial class Form1 : Form, IForm1View
     {
-		private List<String> fileNames = new List<string>();
+        #region Fields
+        private List<String> fileNames = new List<string>();
 		private Size screenSize;
 		private int X;
 		private int Y;
         private static Form1 instance = null;
 		private List<Album> albums;
+        #endregion Fields
 
+        #region Events
         public event Action<string, Photo> AddPhotoEvent;
 		public event Func<List<Album>> GetAlbums;
+        #endregion Events
 
-		private Form1()
+        #region Constructors
+        private Form1()
         {
             InitializeComponent();
             this.screenSize = Screen.FromControl(this).Bounds.Size;
             X = screenSize.Width - 100;
             Y = screenSize.Height - 100;
             this.imgListView.Size = new Size(X, Y);
-
-            //Test();
         }
+        #endregion Constructors
 
-		public static Form1 InstanceForm1
+        #region Properties
+        public static Form1 InstanceForm1
         {
             get
             {
@@ -55,18 +60,9 @@ namespace PhotoManager
                 return AddAlbum.AddAlbumInstance;
             }
         }
+        #endregion Properties
 
-        /*public Form1()
-{
-   InitializeComponent();
-   this.screenSize = Screen.FromControl(this).Bounds.Size;
-   X = screenSize.Width - 100;
-   Y = screenSize.Height - 100;
-   this.imgListView.Size = new Size(X, Y);
-
-   //Test();
-}*/
-
+        #region MenuMethods
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			using (OpenFileDialog ofd = new OpenFileDialog() { Multiselect = true,
@@ -89,30 +85,32 @@ namespace PhotoManager
 			}
 		}
 
-		private void imgListView_ItemActivate(object sender, EventArgs e)
-		{
-            Console.WriteLine("powiększenie");
-            //powiększenie miniaturki
-            if (imgListView.FocusedItem != null)
-			{
-				using (imgViewer iv = new imgViewer())
-				{
-					Image img = Image.FromFile(fileNames[imgListView.FocusedItem.Index]);
-					iv.ImgBox = img;
-					iv.ShowDialog();
-                    Console.WriteLine("pomniejszenie");
-                    //zamknięcie miniaturki
-				}
-			}
-		}
-
-
-        private void AddAlbumButton_Click(object sender, EventArgs e)
+        private void createNewAlbumToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddAlbum.AddAlbumInstance.ShowDialog();
         }
-		
-		private void Form1_Load(object sender, EventArgs e)
+
+        #endregion MenuMethods
+
+        #region OtherMethods
+
+        private void imgListView_ItemActivate(object sender, EventArgs e)
+        {
+            Console.WriteLine("powiększenie");
+            //powiększenie miniaturki
+            if (imgListView.FocusedItem != null)
+            {
+                using (imgViewer iv = new imgViewer())
+                {
+                    Image img = Image.FromFile(fileNames[imgListView.FocusedItem.Index]);
+                    iv.ImgBox = img;
+                    iv.ShowDialog();
+                    Console.WriteLine("pomniejszenie");
+                    //zamknięcie miniaturki
+                }
+            }
+        }
+        private void Form1_Load(object sender, EventArgs e)
 		{
 			albums = new List<Album>();
 			
@@ -124,5 +122,7 @@ namespace PhotoManager
 				albumsComboBox.Items.Add(item.Name);
 			}
 		}
-	}
+        #endregion OtherMethods
+
+    }
 }

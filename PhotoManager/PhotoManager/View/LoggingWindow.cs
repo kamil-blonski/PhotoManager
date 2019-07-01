@@ -15,7 +15,8 @@ namespace PhotoManager
 	{
 		private static LoggingWindow obj;
 
-		public IRegisterView IVievRegister
+        #region Properties
+        public IRegisterView IVievRegister
 		{
 			get
 			{
@@ -30,17 +31,18 @@ namespace PhotoManager
                 return Form1.InstanceForm1;
             }
         }
-
+        #endregion Properties
         private LoggingWindow()
 		{
 			InitializeComponent();
 
 		}
 
-        // implement interface
-        //public event Action<string, string> LoggingEvent;
+        #region Events
         public event Action<User> LoggingEvent;
-        
+        #endregion Events
+
+        #region Methods
         public void ShowMessage(bool success, string message)
 		{
 			MessageBox.Show(message, success ? "Message" : "Error", MessageBoxButtons.OK);
@@ -54,20 +56,10 @@ namespace PhotoManager
 			return obj;
 		}
 
-		public static void hideLoggingWindow()
+		public void hideLoggingWindow()
 		{
 				obj.Hide();
 		}
-
-
-        //public string TBUserName
-        //{
-        //    set { loginTextBox.Text = value; }
-        //}
-        //public string TBPassword
-        //{
-        //    set { passwordTextBox.Text = value; }
-        //}
 
 		private void logInButton_Click(object sender, EventArgs e)
 		{
@@ -76,18 +68,22 @@ namespace PhotoManager
                 ShowMessage(false, "Login fields can not be empty.");
                 return;
             }
-            /*if (LoggingEvent != null)
-                LoggingEvent(loginTextBox.Text, passwordTextBox.Text);*/
 
             if (LoggingEvent != null)
                 LoggingEvent(new User(loginTextBox.Text, passwordTextBox.Text));
         }
 
 		private void registerButton_Click(object sender, EventArgs e)
-		{
-            //this.Visible = false;
-           
+		{     
             Register.RegisterInstance.Show();
 		}
-	}
+
+        public void ClearTextBoxes()
+        {
+            loginTextBox.Text = string.Empty;
+            passwordTextBox.Text = string.Empty;
+        }
+
+        #endregion Methods
+    }
 }

@@ -78,6 +78,7 @@
             // 
             // TypeComboBox
             // 
+            this.TypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TypeComboBox.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.TypeComboBox.FormattingEnabled = true;
             this.TypeComboBox.Location = new System.Drawing.Point(83, 70);

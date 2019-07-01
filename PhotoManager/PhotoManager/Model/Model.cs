@@ -55,13 +55,15 @@ namespace PhotoManager.Model
             {
                 CurrentUser = user; //żeby była referencja do obiektu aktualnie zalogowanego uzytkownika w modelu
                 GetUserID(CurrentUser);
-                LoggingWindow.hideLoggingWindow();
-                Form1.InstanceForm1.ShowDialog();
-
                 return true;
             }
             else
                 return false;
+        }
+
+        public void LoadForm1Instance()
+        {
+            Form1.InstanceForm1.ShowDialog();
         }
 
         private void GetUserID(User user)
@@ -197,7 +199,7 @@ namespace PhotoManager.Model
 			dbCon.DatabaseName = "photomanager";
 			if (dbCon.IsConnect())
 			{
-				string passQuery = "select name from albums";
+                string passQuery = "select a.id, a.name from albums a join creation c on a.id = c.id_a where c.id_u = \"" + CurrentUser.ID + "\";";
 
 				if (dbCon.Connection.State != ConnectionState.Open)
 				{
@@ -208,12 +210,13 @@ namespace PhotoManager.Model
 				var reader = cmd.ExecuteReader();
 				while (reader.Read())
 				{
-					albums.Add(new Album(reader.GetString(0)));
+					albums.Add(new Album(int.Parse(reader.GetString(0)), reader.GetString(1)));
 					//passwdFromDatabase = reader.GetString(0);
 				}
 				dbCon.Close();
 			}
-
+            foreach (Album xd in albums)
+                Console.WriteLine(xd.ID);
 			return albums;
 		}
 

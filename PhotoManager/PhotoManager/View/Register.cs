@@ -21,6 +21,16 @@ namespace PhotoManager
             this.CenterToScreen();
         }
 
+        public static Register RegisterInstance
+        {
+            get
+            {
+                if (registerInstance == null)
+                    registerInstance = new Register();
+                return registerInstance;
+            }
+        }
+
         #region Fields
         private bool nameCorrect = false;
         private bool surnameCorrect = false;
@@ -29,7 +39,9 @@ namespace PhotoManager
         private bool passwordCorrect = false;
         #endregion Fields;
 
-        #region Properties
+        //być może niepotrzebne, ale nie usuwam jeszcze bo sie mogą przydac później
+        #region Properties 
+
         public string TBName
         {
             set { tbName.Text = value; }
@@ -56,23 +68,7 @@ namespace PhotoManager
         public event Action<User> CreateAccountEvent;
         #endregion Events
 
-        public static Register RegisterInstance
-        {
-            get
-            {
-                if (registerInstance == null)
-                    registerInstance = new Register();
-                return registerInstance;
-            }
-        }
 
-        public void ShowMessage(bool success, string message)
-        {
-            MessageBox.Show(message, success ? "Message" : "Error", MessageBoxButtons.OK);
-        }
-
-        //Function used to data validation. AFTER posotive evaluation, data go throught presenter to model.
-        //spacja w wyrażeniu regularnym a nie przy pomocy Contains
         #region Validation
 
         private bool IsEmpty(string tb)
@@ -182,16 +178,15 @@ namespace PhotoManager
             
             passwordCorrect = true;
         }
-        
+
         #endregion Validation
 
-        private void bGoBack_Click(object sender, EventArgs e)
+        #region Methods
+        public void ShowMessage(bool success, string message)
         {
-            //pojawienie się z powrotem kokna logowania
-
+            MessageBox.Show(message, success ? "Message" : "Error", MessageBoxButtons.OK);
         }
-
-		private void bCreateAccount_Click(object sender, EventArgs e)
+        private void bCreateAccount_Click(object sender, EventArgs e)
 		{
             if (nameCorrect && surnameCorrect && emailCorrect && loginCorrect && passwordCorrect)
             {
@@ -221,9 +216,20 @@ namespace PhotoManager
                 ShowMessage(false, "You must correctly innput all data. Check your input with red dots.");
             }
 
-
+            
         }
 
-	
-	}
+        public void ClearTextBoxes()
+        {
+            Console.WriteLine("Czyszcze TB");
+            tbName.Text = string.Empty;
+            tbSurname.Text = string.Empty;
+            tbEmail.Text = string.Empty;
+            tbLogin.Text = string.Empty;
+            tbPassword.Text = string.Empty;
+        }
+        #endregion Methods
+
+
+    }
 }

@@ -13,7 +13,7 @@ namespace PhotoManager
         private MySqlConnection connection = null;
         private static Database _instance = null;
 
-        private Database() { Console.WriteLine("Kontruktor domyślny Database"); }
+        private Database() {  }
 
         private string databaseName = string.Empty;
         public string DatabaseName

@@ -15,5 +15,6 @@ namespace PhotoManager
         string TBUserName { set; }
         string TBPassword { set; }
         void ShowMessage(bool success, string message);
+        void ClearTextBoxes();
     }
 }

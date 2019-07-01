@@ -29,8 +29,9 @@ namespace PhotoManager.Model
 
         }
 
-		public Album(string name)
+		public Album(int id, string name)
 		{
+            this.id = id;
 			this.name = name;
 		}
 

@@ -75,7 +75,10 @@ namespace PhotoManager
 
         private void AddAlbumEvent(Album album)
         {
-            model.AddAlbum(album);
+            if (model.AddAlbum(album))
+                view.IVievForm.IAddAlbumView.ShowMessage(true, "Album created successfully.");
+            else
+                view.IVievForm.IAddAlbumView.ShowMessage(false, "Error during creating an album.");
         }
 	}
 }

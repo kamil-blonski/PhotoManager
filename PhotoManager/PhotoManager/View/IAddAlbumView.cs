@@ -10,6 +10,6 @@ namespace PhotoManager
 	public interface IAddAlbumView
 	{
         event Action<Album> AddAlbumEvent;
-        string Test { get; }
+        void ShowMessage(bool success, string message);
 	}
 }

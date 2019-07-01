@@ -13,7 +13,6 @@ namespace PhotoManager.View
 {
     public partial class AddAlbum : Form, IAddAlbumView
     {
-        public string test = " XD";
  
            
 
@@ -40,13 +39,23 @@ namespace PhotoManager.View
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            if (AddAlbumEvent != null)
-                AddAlbumEvent(new Album(NameTextBox.Text, TypeComboBox.SelectedItem.ToString(), DescriptionRTextBox.Text, DateTime.Now));
+            if (!(string.IsNullOrEmpty(NameTextBox.Text.Trim()) || string.IsNullOrEmpty(DescriptionRTextBox.Text.Trim())))
+            {
+                if (AddAlbumEvent != null)
+                {
+                    AddAlbumEvent(new Album(NameTextBox.Text, TypeComboBox.SelectedItem.ToString(), DescriptionRTextBox.Text, DateTime.Now));
+                }
+            }
+            else
+            {
+                ShowMessage(false, "Name of album and description required.");
+            }
+   
         }
 
-        public string Test
+        public void ShowMessage(bool success, string message)
         {
-            get { return test; }
+            MessageBox.Show(message, success ? "Message" : "Error", MessageBoxButtons.OK);
         }
     }
 }

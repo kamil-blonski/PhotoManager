@@ -409,7 +409,7 @@ namespace PhotoManager.Model
 				dbPhotos = new List<Photo>();
 
 				//daj blobiki
-				string query = "select pictureB from photos;";
+				string query = "select name, pictureB from photos;";
 				if (dbCon.Connection.State != System.Data.ConnectionState.Open)
 				{
 					dbCon.Connection.Open();
@@ -419,7 +419,7 @@ namespace PhotoManager.Model
 				var reader = cmd.ExecuteReader();
 				while (reader.Read())
 				{
-					dbPhotos.Add(new Photo(Photo.DecodePhoto(reader.GetString(0))));
+					dbPhotos.Add(new Photo(reader.GetString(0), Photo.DecodePhoto(reader.GetString(1))));
 				}
 				dbCon.Close();
 			}

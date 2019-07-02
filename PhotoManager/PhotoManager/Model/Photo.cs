@@ -22,12 +22,14 @@ namespace PhotoManager.Model
 		private ImageFormat format;
 		private double photoSize;
 		private Image img;
+        private string photoB;
 		#endregion Fields
 
 		#region Constructors
 
-		public Photo(Image img)
+		public Photo(string name, Image img)
 		{
+            this.name = name;
 			this.img = img;
 		}
 
@@ -91,12 +93,31 @@ namespace PhotoManager.Model
             return hex;
         }
 
-		public static Image DecodePhoto(string hexString)
+        public static byte[] ToByteArray(String HexString)
+        {
+            
+            int NumberChars = HexString.Length;
+
+            byte[] bytes = new byte[NumberChars / 2];
+
+            for (int i = 0; i < NumberChars; i += 2)
+            {
+                bytes[i / 2] = Convert.ToByte(HexString.Substring(i, 2), 16);
+            }
+            return bytes;
+        }
+
+        public static Image DecodePhoto(string hexString)
 		{
-			int bytesCount = (hexString.Length) / 2;
+            byte[] bytes = ToByteArray(hexString);
+            MemoryStream ms = new MemoryStream(bytes);
+            //Console.WriteLine("@@ rozmiar " + Bitmap.FromStream(ms).Size.Width);
+            return Image.FromStream(ms);
+            /*int bytesCount = (hexString.Length) / 2;
 			byte[] bytes = new byte[bytesCount];
 			for (int x = 0; x < bytesCount; ++x)
 			{
+                
 				bytes[x] = Convert.ToByte(hexString.Substring(x * 2, 2), 16);
 			}
 
@@ -104,8 +125,9 @@ namespace PhotoManager.Model
 			using (var ms = new MemoryStream(bytes))
 			{
 				return Image.FromStream(ms);
-			}
+			}*/
 		}
+
 
         #endregion Methods
     }

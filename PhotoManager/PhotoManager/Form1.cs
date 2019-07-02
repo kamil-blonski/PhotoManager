@@ -25,13 +25,14 @@ namespace PhotoManager
         private static Form1 instance = null;
 		private List<Album> albums;
 		private List<Photo> images; //from db
+        private List<Image> KURWA;
         #endregion Fields
 
         #region Events
         public event Action<string, Photo, Album> AddPhotoEvent;
 		public event Func<List<Album>> GetAlbums;
 		public event Func<List<Photo>> GetPhotosFromDB;
-		// public event Action<Album> RefreshAlbumList;
+       
 		#endregion Events
 
 		#region Constructors
@@ -73,20 +74,17 @@ namespace PhotoManager
 			{
 				if(ofd.ShowDialog() == DialogResult.OK)
 				{
-					// po co po co po co te 2 linijki :)
-					//fileNames.Clear();
-					//imgListView.Items.Clear(); //czyszczenie listy obrazków
+                    int i = 0;
 					if(albumsComboBox.SelectedItem != null)
 					{
 						foreach (string fileName in ofd.FileNames)
 						{
 							FileInfo fi = new FileInfo(fileName);
 							fileNames.Add(fi.FullName);
-							imgListView.Items.Add(fi.Name, 0);//dodanie obrazka do listy
 
+                            i++;
 							if (AddPhotoEvent != null)
-							{ //int? id, string name, DateTime creationDate, ImageFormat format, Size photoSize
-
+							{ 
 								AddPhotoEvent(fi.FullName, new Photo(null, fi.Name, fi.CreationTime, ImageFormat.Jpeg, fi.Length), albums[albumsComboBox.SelectedIndex]); //albums bo albumsComboBox zawierajątylko NAME 
 							}
 						}
@@ -115,17 +113,14 @@ namespace PhotoManager
         }
         private void imgListView_ItemActivate(object sender, EventArgs e)
         {
-            Console.WriteLine("powiększenie");
-            //powiększenie miniaturki
             if (imgListView.FocusedItem != null)
             {
                 using (imgViewer iv = new imgViewer())
                 {
-                    Image img = Image.FromFile(fileNames[imgListView.FocusedItem.Index]);
-                    iv.ImgBox = img;
+
+                    Image img2 = KURWA[imgListView.FocusedItem.Index];
+                    iv.ImgBox = img2;
                     iv.ShowDialog();
-                    Console.WriteLine("pomniejszenie");
-                    //zamknięcie miniaturki
                 }
             }
         }
@@ -133,7 +128,7 @@ namespace PhotoManager
 		{
             Console.WriteLine("Pobieram albumy");
 			albums = new List<Album>();
-			
+            KURWA = new List<Image>();
 			albums = GetAlbums();
 			
 			albumsComboBox.Items.Clear();
@@ -144,17 +139,19 @@ namespace PhotoManager
             if(albumsComboBox.Items.Count > 1)
                 albumsComboBox.SelectedItem = albumsComboBox.Items[0];
 
-			Console.WriteLine("Pobieram zdjęcia z bazy");
-			//dla aktualnego albumu
-
-			if (albumsComboBox.SelectedItem != null)
+            //zdjęcia z DB
+            if (albumsComboBox.SelectedItem != null)
 			{
 				images = GetPhotosFromDB();
+                int i = 0;
 				foreach (Photo p in images)
 				{
-					imgList.Images.Add(p.Image);
-					//imageList1.Images.Add(p.Image);
-				}
+                    Console.WriteLine("KURWA:" + p.Name  + " | " +  p.Image.Size.Width);
+					imageListMin.Images.Add(p.Image);
+                    KURWA.Add(p.Image);
+                    imgListView.Items.Add(p.Name, i);
+                    i++;
+                }
 			}
 			else
 			{

@@ -25,7 +25,7 @@ namespace PhotoManager
 
 		private List<Album> GetAlbums()
 		{
-			return model.GetAlbums();
+           return model.GetAlbums();
 		}
 
         private void LoggingEvent(User user)

@@ -72,16 +72,17 @@ namespace PhotoManager
 				if(ofd.ShowDialog() == DialogResult.OK)
 				{
 					fileNames.Clear();
-					imgListView.Items.Clear();
+					imgListView.Items.Clear(); //czyszczenie listy obrazków
 					foreach(string fileName in ofd.FileNames)
 					{
 						FileInfo fi = new FileInfo(fileName);
 						fileNames.Add(fi.FullName);
-						imgListView.Items.Add(fi.Name, 0);
+						imgListView.Items.Add(fi.Name, 0);//dodanie obrazka do listy
 
                         if (AddPhotoEvent != null)
-                        {
-                            AddPhotoEvent(fi.FullName, new Photo(null, fi.Name, fi.CreationTime, "OPIS", fi.Extension, imgListView.Size));
+                        { //int? id, string name, DateTime creationDate, ImageFormat format, Size photoSize
+
+                            AddPhotoEvent(fi.FullName, new Photo(null, fi.Name, fi.CreationTime, ImageFormat.Jpeg,  fi.Length));
                         }
 					}
 				}
@@ -115,6 +116,7 @@ namespace PhotoManager
         }
         private void Form1_Load(object sender, EventArgs e)
 		{
+            Console.WriteLine("Pobieram albumy");
 			albums = new List<Album>();
 			
 			albums = GetAlbums();
@@ -133,5 +135,14 @@ namespace PhotoManager
 
         #endregion OtherMethods
 
+        private void albumsComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void albumsComboBox_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

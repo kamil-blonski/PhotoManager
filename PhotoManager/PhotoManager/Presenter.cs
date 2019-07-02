@@ -46,7 +46,8 @@ namespace PhotoManager
             }
             catch (Exception exc)
             {
-                view.ShowMessage(false, exc.Message);
+                Console.WriteLine("TU EXCEPTION>>");
+                view.ShowMessage(false, exc.ToString());
             }
         }
 

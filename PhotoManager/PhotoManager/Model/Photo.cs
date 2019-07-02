@@ -15,37 +15,25 @@ namespace PhotoManager.Model
 {
 	public class Photo
 	{
-		private int? id;
+        #region Fields
+        private int? id;
 		private string name;
 		private DateTime creationDate;
-		private string description;
 		private ImageFormat format;
-		private Size photoSize;
-        private string formatS;
-		//private string path;
+        private double photoSize;
+        #endregion Fields
 
-
-		public Photo(int? id, string name, DateTime creationDate,
-			string description, ImageFormat format, Size photoSize)
+        #region Constructors
+        public Photo(int? id, string name, DateTime creationDate,
+		 ImageFormat format, double photoSize)
 		{
 			this.id = id;
 			this.name = name;
-			this.description = description;
 			this.format = format;
 			this.photoSize = photoSize;
 			this.creationDate = creationDate;
 		}
-
-        public Photo(int? id, string name, DateTime creationDate,
-    string description, string format, Size photoSize)
-        {
-            this.id = id;
-            this.name = name;
-            this.description = description;
-            this.formatS = format;
-            this.photoSize = photoSize;
-            this.creationDate = creationDate;
-        }
+        #endregion Constructors
 
         #region Properties
         public string Name
@@ -58,17 +46,12 @@ namespace PhotoManager.Model
             set { creationDate = value; }
             get { return creationDate; }
         }
-        public string Description
+        public ImageFormat Format
         {
-            set { description = value; }
-            get { return description; }
+            set { format = value; }
+            get { return format; }
         }
-        public string Format
-        {
-            set { formatS = value; }
-            get { return formatS; }
-        }
-        public Size PhotoSize
+        public double PhotoSize
         {
             set { photoSize = value; }
             get { return photoSize; }
@@ -76,12 +59,7 @@ namespace PhotoManager.Model
 
         #endregion Properties
 
-
-        /*public void EncodePhoto()
-		{
-			
-		}*/
-
+        #region Methods
         public string EncodePhoto(string path)
         {
             FileStream fStream = new FileStream(path, FileMode.Open, FileAccess.Read);
@@ -98,5 +76,7 @@ namespace PhotoManager.Model
 		{
             return "";
 		}
-	}
+
+        #endregion Methods
+    }
 }

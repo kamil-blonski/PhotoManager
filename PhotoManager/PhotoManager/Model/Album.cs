@@ -11,7 +11,7 @@ namespace PhotoManager.Model
         #region Fields
         private List<Photo> photos;
 		private List<User> owners;
-        private int id;
+        private int? id;
         private string name;
 		private string description;
         private string selectedType;
@@ -24,24 +24,16 @@ namespace PhotoManager.Model
         #endregion Fields
 
         #region Constructors
-        public Album()
+
+        public Album(int? id, string name, DateTime currentDate, string description, string selectedType)
         {
-
-        }
-
-		public Album(int id, string name)
-		{
             this.id = id;
-			this.name = name;
-		}
-
-        public Album(string name, string selectedType, string description, DateTime currentDate)
-        {
             this.name = name;
             this.selectedType = selectedType;
             this.description = description;
             this.creationDate = currentDate;
         }
+
 		public Album(string name, string desc, DateTime dt)
 		{
 			photos = new List<Photo>();
@@ -53,7 +45,7 @@ namespace PhotoManager.Model
         #endregion Constructors
 
         #region Properties
-        public int ID
+        public int? ID
         {
             get { return id; }
             set { id = value; }

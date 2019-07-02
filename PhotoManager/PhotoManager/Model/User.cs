@@ -9,8 +9,8 @@ namespace PhotoManager
 	public class User
 	{
         #region Fields
-        private int id_;
-        private object id = null;
+        //private int id_;
+        private int? id = null;
 		private string name;
 		private string surname;
 		private string login;
@@ -20,16 +20,13 @@ namespace PhotoManager
         #endregion Fields
 
         #region Constructors
-        public User()
-		{
 
-		}
         public User(string login, string password)
         {
             this.login = login;
             this.password = password;
         }
-		public User(object id, string name, string surname,
+		public User(int? id, string name, string surname,
 			string login, string password, string email)
 		{
 			this.id = id;
@@ -38,16 +35,16 @@ namespace PhotoManager
 			this.login = login;
 			this.password = password;
 			this.email = email;
-			this.albums = new List<Model.Album>();
+			this.albums = new List<Album>();
 		}
 
         #endregion Constructors
 
         #region Properties
-        public int ID
+        public int? ID
         {
-            get { return id_; }
-            set { this.id_ = value; }
+            get { return id; }
+            set { this.id = value; }
         }
         public string Name
 		{
@@ -78,12 +75,26 @@ namespace PhotoManager
 			get { return login; }
 			set { this.login = value; }
 		}
+
+        public List<Album> Albums
+        {
+            get { return albums; }
+        }
+
         #endregion Properties
 
         #region Methods
-        public void addAlbum(Model.Album album)
+        public void addAlbum(Album album)
 		{
-			albums.Add(album);
+            try
+            {
+                albums.Add(album);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("BŁĄD" + e);
+            }
+			
 		}
 
         #endregion Methods

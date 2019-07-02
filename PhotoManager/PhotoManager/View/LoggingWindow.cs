@@ -70,12 +70,15 @@ namespace PhotoManager
             }
 
             if (LoggingEvent != null)
+            {
+                Console.WriteLine("Tworzenie usera");
                 LoggingEvent(new User(loginTextBox.Text, passwordTextBox.Text));
+            }
         }
 
 		private void registerButton_Click(object sender, EventArgs e)
 		{     
-            Register.RegisterInstance.Show();
+            Register.RegisterInstance.ShowDialog();
 		}
 
         public void ClearTextBoxes()

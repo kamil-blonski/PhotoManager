@@ -41,7 +41,7 @@ namespace PhotoManager.View
             {
                 if (AddAlbumEvent != null)
                 {
-                    AddAlbumEvent(new Album(NameTextBox.Text, TypeComboBox.SelectedItem.ToString(), DescriptionRTextBox.Text, DateTime.Now));
+                    AddAlbumEvent(new Album(null, NameTextBox.Text, DateTime.Now, DescriptionRTextBox.Text, TypeComboBox.SelectedItem.ToString()));
                     if (RefreshAlbumListInForm1Event != null)
                         RefreshAlbumListInForm1Event();
                 }

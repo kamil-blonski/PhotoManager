@@ -39,6 +39,7 @@ namespace PhotoManager
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createNewAlbumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.albumsComboBox = new System.Windows.Forms.ComboBox();
+            this.SelectAlbumLabel = new System.Windows.Forms.Label();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -105,12 +106,24 @@ namespace PhotoManager
             this.albumsComboBox.Name = "albumsComboBox";
             this.albumsComboBox.Size = new System.Drawing.Size(160, 24);
             this.albumsComboBox.TabIndex = 3;
+            this.albumsComboBox.SelectedIndexChanged += new System.EventHandler(this.albumsComboBox_SelectedIndexChanged);
+            this.albumsComboBox.Click += new System.EventHandler(this.albumsComboBox_Click);
+            // 
+            // SelectAlbumLabel
+            // 
+            this.SelectAlbumLabel.AutoSize = true;
+            this.SelectAlbumLabel.Location = new System.Drawing.Point(512, 16);
+            this.SelectAlbumLabel.Name = "SelectAlbumLabel";
+            this.SelectAlbumLabel.Size = new System.Drawing.Size(93, 17);
+            this.SelectAlbumLabel.TabIndex = 4;
+            this.SelectAlbumLabel.Text = "Select album:";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(789, 338);
+            this.Controls.Add(this.SelectAlbumLabel);
             this.Controls.Add(this.albumsComboBox);
             this.Controls.Add(this.imgListView);
             this.Controls.Add(this.menuStrip);
@@ -139,6 +152,7 @@ namespace PhotoManager
 		private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
 		private System.Windows.Forms.ComboBox albumsComboBox;
         private System.Windows.Forms.ToolStripMenuItem createNewAlbumToolStripMenuItem;
+        private System.Windows.Forms.Label SelectAlbumLabel;
     }
 }
 

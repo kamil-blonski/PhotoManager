@@ -53,27 +53,20 @@ namespace PhotoManager.Model
             }
             if (passwdFromDatabase != null && SHA1Hash(user.Password) == passwdFromDatabase)
             {
-                CurrentUser = user; //żeby była referencja do obiektu aktualnie zalogowanego uzytkownika w modelu
-                GetUserID(CurrentUser);
+                CurrentUser = CurrentUserFullData(user); //żeby była referencja do obiektu aktualnie zalogowanego uzytkownika w modelu
                 return true;
             }
             else
                 return false;
         }
 
-        public void LoadForm1Instance()
+        private User CurrentUserFullData(User user)
         {
-            Form1.InstanceForm1.ShowDialog();
-        }
-
-        private void GetUserID(User user)
-        {
-            int id = 0;
             var dbCon = Database.Instance();
             dbCon.DatabaseName = "photomanager";
             if (dbCon.IsConnect())
             {
-                string passQuery = "select id from users where login = \"" + user.Login + "\";";
+                string passQuery = "select * from users where login = \"" + user.Login + "\"";
 
                 if (dbCon.Connection.State != ConnectionState.Open)
                 {
@@ -83,15 +76,19 @@ namespace PhotoManager.Model
 
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
-                {
-                    id = int.Parse(reader.GetString(0));
+                { 
+                    user = new User(int.Parse(reader.GetString(0)), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5));
                 }
-                dbCon.Close();
+                dbCon.Close();              
             }
-            if (id == 0)
-                MessageBox.Show("Błąd");
-            CurrentUser.ID = id;
+            return user;
         }
+
+        public void LoadForm1Instance()
+        {
+            Form1.InstanceForm1.ShowDialog();
+        }
+
         #endregion Login
 
         #region Register
@@ -192,38 +189,31 @@ namespace PhotoManager.Model
 		// załadowanie albumów do comboBoxa z bazy
 		public List<Album> GetAlbums()
 		{
-			albums = new List<Album>();
-
 			var dbCon = Database.Instance();
-			//string passwdFromDatabase = null;
 			dbCon.DatabaseName = "photomanager";
 			if (dbCon.IsConnect())
 			{
-                string passQuery = "select a.id, a.name from albums a join creation c on a.id = c.id_a where c.id_u = \"" + CurrentUser.ID + "\";";
+                string passQuery = "select a.id, a.name, a.creationdate, a.description, a.type from albums a join creation c on a.id = c.id_a where c.id_u = \"" + CurrentUser.ID + "\";";
 
-				if (dbCon.Connection.State != ConnectionState.Open)
+                if (dbCon.Connection.State != ConnectionState.Open)
 				{
 					dbCon.Connection.Open();
 				}
 				var cmd = new MySqlCommand(passQuery, dbCon.Connection);
 
 				var reader = cmd.ExecuteReader();
-				while (reader.Read())
+
+                while (reader.Read())
 				{
-					albums.Add(new Album(int.Parse(reader.GetString(0)), reader.GetString(1)));
-					//passwdFromDatabase = reader.GetString(0);
+                    CurrentUser.addAlbum((new Album(int.Parse(reader.GetString(0)), reader.GetString(1), DateTime.Parse(reader.GetString(2)), reader.GetString(3), reader.GetString(4))));
 				}
 				dbCon.Close();
 			}
-            foreach (Album xd in albums)
-                Console.WriteLine(xd.ID);
-			return albums;
+			return CurrentUser.Albums;
 		}
 
         public bool AddAlbum(Album album)
         {
-            string typeOfAlbum;
-            //Console.WriteLine(album.Name + " | " + album.Description + " | " + album.SelectedType+ " | " + album.CreationDate.ToString());
             try
             {
                 var dbCon = Database.Instance();
@@ -251,9 +241,7 @@ namespace PhotoManager.Model
                                 else
                                 {
                                     CurrentAlbum = album;
-                                    GetAlbumID();
-                                    //Console.WriteLine("ALBUM: " + CurrentUser.ID + " | " + CurrentAlbum.ID);
-                                    // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                    GetAlbumID(); //wszystkie dane o albumie są oprócz ID, więc je pobieram
                                     AddCreation(CurrentUser, CurrentAlbum);
                                     return true;
                                 }
@@ -277,11 +265,11 @@ namespace PhotoManager.Model
 
         public Album NewAlbumListElement()
         {
-            albums.Add(CurrentAlbum);
+            CurrentUser.addAlbum(CurrentAlbum);
             return CurrentAlbum;
         }
     
-        private void GetAlbumID()
+        private void GetAlbumID()//pobranie ID dodanego właśnie albumu
         {
             int id = 0;
             var dbCon = Database.Instance();
@@ -322,12 +310,11 @@ namespace PhotoManager.Model
                     {
                         using (MySqlCommand command = dbCon.Connection.CreateCommand())
                         {
-                            command.CommandText = "insert into photos values(@id,@name,@creationdate,@description,@format,@size,@pictureB);";
+                            command.CommandText = "insert into photos values(@id,@name,@creationdate,@format,@size,@pictureB);";
                             command.Parameters.AddWithValue("@id", null);
                             command.Parameters.AddWithValue("@name", photo.Name);
                             command.Parameters.AddWithValue("@creationdate", photo.CreationDate);
-                            command.Parameters.AddWithValue("@description", photo.Description);
-                            command.Parameters.AddWithValue("@format", photo.Format);
+                            command.Parameters.AddWithValue("@format", photo.Format.ToString());
                             command.Parameters.AddWithValue("@size", photo.PhotoSize);
                             command.Parameters.AddWithValue("@pictureB", photo.EncodePhoto(path));
                             dbCon.Connection.Open();

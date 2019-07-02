@@ -19,7 +19,6 @@ namespace PhotoManager.Model
         private User CurrentUser;
         private Album CurrentAlbum;
         private Photo CurrentPhoto;
-		private List<Photo> dbPhotos;
 		#endregion Fields
 
 		#region Propetries
@@ -174,10 +173,8 @@ namespace PhotoManager.Model
                                 MessageBox.Show(exc.ToString(), "Problem podczas dodawania albumu.");
                             }
                         }
-                    }
-                    
+                    }                   
                 }
-
             }
             catch (Exception ex)
             {
@@ -208,7 +205,7 @@ namespace PhotoManager.Model
                     CurrentUser.addAlbum((new Album(int.Parse(reader.GetString(0)), reader.GetString(1), DateTime.Parse(reader.GetString(2)), reader.GetString(3), reader.GetString(4))));
 				}
 				dbCon.Close();
-                CurrentAlbum = CurrentUser.Albums[0]; //domyślnie załadowany album to zawsze pierwszy, to trzeba poprawić
+                CurrentAlbum = CurrentUser.Albums[0]; //domyślnie załadowany album to zawsze pierwszy, to trzeba USUNC
 			}
 			return CurrentUser.Albums;
 		}
@@ -408,10 +405,8 @@ namespace PhotoManager.Model
 			dbCon.DatabaseName = "photomanager";
 			if (dbCon.IsConnect())
 			{
-				//dbPhotos = new List<Photo>();
-
 				//daj blobiki
-				string query = "select * from photos;";
+				string query = "select  * from photos;";
 				if (dbCon.Connection.State != System.Data.ConnectionState.Open)
 				{
 					dbCon.Connection.Open();

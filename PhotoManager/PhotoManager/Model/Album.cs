@@ -12,7 +12,6 @@ namespace PhotoManager.Model
 	{
 		#region Fields
 		private List<Photo> photos;
-		//private List<User> owners;
         private int? id;
         private string name;
 		private string description;

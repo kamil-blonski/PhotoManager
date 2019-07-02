@@ -22,7 +22,6 @@ namespace PhotoManager.Model
 		private ImageFormat format;
 		private double photoSize;
 		private Image image;
-        private string photoB;
         #endregion Fields
 
         #region Constructors

@@ -20,6 +20,7 @@ namespace PhotoManager
             this.view.IVievForm.IAddAlbumView.AddAlbumEvent += AddAlbumEvent;
 			this.view.IVievForm.GetAlbums += GetAlbums;
             this.view.IVievForm.IAddAlbumView.RefreshAlbumListInForm1Event += RefreshAlbumListInForm1Event;
+			this.view.IVievForm.GetPhotosFromDB += GetPhotosFromDB;
 		}
 
 		private List<Album> GetAlbums()
@@ -95,5 +96,12 @@ namespace PhotoManager
             this.view.IVievForm.AddNewAlbumToList(model.NewAlbumListElement());
         }
 
-    }
+		private List<Photo> GetPhotosFromDB()
+		{
+			return model.LoadPhotosToAlbum();
+		}
+
+
+
+	}
 }

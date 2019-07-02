@@ -17,13 +17,14 @@ namespace PhotoManager.Model
         private User CurrentUser;
         private Album CurrentAlbum;
         private Photo CurrentPhoto;
-        #endregion Fields
+		private List<Photo> dbPhotos;
+		#endregion Fields
 
-        #region Propetries
-        #endregion Properties
+		#region Propetries
+		#endregion Properties
 
-        #region Login
-        public bool checkPassword(User user)
+		#region Login
+		public bool checkPassword(User user)
         {
             var dbCon = Database.Instance();
             string passwdFromDatabase = null;
@@ -398,10 +399,39 @@ namespace PhotoManager.Model
             //To dopiero jak bede meić liste obiektów obiekt Album dla zalogowanego Usera, bo jest tam lista zdjęć. 
         }
 
-        #endregion Photos
 
-        #region Other
-        public string SHA1Hash(string s)
+		public List<Photo> LoadPhotosToAlbum()
+		{
+			var dbCon = Database.Instance();
+			dbCon.DatabaseName = "photomanager";
+			if (dbCon.IsConnect())
+			{
+				dbPhotos = new List<Photo>();
+
+				//daj blobiki
+				string query = "select pictureB from photos;";
+				if (dbCon.Connection.State != System.Data.ConnectionState.Open)
+				{
+					dbCon.Connection.Open();
+				}
+
+				var cmd = new MySqlCommand(query, dbCon.Connection);
+				var reader = cmd.ExecuteReader();
+				while (reader.Read())
+				{
+					dbPhotos.Add(new Photo(Photo.DecodePhoto(reader.GetString(0))));
+				}
+				dbCon.Close();
+			}
+
+
+			return dbPhotos;
+		}
+
+		#endregion Photos
+
+		#region Other
+		public string SHA1Hash(string s)
         {
             byte[] bytes = Encoding.UTF8.GetBytes(s);
             var sha1 = SHA1.Create();

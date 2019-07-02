@@ -15,16 +15,23 @@ namespace PhotoManager.Model
 {
 	public class Photo
 	{
-        #region Fields
-        private int? id;
+		#region Fields
+		private int? id;
 		private string name;
 		private DateTime creationDate;
 		private ImageFormat format;
-        private double photoSize;
-        #endregion Fields
+		private double photoSize;
+		private Image img;
+		#endregion Fields
 
-        #region Constructors
-        public Photo(int? id, string name, DateTime creationDate,
+		#region Constructors
+
+		public Photo(Image img)
+		{
+			this.img = img;
+		}
+
+		public Photo(int? id, string name, DateTime creationDate,
 		 ImageFormat format, double photoSize)
 		{
 			this.id = id;
@@ -33,9 +40,16 @@ namespace PhotoManager.Model
 			this.photoSize = photoSize;
 			this.creationDate = creationDate;
 		}
-        #endregion Constructors
+		#endregion Constructors
 
-        #region Properties
+		#region Properties
+
+		public Image Image
+		{
+			get { return this.img; }
+		}
+
+
         public int? ID
         {
             set { id = value; }
@@ -77,9 +91,20 @@ namespace PhotoManager.Model
             return hex;
         }
 
-		public string DecodePhoto()
+		public static Image DecodePhoto(string hexString)
 		{
-            return "";
+			int bytesCount = (hexString.Length) / 2;
+			byte[] bytes = new byte[bytesCount];
+			for (int x = 0; x < bytesCount; ++x)
+			{
+				bytes[x] = Convert.ToByte(hexString.Substring(x * 2, 2), 16);
+			}
+
+			//return bytes;
+			using (var ms = new MemoryStream(bytes))
+			{
+				return Image.FromStream(ms);
+			}
 		}
 
         #endregion Methods

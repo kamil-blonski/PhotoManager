@@ -86,7 +86,6 @@ namespace PhotoManager
 				return false;
 		}
 
-
 	}
 
 	

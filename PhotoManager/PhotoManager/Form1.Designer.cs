@@ -40,6 +40,7 @@ namespace PhotoManager
 			this.createNewAlbumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.albumsComboBox = new System.Windows.Forms.ComboBox();
 			this.SelectAlbumLabel = new System.Windows.Forms.Label();
+			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.menuStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -84,8 +85,8 @@ namespace PhotoManager
 			// openToolStripMenuItem
 			// 
 			this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-			this.openToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
-			this.openToolStripMenuItem.Text = "Open";
+			this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.openToolStripMenuItem.Text = "Add New Photos";
 			this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
 			// 
 			// createNewAlbumToolStripMenuItem
@@ -115,6 +116,12 @@ namespace PhotoManager
 			this.SelectAlbumLabel.Size = new System.Drawing.Size(71, 13);
 			this.SelectAlbumLabel.TabIndex = 4;
 			this.SelectAlbumLabel.Text = "Select album:";
+			// 
+			// imageList1
+			// 
+			this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+			this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
 			// 
 			// Form1
 			// 
@@ -151,6 +158,7 @@ namespace PhotoManager
 		private System.Windows.Forms.ComboBox albumsComboBox;
         private System.Windows.Forms.ToolStripMenuItem createNewAlbumToolStripMenuItem;
         private System.Windows.Forms.Label SelectAlbumLabel;
-    }
+		private System.Windows.Forms.ImageList imageList1;
+	}
 }
 

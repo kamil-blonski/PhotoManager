@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace PhotoManager.Model
 {
 	public class Album
 	{
-        #region Fields
-        private List<Photo> photos;
+		#region Fields
+		private List<Photo> photos;
 		private List<User> owners;
         private int? id;
         private string name;
@@ -74,18 +76,10 @@ namespace PhotoManager.Model
         {
             get { return creationDate; }
         }
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
-        public void addPhoto(Photo photo)
-		{
-			this.photos.Add(photo);
-		}
-
-		public void deletePhoto(Photo photo)
-		{
-			this.photos.Remove(photo);
-		}
-        #endregion Methods
-    }
+		#region Methods
+		
+		#endregion Methods
+	}
 }

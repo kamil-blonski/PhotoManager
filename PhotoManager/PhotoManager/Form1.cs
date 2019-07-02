@@ -24,16 +24,18 @@ namespace PhotoManager
 		private int Y;
         private static Form1 instance = null;
 		private List<Album> albums;
+		private List<Photo> images; //from db
         #endregion Fields
 
         #region Events
         public event Action<string, Photo, Album> AddPhotoEvent;
 		public event Func<List<Album>> GetAlbums;
-       // public event Action<Album> RefreshAlbumList;
-        #endregion Events
+		public event Func<List<Photo>> GetPhotosFromDB;
+		// public event Action<Album> RefreshAlbumList;
+		#endregion Events
 
-        #region Constructors
-        private Form1()
+		#region Constructors
+		private Form1()
         {
             InitializeComponent();
             this.screenSize = Screen.FromControl(this).Bounds.Size;
@@ -142,9 +144,25 @@ namespace PhotoManager
             if(albumsComboBox.Items.Count > 1)
                 albumsComboBox.SelectedItem = albumsComboBox.Items[0];
 
-        }
+			Console.WriteLine("Pobieram zdjęcia z bazy");
+			//dla aktualnego albumu
 
-        public void AddNewAlbumToList(Album album)
+			if (albumsComboBox.SelectedItem != null)
+			{
+				images = GetPhotosFromDB();
+				foreach (Photo p in images)
+				{
+					imgList.Images.Add(p.Image);
+					//imageList1.Images.Add(p.Image);
+				}
+			}
+			else
+			{
+				MessageBox.Show("Choose the album first!");
+			}
+		}
+
+		public void AddNewAlbumToList(Album album)
         {
             albumsComboBox.Items.Add(album.Name);
         }

@@ -71,20 +71,29 @@ namespace PhotoManager
 			{
 				if(ofd.ShowDialog() == DialogResult.OK)
 				{
-					fileNames.Clear();
-					imgListView.Items.Clear(); //czyszczenie listy obrazków
-					foreach(string fileName in ofd.FileNames)
+					// po co po co po co te 2 linijki :)
+					//fileNames.Clear();
+					//imgListView.Items.Clear(); //czyszczenie listy obrazków
+					if(albumsComboBox.SelectedItem != null)
 					{
-						FileInfo fi = new FileInfo(fileName);
-						fileNames.Add(fi.FullName);
-						imgListView.Items.Add(fi.Name, 0);//dodanie obrazka do listy
+						foreach (string fileName in ofd.FileNames)
+						{
+							FileInfo fi = new FileInfo(fileName);
+							fileNames.Add(fi.FullName);
+							imgListView.Items.Add(fi.Name, 0);//dodanie obrazka do listy
 
-                        if (AddPhotoEvent != null)
-                        { //int? id, string name, DateTime creationDate, ImageFormat format, Size photoSize
+							if (AddPhotoEvent != null)
+							{ //int? id, string name, DateTime creationDate, ImageFormat format, Size photoSize
 
-                            AddPhotoEvent(fi.FullName, new Photo(null, fi.Name, fi.CreationTime, ImageFormat.Jpeg,  fi.Length), albums[albumsComboBox.SelectedIndex]); //albums bo albumsComboBox zawierajątylko NAME 
-                        }
+								AddPhotoEvent(fi.FullName, new Photo(null, fi.Name, fi.CreationTime, ImageFormat.Jpeg, fi.Length), albums[albumsComboBox.SelectedIndex]); //albums bo albumsComboBox zawierajątylko NAME 
+							}
+						}
 					}
+					else
+					{
+						MessageBox.Show("Choose the album first!");
+					}
+					
 				}
 			}
 		}

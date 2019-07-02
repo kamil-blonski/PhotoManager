@@ -86,15 +86,7 @@ namespace PhotoManager
         #region Methods
         public void addAlbum(Album album)
 		{
-            try
-            {
-                albums.Add(album);
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine("BŁĄD" + e);
-            }
-			
+           albums.Add(album);
 		}
 
         #endregion Methods

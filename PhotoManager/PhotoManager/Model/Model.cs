@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.IO;
+using System.Drawing.Imaging;
+
 namespace PhotoManager.Model
 {
     class Model
@@ -206,6 +208,7 @@ namespace PhotoManager.Model
                     CurrentUser.addAlbum((new Album(int.Parse(reader.GetString(0)), reader.GetString(1), DateTime.Parse(reader.GetString(2)), reader.GetString(3), reader.GetString(4))));
 				}
 				dbCon.Close();
+                CurrentAlbum = CurrentUser.Albums[0]; //domyślnie załadowany album to zawsze pierwszy, to trzeba poprawić
 			}
 			return CurrentUser.Albums;
 		}
@@ -315,7 +318,7 @@ namespace PhotoManager.Model
                             command.Parameters.AddWithValue("@creationdate", photo.CreationDate);
                             command.Parameters.AddWithValue("@format", photo.Format.ToString());
                             command.Parameters.AddWithValue("@size", photo.PhotoSize);
-                            command.Parameters.AddWithValue("@pictureB", photo.EncodePhoto(path));
+                            command.Parameters.AddWithValue("@pictureB", Photo.EncodePhoto(path));
                             dbCon.Connection.Open();
                             try
                             {
@@ -328,7 +331,6 @@ namespace PhotoManager.Model
                                     CurrentPhoto = photo;
                                     CurrentPhoto.ID = GetLastID("photos");
                                     CurrentAlbum = album;
-                                    Console.WriteLine("PRZED OWNERSHIP");
                                     AddOwnership(); //powiązanie zdjęcia z albumem;
 
                                     return true;    
@@ -400,16 +402,16 @@ namespace PhotoManager.Model
         }
 
 
-		public List<Photo> LoadPhotosToAlbum()
+		public List<Photo> LoadPhotosToAlbum() //argument to aktualnie wbrnay album
 		{
 			var dbCon = Database.Instance();
 			dbCon.DatabaseName = "photomanager";
 			if (dbCon.IsConnect())
 			{
-				dbPhotos = new List<Photo>();
+				//dbPhotos = new List<Photo>();
 
 				//daj blobiki
-				string query = "select name, pictureB from photos;";
+				string query = "select * from photos;";
 				if (dbCon.Connection.State != System.Data.ConnectionState.Open)
 				{
 					dbCon.Connection.Open();
@@ -418,14 +420,15 @@ namespace PhotoManager.Model
 				var cmd = new MySqlCommand(query, dbCon.Connection);
 				var reader = cmd.ExecuteReader();
 				while (reader.Read())
-				{
-					dbPhotos.Add(new Photo(reader.GetString(0), Photo.DecodePhoto(reader.GetString(1))));
+                { 
+                    CurrentAlbum.addPhoto(new Photo(int.Parse(reader.GetString(0)), reader.GetString(1), DateTime.Parse(reader.GetString(2)), ImageFormat.Jpeg, double.Parse(reader.GetString(4)), Photo.DecodePhoto(reader.GetString(5))));
 				}
 				dbCon.Close();
 			}
+            foreach (Photo xd in CurrentAlbum.PhotoList)
+                Console.WriteLine(xd.Name);
 
-
-			return dbPhotos;
+			return CurrentAlbum.PhotoList;
 		}
 
 		#endregion Photos

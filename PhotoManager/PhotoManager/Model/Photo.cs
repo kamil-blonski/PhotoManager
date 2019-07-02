@@ -21,20 +21,23 @@ namespace PhotoManager.Model
 		private DateTime creationDate;
 		private ImageFormat format;
 		private double photoSize;
-		private Image img;
+		private Image image;
         private string photoB;
-		#endregion Fields
+        #endregion Fields
 
-		#region Constructors
-
-		public Photo(string name, Image img)
-		{
+        #region Constructors
+        public Photo(int? id, string name, DateTime creationDate,
+        ImageFormat format, double photoSize, Image image)//używany do odkodowania zdjęcia z bazy
+        {
+            this.id = id;
             this.name = name;
-			this.img = img;
-		}
-
-		public Photo(int? id, string name, DateTime creationDate,
-		 ImageFormat format, double photoSize)
+            this.format = format;
+            this.photoSize = photoSize;
+            this.creationDate = creationDate;
+            this.image = image;
+        }
+        public Photo(int? id, string name, DateTime creationDate,
+		 ImageFormat format, double photoSize) //nie ma photoB bo kodowanie zdjęcia następuje dopiero w modelu
 		{
 			this.id = id;
 			this.name = name;
@@ -48,7 +51,7 @@ namespace PhotoManager.Model
 
 		public Image Image
 		{
-			get { return this.img; }
+			get { return this.image; }
 		}
 
 
@@ -81,7 +84,7 @@ namespace PhotoManager.Model
         #endregion Properties
 
         #region Methods
-        public string EncodePhoto(string path)
+        public static string EncodePhoto(string path)
         {
             FileStream fStream = new FileStream(path, FileMode.Open, FileAccess.Read);
             byte[] data = new byte[fStream.Length];
@@ -93,7 +96,7 @@ namespace PhotoManager.Model
             return hex;
         }
 
-        public static byte[] ToByteArray(String HexString)
+        private static byte[] ToByteArray(String HexString)
         {
             
             int NumberChars = HexString.Length;

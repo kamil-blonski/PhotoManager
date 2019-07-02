@@ -12,7 +12,7 @@ namespace PhotoManager.Model
 	{
 		#region Fields
 		private List<Photo> photos;
-		private List<User> owners;
+		//private List<User> owners;
         private int? id;
         private string name;
 		private string description;
@@ -29,17 +29,19 @@ namespace PhotoManager.Model
 
         public Album(int? id, string name, DateTime currentDate, string description, string selectedType)
         {
+            Console.WriteLine("TWRORZĘ LISTĘ");
             this.id = id;
             this.name = name;
             this.selectedType = selectedType;
             this.description = description;
             this.creationDate = currentDate;
+            photos = new List<Photo>();
         }
 
 		public Album(string name, string desc, DateTime dt)
 		{
 			photos = new List<Photo>();
-			owners = new List<User>();
+			//owners = new List<User>();
 			this.name = name;
 			this.description = desc;
 			this.creationDate = dt;
@@ -72,6 +74,11 @@ namespace PhotoManager.Model
             }
         }
 
+        public List<Photo> PhotoList
+        {
+            get { return photos; }
+        }
+
         public DateTime CreationDate
         {
             get { return creationDate; }
@@ -79,7 +86,10 @@ namespace PhotoManager.Model
 		#endregion Properties
 
 		#region Methods
-		
+		public void addPhoto(Photo photo)
+        {
+            photos.Add(photo);
+        }
 		#endregion Methods
 	}
 }

@@ -128,7 +128,7 @@ namespace PhotoManager
 		{
             Console.WriteLine("Pobieram albumy");
 			albums = new List<Album>();
-            KURWA = new List<Image>();
+
 			albums = GetAlbums();
 			
 			albumsComboBox.Items.Clear();
@@ -140,13 +140,14 @@ namespace PhotoManager
                 albumsComboBox.SelectedItem = albumsComboBox.Items[0];
 
             //zdjęcia z DB
+            KURWA = new List<Image>();
             if (albumsComboBox.SelectedItem != null)
 			{
 				images = GetPhotosFromDB();
                 int i = 0;
 				foreach (Photo p in images)
 				{
-                    Console.WriteLine("KURWA:" + p.Name  + " | " +  p.Image.Size.Width);
+                    //Console.WriteLine("KURWA:" + p.Name  + " | " +  p.Image.Size.Width);
 					imageListMin.Images.Add(p.Image);
                     KURWA.Add(p.Image);
                     imgListView.Items.Add(p.Name, i);

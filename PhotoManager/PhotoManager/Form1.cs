@@ -27,7 +27,7 @@ namespace PhotoManager
         #endregion Fields
 
         #region Events
-        public event Action<string, Photo> AddPhotoEvent;
+        public event Action<string, Photo, Album> AddPhotoEvent;
 		public event Func<List<Album>> GetAlbums;
        // public event Action<Album> RefreshAlbumList;
         #endregion Events
@@ -82,7 +82,7 @@ namespace PhotoManager
                         if (AddPhotoEvent != null)
                         { //int? id, string name, DateTime creationDate, ImageFormat format, Size photoSize
 
-                            AddPhotoEvent(fi.FullName, new Photo(null, fi.Name, fi.CreationTime, ImageFormat.Jpeg,  fi.Length));
+                            AddPhotoEvent(fi.FullName, new Photo(null, fi.Name, fi.CreationTime, ImageFormat.Jpeg,  fi.Length), albums[albumsComboBox.SelectedIndex]); //albums bo albumsComboBox zawierajątylko NAME 
                         }
 					}
 				}
@@ -98,6 +98,10 @@ namespace PhotoManager
         #endregion MenuMethods
 
         #region OtherMethods
+        public void ShowMessage(bool success, string message)
+        {
+            MessageBox.Show(message, success ? "Message" : "Error", MessageBoxButtons.OK);
+        }
         private void imgListView_ItemActivate(object sender, EventArgs e)
         {
             Console.WriteLine("powiększenie");
@@ -126,7 +130,10 @@ namespace PhotoManager
 			{
 				albumsComboBox.Items.Add(item.Name);
 			}
-		}
+            if(albumsComboBox.Items.Count > 1)
+                albumsComboBox.SelectedItem = albumsComboBox.Items[0];
+
+        }
 
         public void AddNewAlbumToList(Album album)
         {

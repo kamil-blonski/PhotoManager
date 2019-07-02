@@ -36,6 +36,11 @@ namespace PhotoManager.Model
         #endregion Constructors
 
         #region Properties
+        public int? ID
+        {
+            set { id = value; }
+            get { return id; }
+        }
         public string Name
         {
             set { name = value;}

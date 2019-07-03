@@ -96,9 +96,9 @@ namespace PhotoManager
             this.view.IVievForm.AddNewAlbumToList(model.NewAlbumListElement());
         }
 
-		private List<Photo> GetPhotosFromDB()
+		private void GetPhotosFromDB(Album album)
 		{
-			return model.LoadPhotosToAlbum();
+			view.IVievForm.PhotoList = model.LoadPhotosToAlbum(album);
 		}
 
 

@@ -221,7 +221,6 @@ namespace PhotoManager
 
         public void ClearTextBoxes()
         {
-            Console.WriteLine("Czyszcze TB");
             tbName.Text = string.Empty;
             tbSurname.Text = string.Empty;
             tbEmail.Text = string.Empty;

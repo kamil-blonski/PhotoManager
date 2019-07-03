@@ -53,7 +53,6 @@ namespace PhotoManager.Model
 			get { return this.image; }
 		}
 
-
         public int? ID
         {
             set { id = value; }
@@ -113,21 +112,7 @@ namespace PhotoManager.Model
 		{
             byte[] bytes = ToByteArray(hexString);
             MemoryStream ms = new MemoryStream(bytes);
-            //Console.WriteLine("@@ rozmiar " + Bitmap.FromStream(ms).Size.Width);
             return Image.FromStream(ms);
-            /*int bytesCount = (hexString.Length) / 2;
-			byte[] bytes = new byte[bytesCount];
-			for (int x = 0; x < bytesCount; ++x)
-			{
-                
-				bytes[x] = Convert.ToByte(hexString.Substring(x * 2, 2), 16);
-			}
-
-			//return bytes;
-			using (var ms = new MemoryStream(bytes))
-			{
-				return Image.FromStream(ms);
-			}*/
 		}
 
 

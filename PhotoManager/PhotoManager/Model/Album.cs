@@ -17,15 +17,9 @@ namespace PhotoManager.Model
 		private string description;
         private string selectedType;
 		private DateTime creationDate;
-		private enum type
-		{
-			PE,
-			PC
-		}
         #endregion Fields
 
         #region Constructors
-
         public Album(int? id, string name, DateTime currentDate, string description, string selectedType)
         {
             Console.WriteLine("TWRORZĘ LISTĘ");
@@ -36,15 +30,6 @@ namespace PhotoManager.Model
             this.creationDate = currentDate;
             photos = new List<Photo>();
         }
-
-		public Album(string name, string desc, DateTime dt)
-		{
-			photos = new List<Photo>();
-			//owners = new List<User>();
-			this.name = name;
-			this.description = desc;
-			this.creationDate = dt;
-		}
         #endregion Constructors
 
         #region Properties

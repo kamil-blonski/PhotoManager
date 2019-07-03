@@ -106,7 +106,6 @@ namespace PhotoManager
             this.albumsComboBox.Size = new System.Drawing.Size(160, 24);
             this.albumsComboBox.TabIndex = 3;
             this.albumsComboBox.SelectedIndexChanged += new System.EventHandler(this.albumsComboBox_SelectedIndexChanged);
-            this.albumsComboBox.Click += new System.EventHandler(this.albumsComboBox_Click);
             // 
             // SelectAlbumLabel
             // 

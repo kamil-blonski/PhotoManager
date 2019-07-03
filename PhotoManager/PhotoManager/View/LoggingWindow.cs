@@ -71,7 +71,6 @@ namespace PhotoManager
 
             if (LoggingEvent != null)
             {
-                Console.WriteLine("Tworzenie usera");
                 LoggingEvent(new User(loginTextBox.Text, passwordTextBox.Text));
             }
         }

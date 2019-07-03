@@ -205,7 +205,7 @@ namespace PhotoManager.Model
                     CurrentUser.addAlbum((new Album(int.Parse(reader.GetString(0)), reader.GetString(1), DateTime.Parse(reader.GetString(2)), reader.GetString(3), reader.GetString(4))));
 				}
 				dbCon.Close();
-                CurrentAlbum = CurrentUser.Albums[0]; //domyślnie załadowany album to zawsze pierwszy, to trzeba USUNC
+                //CurrentAlbum = CurrentUser.Albums[0]; //domyślnie załadowany album to zawsze pierwszy, to trzeba USUNC
 			}
 			return CurrentUser.Albums;
 		}
@@ -358,13 +358,10 @@ namespace PhotoManager.Model
                 dbCon.DatabaseName = "photomanager";
                 if (dbCon.IsConnect())
                 {
-                    Console.WriteLine("XD1");
                     if (dbCon.Connection.State != ConnectionState.Open)
                     {
-                        Console.WriteLine("XD2");
                         using (MySqlCommand command = dbCon.Connection.CreateCommand())
                         {
-                            Console.WriteLine("XD3");
                             command.CommandText = "insert into ownership values(@id_a,@id_p);";
                             command.Parameters.AddWithValue("@id_a", CurrentAlbum.ID);
                             command.Parameters.AddWithValue("@id_p", CurrentPhoto.ID);
@@ -373,7 +370,6 @@ namespace PhotoManager.Model
                             {
                                 int result = command.ExecuteNonQuery();
                                 dbCon.Close();
-                                Console.WriteLine("result" + result);
                                 if (result < 0)
                                     throw new Exception();
                             }
@@ -393,20 +389,15 @@ namespace PhotoManager.Model
             }
         }
 
-        public void ReadPhoto(int AlbumID)
-        {
-            //To dopiero jak bede meić liste obiektów obiekt Album dla zalogowanego Usera, bo jest tam lista zdjęć. 
-        }
-
-
-		public List<Photo> LoadPhotosToAlbum() //argument to aktualnie wbrnay album
+		public List<Photo> LoadPhotosToAlbum(Album album) //argument to aktualnie wbrnay album
 		{
+            CurrentAlbum = album;
 			var dbCon = Database.Instance();
 			dbCon.DatabaseName = "photomanager";
 			if (dbCon.IsConnect())
 			{
 				//daj blobiki
-				string query = "select  * from photos;";
+				string query = "select p.id, p.name, p.creationdate, p.format, p.size, p.pictureB  from photos p join ownership  o on p.id = o.id_p where o.id_a = " + CurrentAlbum.ID + ";";
 				if (dbCon.Connection.State != System.Data.ConnectionState.Open)
 				{
 					dbCon.Connection.Open();

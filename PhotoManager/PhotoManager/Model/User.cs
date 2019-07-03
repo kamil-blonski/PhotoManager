@@ -9,7 +9,6 @@ namespace PhotoManager
 	public class User
 	{
         #region Fields
-        //private int id_;
         private int? id = null;
 		private string name;
 		private string surname;

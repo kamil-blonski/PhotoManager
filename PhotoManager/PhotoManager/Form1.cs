@@ -24,14 +24,14 @@ namespace PhotoManager
 		private int Y;
         private static Form1 instance = null;
 		private List<Album> albums;
-		private List<Photo> images; //from db
+		private List<Photo> photos; //from db
         private List<Image> KURWA;
         #endregion Fields
 
         #region Events
         public event Action<string, Photo, Album> AddPhotoEvent;
 		public event Func<List<Album>> GetAlbums;
-		public event Func<List<Photo>> GetPhotosFromDB;
+		public event Action<Album> GetPhotosFromDB;
        
 		#endregion Events
 
@@ -63,6 +63,11 @@ namespace PhotoManager
             {
                 return AddAlbum.AddAlbumInstance;
             }
+        }
+
+        public List<Photo> PhotoList
+        {
+            set {  photos = value; }
         }
         #endregion Properties
 
@@ -126,7 +131,6 @@ namespace PhotoManager
         }
         private void Form1_Load(object sender, EventArgs e)
 		{
-            Console.WriteLine("Pobieram albumy");
 			albums = new List<Album>();
 
 			albums = GetAlbums();
@@ -140,24 +144,23 @@ namespace PhotoManager
                 albumsComboBox.SelectedItem = albumsComboBox.Items[0];
 
             //zdjęcia z DB
-            KURWA = new List<Image>();
-            if (albumsComboBox.SelectedItem != null)
-			{
-				images = GetPhotosFromDB();
-                int i = 0;
-				foreach (Photo p in images)
-				{
-                    //Console.WriteLine("KURWA:" + p.Name  + " | " +  p.Image.Size.Width);
-					imageListMin.Images.Add(p.Image);
-                    KURWA.Add(p.Image);
-                    imgListView.Items.Add(p.Name, i);
-                    i++;
-                }
-			}
-			else
-			{
-				MessageBox.Show("Choose the album first!");
-			}
+   //         KURWA = new List<Image>();
+   //         if (albumsComboBox.SelectedItem != null)
+			//{
+			//	images = GetPhotosFromDB();
+   //             int i = 0;
+			//	foreach (Photo p in images)
+			//	{
+			//		imageListMin.Images.Add(p.Image);
+   //                 KURWA.Add(p.Image);
+   //                 imgListView.Items.Add(p.Name, i);
+   //                 i++;
+   //             }
+			//}
+			//else
+			//{
+			//	MessageBox.Show("Choose the album first!");
+			//}
 		}
 
 		public void AddNewAlbumToList(Album album)
@@ -169,13 +172,31 @@ namespace PhotoManager
 
         private void albumsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            fileNames.Clear();
+            imgListView.Items.Clear(); //czyszczenie listy obrazków
+            imageListMin.Images.Clear(); //miniaturki są takie jak powinny być
+            KURWA = new List<Image>();
+            
+            if (albumsComboBox.SelectedItem != null)
+            {
+                GetPhotosFromDB(albums[albumsComboBox.SelectedIndex]);
+                int i = 0;
+                foreach (Photo p in photos)
+                {
+                    imageListMin.Images.Add(p.Image);
+                    KURWA.Add(p.Image);
+                    imgListView.Items.Add(p.Name, i);
+                    i++;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Choose the album first!");
+            }
+            photos.Clear(); //wybranie tego samego albumu nie powoduje dodania do widoku niepotrzebnego zdjęcia
+            
         }
 
-        private void albumsComboBox_Click(object sender, EventArgs e)
-        {
-
-        }
 
 		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
 		{

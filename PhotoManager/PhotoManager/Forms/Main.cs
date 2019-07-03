@@ -231,20 +231,19 @@ namespace PhotoManager
 
 		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			if (!isLoggingOut)
-			{
-				DialogResult result = MessageBox.Show("Do you want co close an application?", "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-				if (DialogResult.Yes == result)
-				{
-					this.Dispose();
-					Application.Exit();
-				}
-			}
-		}
+            DialogResult result = MessageBox.Show("Do you want co close an application?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (DialogResult.Yes == result)
+            {
+                this.Dispose();
+                Application.Exit();
+            }
+            else
+                e.Cancel = true;
+        }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Do you want co close an application?", "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+            DialogResult result = MessageBox.Show("Do you want co close an application?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if(DialogResult.Yes == result)
             {
                 this.Dispose();

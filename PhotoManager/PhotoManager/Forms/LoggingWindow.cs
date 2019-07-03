@@ -52,6 +52,8 @@ namespace PhotoManager
 		{
 			if (obj == null)
 				obj = new LoggingWindow();
+			else
+				MessageBox.Show("Nie było nullem");
 			
 			return obj;
 		}

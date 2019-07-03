@@ -25,8 +25,8 @@ namespace PhotoManager
 		private List<Album> albums;
 		private List<Photo> photos; //from db
         private List<Image> KURWA;
-        bool IfAlbumSelected = false;
-        int i = 0; //indekser do wyświetlania zdjęć
+        private bool IfAlbumSelected = false;
+        private int i = 0; //indekser do wyświetlania zdjęć
         #endregion Fields
 
         #region Events
@@ -104,16 +104,12 @@ namespace PhotoManager
             {
                 ShowMessage(false, "Create an album first!");
             }
-
 		}
 
         private void createNewAlbumToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddAlbum.AddAlbumInstance.ShowDialog();
         }
-
-
-
 
         #endregion MenuMethods
 
@@ -139,26 +135,19 @@ namespace PhotoManager
 		{
             albums = new List<Album>();
 			albums = GetAlbums();
-            //albumsComboBox.Items.Clear();
             albumListToolStripMenuItem.DropDownItems.Clear();
             foreach (var item in albums)
 			{
                 albumListToolStripMenuItem.DropDownItems.Add(item.Name);
-   				//albumsComboBox.Items.Add(item.Name);
 			}
             if (albumListToolStripMenuItem.DropDownItems.Count < 1)
                 albumListToolStripMenuItem.Enabled = false;
             else
                 albumListToolStripMenuItem.Enabled = true;
-            //if (albumsComboBox.Items.Count > 1)
-            //{
-            //    albumsComboBox.SelectedItem = albumsComboBox.Items[0];
-            //}
         }
 
 		public void AddNewAlbumToList(Album album)
         {
-            //albumsComboBox.Items.Add(album.Name);
             albumListToolStripMenuItem.DropDownItems.Add(album.Name);
             albumListToolStripMenuItem.Enabled = true;
         }
@@ -171,34 +160,6 @@ namespace PhotoManager
             imgListView.Items.Add(newPhoto.Name, i);
             i++;
         }
-
-        private void albumsComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //fileNames.Clear();  //nazwy plików są odpowiednie
-            //imgListView.Items.Clear(); //czyszczenie listy obrazków
-            //imageListMin.Images.Clear(); //miniaturki są takie jak powinny być
-            //KURWA = new List<Image>();
-
-            //if (albumsComboBox.SelectedItem != null)
-            //{
-            //    GetPhotosFromDB(albums[albumsComboBox.SelectedIndex]);
-            //    i = 0;
-            //    foreach (Photo photo in photos)
-            //    {
-            //        imageListMin.Images.Add(photo.Image);
-            //        KURWA.Add(photo.Image);
-            //        imgListView.Items.Add(photo.Name, i);
-            //        i++;
-            //    }
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Choose the album first!");
-            //}
-            //photos.Clear(); //wybranie tego samego albumu nie powoduje dodania do widoku niepotrzebnego zdjęcia
-
-        }
-
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {

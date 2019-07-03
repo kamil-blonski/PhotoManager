@@ -15,8 +15,12 @@ namespace PhotoManager.View
 
 		public imgViewer()
 		{
-			InitializeComponent();
-			this.panel.Size = Screen.FromControl(this).Bounds.Size;
+            
+            InitializeComponent();
+            //this.Size = new Size(10, 10);
+            //panel.Size = new Size(pictureBox.Width, pictureBox.Height);
+            //pictureBox.Size = new Size(20, 20);
+            //this.panel.Size = Screen.FromControl(this).Bounds.Size;
 		}
 
 		public Image ImgBox

@@ -33,14 +33,15 @@ namespace PhotoManager
         public event Action<string, Photo> AddPhotoEvent;
 		public event Func<List<Album>> GetAlbums;
 		public event Action<Album> GetPhotosFromDB;
-       
-		#endregion Events
 
-		#region Constructors
-		private Main()
+        #endregion Events
+
+        #region Constructors
+        private Main()
         {
             InitializeComponent();
         }
+
         #endregion Constructors
 
         #region Properties
@@ -48,10 +49,15 @@ namespace PhotoManager
         {
             get
             {
-                if (instance == null)
+                if (instance == null || instance.IsDisposed)
                     instance = new Main();
                 return instance;
             }
+        }
+
+        public static Main Instance
+        {
+            set { instance = value; }
         }
 
         public IAddAlbumView IAddAlbumView
@@ -134,7 +140,10 @@ namespace PhotoManager
         private void Form1_Load(object sender, EventArgs e)
 		{
             albums = new List<Album>();
-			albums = GetAlbums();
+           // if (GetAlbums != null)
+            albums = GetAlbums();
+            //else
+            //    return;
             albumListToolStripMenuItem.DropDownItems.Clear();
             foreach (var item in albums)
 			{
@@ -165,10 +174,7 @@ namespace PhotoManager
             i++;
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Application.Exit();
-        }
+
         void GetPhotosFromDBForAlbumWithIndex(int index)
         {
             GetPhotosFromDB(albums[index]);
@@ -195,6 +201,31 @@ namespace PhotoManager
         private void albumListToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             LoadPhotosForAlbumWithIndex(albumListToolStripMenuItem.DropDownItems.IndexOf(e.ClickedItem));
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Do you want co close an application?", "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+            if (DialogResult.Yes == result)
+            {
+                this.Dispose();
+                Application.Exit();
+            }
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Do you want co close an application?", "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+            if(DialogResult.Yes == result)
+            {
+                this.Dispose();
+                Application.Exit();
+            }
+        }
+
+        private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+                
         }
     }
 }

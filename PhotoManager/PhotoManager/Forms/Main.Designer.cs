@@ -40,6 +40,9 @@ namespace PhotoManager
             this.createNewAlbumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.albumListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
+            this.saveAlbumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,7 +74,10 @@ namespace PhotoManager
             this.toolStripMenuItem1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
-            this.createNewAlbumToolStripMenuItem});
+            this.createNewAlbumToolStripMenuItem,
+            this.saveAlbumToolStripMenuItem,
+            this.logoutToolStripMenuItem,
+            this.exitToolStripMenuItem});
             this.toolStripMenuItem1.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(58, 24);
@@ -115,6 +121,26 @@ namespace PhotoManager
             this.menuStrip.TabIndex = 1;
             this.menuStrip.Text = "menuStrip1";
             // 
+            // saveAlbumToolStripMenuItem
+            // 
+            this.saveAlbumToolStripMenuItem.Name = "saveAlbumToolStripMenuItem";
+            this.saveAlbumToolStripMenuItem.Size = new System.Drawing.Size(209, 26);
+            this.saveAlbumToolStripMenuItem.Text = "Save Album";
+            // 
+            // logoutToolStripMenuItem
+            // 
+            this.logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
+            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(209, 26);
+            this.logoutToolStripMenuItem.Text = "Logout";
+            this.logoutToolStripMenuItem.Click += new System.EventHandler(this.logoutToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(209, 26);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -150,6 +176,9 @@ namespace PhotoManager
         private System.Windows.Forms.ToolStripMenuItem createNewAlbumToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem albumListToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip;
+        private System.Windows.Forms.ToolStripMenuItem saveAlbumToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem logoutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }
 

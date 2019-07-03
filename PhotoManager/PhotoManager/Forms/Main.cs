@@ -19,13 +19,13 @@ namespace PhotoManager
     {
         #region Fields
         private List<String> fileNames = new List<string>();
-		private Size screenSize;
 		private int X;
 		private int Y;
         private static Main instance = null;
 		private List<Album> albums;
 		private List<Photo> photos; //from db
         private List<Image> KURWA;
+        bool IfAlbumSelected = false;
         int i = 0; //indekser do wyświetlania zdjęć
         #endregion Fields
 
@@ -40,10 +40,6 @@ namespace PhotoManager
 		private Main()
         {
             InitializeComponent();
-            this.screenSize = Screen.FromControl(this).Bounds.Size;
-            X = screenSize.Width - 100;
-            Y = screenSize.Height - 100;
-            this.imgListView.Size = new Size(X, Y);
         }
         #endregion Constructors
 
@@ -75,37 +71,45 @@ namespace PhotoManager
         #region MenuMethods
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			using (OpenFileDialog ofd = new OpenFileDialog() { Multiselect = true,
-			ValidateNames = true, Filter = "JPEG|*.jpg"})
-			{
-				if(ofd.ShowDialog() == DialogResult.OK)
-				{
-					if(albumsComboBox.SelectedItem != null)
-					{
-						foreach (string fileName in ofd.FileNames)
-						{
-							FileInfo fi = new FileInfo(fileName);
-							fileNames.Add(fi.FullName);
+            if(!IfAlbumSelected)
+            {
+                ShowMessage(false, "Select an album first!");
+                return;
+            }
+            if(albumListToolStripMenuItem.DropDownItems.Count > 0)
+            {
+                using (OpenFileDialog ofd = new OpenFileDialog()
+                {
+                    Multiselect = true,
+                    ValidateNames = true,
+                    Filter = "JPEG|*.jpg"
+                })
+                {
+                    if (ofd.ShowDialog() == DialogResult.OK)
+                    {
+                        foreach (string fileName in ofd.FileNames)
+                        {
+                            FileInfo fi = new FileInfo(fileName);
+                            fileNames.Add(fi.FullName);
 
-							if (AddPhotoEvent != null)
-							{ 
-								AddPhotoEvent(fi.FullName, new Photo(null, fi.Name, fi.CreationTime, ImageFormat.Jpeg, fi.Length)); //albums bo albumsComboBox zawierajątylko NAME 
-							}
-						}
-					}
-					else
-					{
-						MessageBox.Show("Choose the album first!");
-					}
-					
-				}
-			}
+                            if (AddPhotoEvent != null)
+                            {
+                                AddPhotoEvent(fi.FullName, new Photo(null, fi.Name, fi.CreationTime, ImageFormat.Jpeg, fi.Length)); //albums bo albumsComboBox zawierajątylko NAME 
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                ShowMessage(false, "Create an album first!");
+            }
+
 		}
 
         private void createNewAlbumToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddAlbum.AddAlbumInstance.ShowDialog();
-
         }
 
 
@@ -133,41 +137,30 @@ namespace PhotoManager
         }
         private void Form1_Load(object sender, EventArgs e)
 		{
-			albums = new List<Album>();
-
+            albums = new List<Album>();
 			albums = GetAlbums();
-			
-			albumsComboBox.Items.Clear();
-			foreach (var item in albums)
+            //albumsComboBox.Items.Clear();
+            albumListToolStripMenuItem.DropDownItems.Clear();
+            foreach (var item in albums)
 			{
-				albumsComboBox.Items.Add(item.Name);
+                albumListToolStripMenuItem.DropDownItems.Add(item.Name);
+   				//albumsComboBox.Items.Add(item.Name);
 			}
-            if(albumsComboBox.Items.Count > 1)
-                albumsComboBox.SelectedItem = albumsComboBox.Items[0];
-
-            //zdjęcia z DB
-   //         KURWA = new List<Image>();
-   //         if (albumsComboBox.SelectedItem != null)
-			//{
-			//	images = GetPhotosFromDB();
-   //             int i = 0;
-			//	foreach (Photo p in images)
-			//	{
-			//		imageListMin.Images.Add(p.Image);
-   //                 KURWA.Add(p.Image);
-   //                 imgListView.Items.Add(p.Name, i);
-   //                 i++;
-   //             }
-			//}
-			//else
-			//{
-			//	MessageBox.Show("Choose the album first!");
-			//}
-		}
+            if (albumListToolStripMenuItem.DropDownItems.Count < 1)
+                albumListToolStripMenuItem.Enabled = false;
+            else
+                albumListToolStripMenuItem.Enabled = true;
+            //if (albumsComboBox.Items.Count > 1)
+            //{
+            //    albumsComboBox.SelectedItem = albumsComboBox.Items[0];
+            //}
+        }
 
 		public void AddNewAlbumToList(Album album)
         {
-            albumsComboBox.Items.Add(album.Name);
+            //albumsComboBox.Items.Add(album.Name);
+            albumListToolStripMenuItem.DropDownItems.Add(album.Name);
+            albumListToolStripMenuItem.Enabled = true;
         }
 
         public void AddNewPhotoToList(Photo newPhoto)
@@ -181,28 +174,28 @@ namespace PhotoManager
 
         private void albumsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            fileNames.Clear();  //nazwy plików są odpowiednie
-            imgListView.Items.Clear(); //czyszczenie listy obrazków
-            imageListMin.Images.Clear(); //miniaturki są takie jak powinny być
-            KURWA = new List<Image>();
+            //fileNames.Clear();  //nazwy plików są odpowiednie
+            //imgListView.Items.Clear(); //czyszczenie listy obrazków
+            //imageListMin.Images.Clear(); //miniaturki są takie jak powinny być
+            //KURWA = new List<Image>();
 
-            if (albumsComboBox.SelectedItem != null)
-            {
-                GetPhotosFromDB(albums[albumsComboBox.SelectedIndex]);
-                i = 0;
-                foreach (Photo photo in photos)
-                {
-                    imageListMin.Images.Add(photo.Image);
-                    KURWA.Add(photo.Image);
-                    imgListView.Items.Add(photo.Name, i);
-                    i++;
-                }
-            }
-            else
-            {
-                MessageBox.Show("Choose the album first!");
-            }
-            photos.Clear(); //wybranie tego samego albumu nie powoduje dodania do widoku niepotrzebnego zdjęcia
+            //if (albumsComboBox.SelectedItem != null)
+            //{
+            //    GetPhotosFromDB(albums[albumsComboBox.SelectedIndex]);
+            //    i = 0;
+            //    foreach (Photo photo in photos)
+            //    {
+            //        imageListMin.Images.Add(photo.Image);
+            //        KURWA.Add(photo.Image);
+            //        imgListView.Items.Add(photo.Name, i);
+            //        i++;
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Choose the album first!");
+            //}
+            //photos.Clear(); //wybranie tego samego albumu nie powoduje dodania do widoku niepotrzebnego zdjęcia
 
         }
 
@@ -214,5 +207,23 @@ namespace PhotoManager
 
         #endregion OtherMethods
 
+        private void albumListToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            IfAlbumSelected = true;
+            fileNames.Clear();  //nazwy plików są odpowiednie
+            imgListView.Items.Clear(); //czyszczenie listy obrazków
+            imageListMin.Images.Clear(); //miniaturki są takie jak powinny być
+            KURWA = new List<Image>();
+                GetPhotosFromDB(albums[albumListToolStripMenuItem.DropDownItems.IndexOf(e.ClickedItem)]);
+                i = 0;
+                foreach (Photo photo in photos)
+                {
+                    imageListMin.Images.Add(photo.Image);
+                    KURWA.Add(photo.Image);
+                    imgListView.Items.Add(photo.Name, i);
+                    i++;
+                }
+            photos.Clear(); //wybranie tego samego albumu nie powoduje dodania do widoku niepotrzebnego zdjęcia
+        }
     }
 }

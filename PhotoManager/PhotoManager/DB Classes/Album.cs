@@ -22,7 +22,6 @@ namespace PhotoManager.Model
         #region Constructors
         public Album(int? id, string name, DateTime currentDate, string description, string selectedType)
         {
-            Console.WriteLine("TWRORZĘ LISTĘ");
             this.id = id;
             this.name = name;
             this.selectedType = selectedType;
@@ -51,7 +50,7 @@ namespace PhotoManager.Model
         {
             get
             {
-                if (selectedType == "Private")
+                if (selectedType == "PE")
                     return "PE";
                 else
                     return "PC";
@@ -60,6 +59,7 @@ namespace PhotoManager.Model
 
         public List<Photo> PhotoList
         {
+            set { photos = value; }
             get { return photos; }
         }
 

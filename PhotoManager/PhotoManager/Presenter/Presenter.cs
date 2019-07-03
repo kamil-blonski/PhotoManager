@@ -21,6 +21,8 @@ namespace PhotoManager
 			this.view.IVievForm.GetAlbums += GetAlbums;
             this.view.IVievForm.IAddAlbumView.RefreshAlbumListInForm1Event += RefreshAlbumListInForm1Event;
 			this.view.IVievForm.GetPhotosFromDB += GetPhotosFromDB;
+            this.view.IVievForm.SaveAlbum += SaveAlbumEvent;
+            this.view.IVievForm.GetUserName += GetUserNameEvent;
 		}
 
 		private List<Album> GetAlbums()
@@ -101,7 +103,17 @@ namespace PhotoManager
 			view.IVievForm.PhotoList = model.LoadPhotosToAlbum(album);
 		}
 
+        private void SaveAlbumEvent(string destinationPath)
+        {
+            if (model.SaveAlbum(destinationPath))
+                view.IVievForm.ShowMessage(true, "All photos saved at: " + destinationPath + ".");
+        }
+
+        private void GetUserNameEvent()
+        {
+            view.IVievForm.UserName = model.GetUserName() + ".";
+        }
 
 
-	}
+    }
 }

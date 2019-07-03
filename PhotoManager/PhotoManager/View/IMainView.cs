@@ -7,15 +7,16 @@ using PhotoManager.Model;
 
 namespace PhotoManager
 {
-	public interface IForm1View
+	public interface IMainViev
 	{
         event Action<string, Photo> AddPhotoEvent;
 		event Func<List<Album>> GetAlbums;
         event Action<Album> GetPhotosFromDB;
-        //event Func<List<Photo>> GetPhotosFromDB;
-        //event Action<Album> RefreshAlbumList;
+        event Action<string> SaveAlbum;
+        event Action GetUserName;
 		IAddAlbumView IAddAlbumView { get; }
         List<Photo> PhotoList { set; }
+        string UserName { set; }
         void AddNewAlbumToList(Album album);
         void AddNewPhotoToList(Photo newPhotos);
         void ShowMessage(bool success, string message);

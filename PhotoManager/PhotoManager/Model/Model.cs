@@ -153,7 +153,6 @@ namespace PhotoManager.Model
                 dbCon.DatabaseName = "photomanager";
                 if (dbCon.IsConnect())
                 {
-                    ///Console.WriteLine("Addcreation: " + dbCon.Connection.State);
                     if (dbCon.Connection.State != ConnectionState.Open)
                     {
                         using (MySqlCommand command = dbCon.Connection.CreateCommand())
@@ -299,7 +298,6 @@ namespace PhotoManager.Model
 
         public Photo AddPhoto(string path, Photo photo)
         {
-            Console.WriteLine("Dodaje photo");
             try
             {
                 var dbCon = Database.Instance();
@@ -351,7 +349,6 @@ namespace PhotoManager.Model
 
         private void AddOwnership()
         {
-            Console.WriteLine("Dodaje ownership ");
             try
             {
                 var dbCon = Database.Instance();
@@ -411,16 +408,38 @@ namespace PhotoManager.Model
 				}
 				dbCon.Close();
 			}
-            foreach (Photo xd in CurrentAlbum.PhotoList)
-                Console.WriteLine(xd.Name);
-
 			return CurrentAlbum.PhotoList;
 		}
 
-		#endregion Photos
+        public bool SaveAlbum(string destinationPath)
+        {
 
-		#region Other
-		public string SHA1Hash(string s)
+            CurrentAlbum.PhotoList = LoadPhotosToAlbum(CurrentAlbum);//brzydko, bo musi sie wywołać drugi raz, ale inaczej nie działa
+            Bitmap bitmap;
+            foreach (Photo photo in CurrentAlbum.PhotoList)
+            {
+                try
+                {
+                    bitmap = new Bitmap(photo.Image);
+                    bitmap.Save(destinationPath + "\\" + photo.Name, ImageFormat.Jpeg);
+                }
+                catch(Exception)
+                {
+                    return false;
+                }
+
+            }
+            return true;
+        }
+
+        #endregion Photos
+
+        #region Other
+        public string GetUserName()
+        {
+            return CurrentUser.Login;
+        }
+        public string SHA1Hash(string s)
         {
             byte[] bytes = Encoding.UTF8.GetBytes(s);
             var sha1 = SHA1.Create();

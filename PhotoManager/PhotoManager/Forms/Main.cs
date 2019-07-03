@@ -15,7 +15,7 @@ using System.Drawing.Imaging;
 
 namespace PhotoManager
 {
-    public partial class Main : Form, IForm1View
+    public partial class Main : Form, IMainViev
     {
         #region Fields
         private List<String> fileNames = new List<string>();
@@ -33,7 +33,8 @@ namespace PhotoManager
         public event Action<string, Photo> AddPhotoEvent;
 		public event Func<List<Album>> GetAlbums;
 		public event Action<Album> GetPhotosFromDB;
-
+        public event Action<string> SaveAlbum;
+        public event Action GetUserName;
         #endregion Events
 
         #region Constructors
@@ -71,6 +72,11 @@ namespace PhotoManager
         public List<Photo> PhotoList
         {
             set {  photos = value; }
+        }
+
+        public string UserName
+        {
+            set { UserNameInfoLabel.Text += value; }
         }
         #endregion Properties
 
@@ -139,6 +145,8 @@ namespace PhotoManager
         }
         private void Form1_Load(object sender, EventArgs e)
 		{
+            if (GetUserName != null)
+                GetUserName();
             albums = new List<Album>();
            // if (GetAlbums != null)
             albums = GetAlbums();
@@ -226,6 +234,23 @@ namespace PhotoManager
         private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
         {
                 
+        }
+
+        private void saveAlbumToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+             
+            using (FolderBrowserDialog ofd = new FolderBrowserDialog())
+            {
+                if(ofd.ShowDialog() == DialogResult.OK)
+                {
+                    Console.WriteLine(ofd.SelectedPath);
+                    string destinationPath = ofd.SelectedPath;
+                    if (SaveAlbum != null)
+                        SaveAlbum(destinationPath);
+                }
+
+            }
         }
     }
 }

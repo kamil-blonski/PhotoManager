@@ -43,6 +43,7 @@ namespace PhotoManager
             this.saveAlbumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.UserNameInfoLabel = new System.Windows.Forms.Label();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,10 +56,10 @@ namespace PhotoManager
             // imgListView
             // 
             this.imgListView.LargeImageList = this.imageListMin;
-            this.imgListView.Location = new System.Drawing.Point(16, 52);
+            this.imgListView.Location = new System.Drawing.Point(16, 71);
             this.imgListView.Margin = new System.Windows.Forms.Padding(4);
             this.imgListView.Name = "imgListView";
-            this.imgListView.Size = new System.Drawing.Size(1335, 559);
+            this.imgListView.Size = new System.Drawing.Size(1335, 540);
             this.imgListView.TabIndex = 0;
             this.imgListView.UseCompatibleStateImageBehavior = false;
             this.imgListView.ItemActivate += new System.EventHandler(this.imgListView_ItemActivate);
@@ -126,6 +127,7 @@ namespace PhotoManager
             this.saveAlbumToolStripMenuItem.Name = "saveAlbumToolStripMenuItem";
             this.saveAlbumToolStripMenuItem.Size = new System.Drawing.Size(209, 26);
             this.saveAlbumToolStripMenuItem.Text = "Save Album";
+            this.saveAlbumToolStripMenuItem.Click += new System.EventHandler(this.saveAlbumToolStripMenuItem_Click);
             // 
             // logoutToolStripMenuItem
             // 
@@ -141,11 +143,23 @@ namespace PhotoManager
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
+            // UserNameInfoLabel
+            // 
+            this.UserNameInfoLabel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.UserNameInfoLabel.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.UserNameInfoLabel.Location = new System.Drawing.Point(0, 38);
+            this.UserNameInfoLabel.Name = "UserNameInfoLabel";
+            this.UserNameInfoLabel.Size = new System.Drawing.Size(1367, 23);
+            this.UserNameInfoLabel.TabIndex = 2;
+            this.UserNameInfoLabel.Text = "Witaj ";
+            this.UserNameInfoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1367, 624);
+            this.Controls.Add(this.UserNameInfoLabel);
             this.Controls.Add(this.imgListView);
             this.Controls.Add(this.menuStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -179,6 +193,7 @@ namespace PhotoManager
         private System.Windows.Forms.ToolStripMenuItem saveAlbumToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem logoutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.Label UserNameInfoLabel;
     }
 }
 

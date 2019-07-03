@@ -10,6 +10,7 @@ using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.IO;
 using System.Drawing.Imaging;
+using System.Drawing;
 
 namespace PhotoManager.Model
 {
@@ -296,9 +297,9 @@ namespace PhotoManager.Model
 
         #region Photos
 
-        public bool AddPhoto(string path, Photo photo, Album album)
+        public Photo AddPhoto(string path, Photo photo)
         {
-            Console.WriteLine("AddPhoto");
+            Console.WriteLine("Dodaje photo");
             try
             {
                 var dbCon = Database.Instance();
@@ -321,16 +322,14 @@ namespace PhotoManager.Model
                             {
                                 int result = command.ExecuteNonQuery();
                                 dbCon.Close();
-                                if (result < 0)
-                                    return false;
-                                else
+                                if(result > 0)
                                 {
                                     CurrentPhoto = photo;
                                     CurrentPhoto.ID = GetLastID("photos");
-                                    CurrentAlbum = album;
+                                    CurrentPhoto.Image = Image.FromFile(path);
+                                    CurrentAlbum.addPhoto(photo);
                                     AddOwnership(); //powiązanie zdjęcia z albumem;
-
-                                    return true;    
+                                    return CurrentPhoto;
                                 }
                             }
                             catch (Exception exc)
@@ -340,13 +339,14 @@ namespace PhotoManager.Model
                         }
                     }
                 }
+               
 
             }
             catch(Exception ex)
             {
                 MessageBox.Show("DODAWANIE ZDJĘCIA BŁĄD", "Error", MessageBoxButtons.OK); //tego tu nie bedzie
             }
-            return true;
+            return CurrentPhoto;
         }
 
         private void AddOwnership()

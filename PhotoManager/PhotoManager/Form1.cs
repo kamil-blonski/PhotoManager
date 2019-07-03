@@ -26,10 +26,11 @@ namespace PhotoManager
 		private List<Album> albums;
 		private List<Photo> photos; //from db
         private List<Image> KURWA;
+        int i = 0; //indekser do wyświetlania zdjęć
         #endregion Fields
 
         #region Events
-        public event Action<string, Photo, Album> AddPhotoEvent;
+        public event Action<string, Photo> AddPhotoEvent;
 		public event Func<List<Album>> GetAlbums;
 		public event Action<Album> GetPhotosFromDB;
        
@@ -79,7 +80,6 @@ namespace PhotoManager
 			{
 				if(ofd.ShowDialog() == DialogResult.OK)
 				{
-                    int i = 0;
 					if(albumsComboBox.SelectedItem != null)
 					{
 						foreach (string fileName in ofd.FileNames)
@@ -87,10 +87,9 @@ namespace PhotoManager
 							FileInfo fi = new FileInfo(fileName);
 							fileNames.Add(fi.FullName);
 
-                            i++;
 							if (AddPhotoEvent != null)
 							{ 
-								AddPhotoEvent(fi.FullName, new Photo(null, fi.Name, fi.CreationTime, ImageFormat.Jpeg, fi.Length), albums[albumsComboBox.SelectedIndex]); //albums bo albumsComboBox zawierajątylko NAME 
+								AddPhotoEvent(fi.FullName, new Photo(null, fi.Name, fi.CreationTime, ImageFormat.Jpeg, fi.Length)); //albums bo albumsComboBox zawierajątylko NAME 
 							}
 						}
 					}
@@ -108,6 +107,9 @@ namespace PhotoManager
             AddAlbum.AddAlbumInstance.ShowDialog();
 
         }
+
+
+
 
         #endregion MenuMethods
 
@@ -168,7 +170,15 @@ namespace PhotoManager
             albumsComboBox.Items.Add(album.Name);
         }
 
-        #endregion OtherMethods
+        public void AddNewPhotoToList(Photo newPhoto)
+        {
+            photos.Clear();
+            imageListMin.Images.Add(newPhoto.Image);
+            KURWA.Add(newPhoto.Image);
+            imgListView.Items.Add(newPhoto.Name, i);
+            Console.WriteLine("I: " + i);
+            i++;
+        }
 
         private void albumsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -176,16 +186,16 @@ namespace PhotoManager
             imgListView.Items.Clear(); //czyszczenie listy obrazków
             imageListMin.Images.Clear(); //miniaturki są takie jak powinny być
             KURWA = new List<Image>();
-            
+
             if (albumsComboBox.SelectedItem != null)
             {
                 GetPhotosFromDB(albums[albumsComboBox.SelectedIndex]);
-                int i = 0;
-                foreach (Photo p in photos)
+                i = 0;
+                foreach (Photo photo in photos)
                 {
-                    imageListMin.Images.Add(p.Image);
-                    KURWA.Add(p.Image);
-                    imgListView.Items.Add(p.Name, i);
+                    imageListMin.Images.Add(photo.Image);
+                    KURWA.Add(photo.Image);
+                    imgListView.Items.Add(photo.Name, i);
                     i++;
                 }
             }
@@ -194,13 +204,16 @@ namespace PhotoManager
                 MessageBox.Show("Choose the album first!");
             }
             photos.Clear(); //wybranie tego samego albumu nie powoduje dodania do widoku niepotrzebnego zdjęcia
-            
+
         }
 
 
-		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-		{
-			Application.Exit();
-		}
-	}
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        #endregion OtherMethods
+
+    }
 }

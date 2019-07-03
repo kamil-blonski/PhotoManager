@@ -9,7 +9,7 @@ namespace PhotoManager
 {
 	public interface IForm1View
 	{
-        event Action<string, Photo, Album> AddPhotoEvent;
+        event Action<string, Photo> AddPhotoEvent;
 		event Func<List<Album>> GetAlbums;
         event Action<Album> GetPhotosFromDB;
         //event Func<List<Photo>> GetPhotosFromDB;
@@ -17,6 +17,7 @@ namespace PhotoManager
 		IAddAlbumView IAddAlbumView { get; }
         List<Photo> PhotoList { set; }
         void AddNewAlbumToList(Album album);
+        void AddNewPhotoToList(Photo newPhotos);
         void ShowMessage(bool success, string message);
     }
 }

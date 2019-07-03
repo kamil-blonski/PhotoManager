@@ -50,6 +50,7 @@ namespace PhotoManager.Model
 
 		public Image Image
 		{
+            set { image = value; }
 			get { return this.image; }
 		}
 

@@ -73,10 +73,10 @@ namespace PhotoManager
                 view.IVievRegister.ShowMessage(false, "Account creation failed. Try one more time.");
         }
 
-        private void AddPhotoEvent(string imgPath, Photo photo, Album album)
+        private void AddPhotoEvent(string imgPath, Photo photo)
         {
-            if (!model.AddPhoto(imgPath, photo, album))
-                view.IVievForm.ShowMessage(false, "Error during adding a photo: " + photo.Name + ".");
+            view.IVievForm.AddNewPhotoToList(model.AddPhoto(imgPath, photo));
+                //view.IVievForm.ShowMessage(false, "Error during adding a photo: " + photo.Name + ".");
         }
 
         private void AddAlbumEvent(Album album)

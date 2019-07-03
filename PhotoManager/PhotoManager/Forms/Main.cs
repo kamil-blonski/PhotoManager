@@ -24,7 +24,7 @@ namespace PhotoManager
 		private List<Photo> photos; //from db
 		private List<Image> ImageList;
 		private bool IfAlbumSelected = false;
-		private int i = 0; //indekser do wyświetlania zdjęć
+		private int indexForMiniPhoto = 0; //indekser do wyświetlania zdjęć
         //private int indexOfLastActiveMenuSTripItem = -1;
 		#endregion Fields
 
@@ -35,6 +35,7 @@ namespace PhotoManager
 		public event Action<string> SaveAlbum;
 		public event Action GetUserName;
 		public event Action GetCurrentAlbum;
+        public event Action<List<Photo>> DeletePhoto;
 		#endregion Events
 
 		#region Constructors
@@ -160,10 +161,7 @@ namespace PhotoManager
 			if (GetUserName != null)
 				GetUserName();
 			albums = new List<Album>();
-			// if (GetAlbums != null)
 			albums = GetAlbums();
-			//else
-			//    return;
 			albumListToolStripMenuItem.DropDownItems.Clear();
 			foreach (var item in albums)
 			{
@@ -190,8 +188,9 @@ namespace PhotoManager
 			//photos.Clear(); //nie dublują się zdjęcia po wybraniu drugi raz tego samego albumu (po dodaniu nowego zdjęcia)
 			imageListMin.Images.Add(newPhoto.Image);
 			ImageList.Add(newPhoto.Image);
-			imgListView.Items.Add(newPhoto.Name, i);
-			i++;
+			imgListView.Items.Add(newPhoto.Name, indexForMiniPhoto);
+            fileNames.Add(newPhoto.Name);
+			indexForMiniPhoto++;
 		}
 
 		#endregion OtherMethods
@@ -209,14 +208,14 @@ namespace PhotoManager
                 imageListMin.Images.Clear(); //miniaturki są takie jak powinny być
                 ImageList = new List<Image>();
                 GetPhotosFromDB(albums[index]);
-                i = 0;
+                indexForMiniPhoto = 0;
                 foreach (Photo photo in photos)
                 {
                     imageListMin.Images.Add(photo.Image);
                     ImageList.Add(photo.Image);
                     fileNames.Add(photo.Name);
-                    imgListView.Items.Add(photo.Name, i);
-                    i++;
+                    imgListView.Items.Add(photo.Name, indexForMiniPhoto);
+                    indexForMiniPhoto++;
                 }
 
                 //photos.Clear(); //wybranie tego samego albumu nie powoduje dodania do widoku niepotrzebnego zdjęcia
@@ -294,26 +293,39 @@ namespace PhotoManager
 
         }
 
-        private void DelateButton_Click(object sender, EventArgs e)
-        {
-            Console.WriteLine("LICZBA ZDJĘ: "+ photos.Count);
-            Console.Write(photos[imgListView.FocusedItem.Index].ID + " | " + photos[imgListView.FocusedItem.Index].Name);
-            //Console.WriteLine(imageListMin.);
-        }
-
         private void imgListView_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
-                Console.WriteLine();
                 ImageMenuStrip.Show(Cursor.Position);
             }
         }
 
         private void delateToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            int amount = imgListView.SelectedItems.Count;
+            if (imgListView.SelectedItems.Count == 0)
+                return;
+            List<Photo> photosToDelete = new List<Photo>();
+            List<int> index = new List<int>();
+            for (int i = 0; i < amount; i++)
+                index.Add(imgListView.SelectedItems[i].Index);
+
+            for (int i = 0; i < amount; i++) //powinno być w modelu przez event 
+            {
+                photosToDelete.Add(photos[index[i] - i]);
+                imgListView.Items.RemoveAt(index[i] - i);
+                imageListMin.Images.RemoveAt(index[i]- i);
+                ImageList.RemoveAt(index[i] - i);
+                fileNames.RemoveAt(index[i] - i);
+                photos.Remove(photos[index[i] - i]);
+                indexForMiniPhoto--;
+            }
+
+            if (DeletePhoto != null)
+                DeletePhoto(photosToDelete);
+
             
-            Console.WriteLine(imgListView.SelectedItems.Count);
         }
     }
 }

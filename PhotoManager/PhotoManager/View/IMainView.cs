@@ -12,7 +12,7 @@ namespace PhotoManager
         event Action<string> SaveAlbum;
         event Action GetUserName;
         event Action GetCurrentAlbum;
-        //event Action DeletePhhoto()
+        event Action<List<Photo>> DeletePhoto;
 		IAddAlbumView IAddAlbumView { get; }
         List<Photo> PhotoList { set; }
         string UserName { set; }

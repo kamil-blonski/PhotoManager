@@ -21,6 +21,7 @@ namespace PhotoManager
             this.view.IVievForm.SaveAlbum += SaveAlbumEvent;
             this.view.IVievForm.GetUserName += GetUserNameEvent;
             this.view.IVievForm.GetCurrentAlbum += GetAlbumName;
+            this.view.IVievForm.DeletePhoto += DeletePhoto;
 		}
 
 		private List<Album> GetAlbums()
@@ -115,6 +116,14 @@ namespace PhotoManager
         private void GetAlbumName()
         {
              view.IVievForm.AlbumName = "You are currently in the album named: " + model.GetAlbumName() + ".";
+        }
+
+        private void DeletePhoto(List<Photo> photosToDelete)
+        {
+            if (model.DeletePhotos(photosToDelete))
+                view.IVievForm.ShowMessage(true, "Photos deleted.");
+            else
+                view.IVievForm.ShowMessage(true, "Something is wrong.");
         }
 
     }

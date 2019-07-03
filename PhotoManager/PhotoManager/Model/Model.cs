@@ -434,6 +434,92 @@ namespace PhotoManager.Model
             }
             return true;
         }
+        private void DeleteOwnership(List<Photo> photosToDelete)
+        {
+            foreach (Photo photo in photosToDelete)
+            {
+                try
+                {
+                    var dbCon = Database.Instance();
+                    dbCon.DatabaseName = "photomanager";
+                    if (dbCon.IsConnect())
+                    {
+                        if (dbCon.Connection.State != ConnectionState.Open)
+                        {
+                            using (MySqlCommand command = dbCon.Connection.CreateCommand())
+                            {
+                                command.CommandText = "delete from ownership where id_p = @id;";
+                                command.Parameters.AddWithValue("@id", photo.ID);
+                                dbCon.Connection.Open();
+                                try
+                                {
+                                    int result = command.ExecuteNonQuery();
+                                    dbCon.Close();
+                                }
+                                catch (Exception exc)
+                                {
+                                    MessageBox.Show(exc.ToString(), "Problem podczas usuwania zdjęcia.");
+                                }
+                            }
+                        }
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("DODAWANIE ZDJĘCIA BŁĄD", "Error", MessageBoxButtons.OK); //tego tu nie bedzie
+                }
+            }
+        }
+        public bool DeletePhotos(List<Photo> photosToDelete)
+        {
+            DeleteOwnership(photosToDelete);
+            foreach(Photo photo in photosToDelete)
+            {
+                try
+                {
+                    var dbCon = Database.Instance();
+                    dbCon.DatabaseName = "photomanager";
+                    if (dbCon.IsConnect())
+                    {
+                        if (dbCon.Connection.State != ConnectionState.Open)
+                        {
+                            using (MySqlCommand command = dbCon.Connection.CreateCommand())
+                            {
+                                command.CommandText = "delete from photos where id = @id;";
+                                command.Parameters.AddWithValue("@id", photo.ID);
+                                dbCon.Connection.Open();
+                                try
+                                {
+                                    int result = command.ExecuteNonQuery();
+                                    dbCon.Close();
+                                    if (result > 0)
+                                    {
+                                        return true;
+                                    }
+                                    else
+                                        return false;
+                                }
+                                catch (Exception exc)
+                                {
+                                    MessageBox.Show(exc.ToString(), "Problem podczas usuwania zdjęcia.");
+                                }
+                            }
+                        }
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("DODAWANIE ZDJĘCIA BŁĄD", "Error", MessageBoxButtons.OK); //tego tu nie bedzie
+                }
+            }
+            return true;
+            
+        }
+
 
         #endregion Photos
 

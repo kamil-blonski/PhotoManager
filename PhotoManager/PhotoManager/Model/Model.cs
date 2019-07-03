@@ -420,6 +420,12 @@ namespace PhotoManager.Model
             {
                 try
                 {
+                    if (File.Exists(destinationPath + "\\" + photo.Name))
+                    {
+                        DialogResult result = MessageBox.Show("Photo " + photo.Name + "already exists. Do you want to replace it?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                        if (result == DialogResult.No)
+                            break;
+                    }
                     bitmap = new Bitmap(photo.Image);
                     bitmap.Save(destinationPath + "\\" + photo.Name, ImageFormat.Jpeg);
                 }

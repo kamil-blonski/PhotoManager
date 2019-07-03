@@ -117,7 +117,7 @@ namespace PhotoManager
 
         private void GetAlbumName()
         {
-            view.IVievForm.AlbumName = "You are currently in the album named: " +  model.GetAlbumName() + ".";
+             view.IVievForm.AlbumName = "You are currently in the album named: " + model.GetAlbumName() + ".";
         }
 
     }

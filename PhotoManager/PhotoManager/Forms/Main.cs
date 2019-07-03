@@ -17,8 +17,8 @@ namespace PhotoManager
 {
 	public partial class Main : Form, IMainViev
 	{
-		#region Fields
-		private List<String> fileNames = new List<string>();
+        #region Fields
+        private List<String> fileNames = new List<string>();
 		private int X;
 		private int Y;
 		private static Main instance = null;
@@ -112,13 +112,20 @@ namespace PhotoManager
 				{
 					foreach (string fileName in ofd.FileNames)
 					{
-						FileInfo fi = new FileInfo(fileName);
-						fileNames.Add(fi.FullName);
+                        FileInfo fi = new FileInfo(fileName);
+                        if (FileWithThisNameExists(fi.Name))
+                        {
+                            
+                            fileNames.Add(fi.Name);
 
-						if (AddPhotoEvent != null)
-						{
-							AddPhotoEvent(fi.FullName, new Photo(null, fi.Name, fi.CreationTime, ImageFormat.Jpeg, fi.Length)); //albums bo albumsComboBox zawierajątylko NAME 
-						}
+                            if (AddPhotoEvent != null)
+                            {
+                                AddPhotoEvent(fi.FullName, new Photo(null, fi.Name, fi.CreationTime, ImageFormat.Jpeg, fi.Length)); //albums bo albumsComboBox zawierajątylko NAME 
+                            }
+                        }
+                        else
+                            MessageBox.Show("File with name " + fi.Name + " is already exists in this album", "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+
 					}
 				}
 			}
@@ -209,6 +216,7 @@ namespace PhotoManager
 			{
 				imageListMin.Images.Add(photo.Image);
 				KURWA.Add(photo.Image);
+                fileNames.Add(photo.Name);
 				imgListView.Items.Add(photo.Name, i);
 				i++;
 			}
@@ -257,13 +265,27 @@ namespace PhotoManager
             {
                 if(ofd.ShowDialog() == DialogResult.OK)
                 {
-                    Console.WriteLine(ofd.SelectedPath);
                     string destinationPath = ofd.SelectedPath;
                     if (SaveAlbum != null)
                         SaveAlbum(destinationPath);
                 }
 
             }
+        }
+
+        private bool FileWithThisNameExists(string newFileName)
+        {
+            foreach(string fName in fileNames)
+            {
+                Console.WriteLine(fName);
+                Console.WriteLine(newFileName );
+                Console.WriteLine();
+                FileInfo fi = new FileInfo(fName);
+                if (newFileName.Equals(fName))
+                    return false;
+            }
+            return true;
+
         }
     }
 }

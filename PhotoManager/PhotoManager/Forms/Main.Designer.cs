@@ -2,7 +2,7 @@
 
 namespace PhotoManager
 {
-    partial class Form1
+    partial class Main
     {
         /// <summary>
         /// Required designer variable.
@@ -31,7 +31,7 @@ namespace PhotoManager
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.imageListMin = new System.Windows.Forms.ImageList(this.components);
             this.imgListView = new System.Windows.Forms.ListView();
             this.menuStrip = new System.Windows.Forms.MenuStrip();

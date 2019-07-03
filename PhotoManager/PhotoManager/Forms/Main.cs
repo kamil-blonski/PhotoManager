@@ -15,14 +15,14 @@ using System.Drawing.Imaging;
 
 namespace PhotoManager
 {
-    public partial class Form1 : Form, IForm1View
+    public partial class Main : Form, IForm1View
     {
         #region Fields
         private List<String> fileNames = new List<string>();
 		private Size screenSize;
 		private int X;
 		private int Y;
-        private static Form1 instance = null;
+        private static Main instance = null;
 		private List<Album> albums;
 		private List<Photo> photos; //from db
         private List<Image> KURWA;
@@ -37,7 +37,7 @@ namespace PhotoManager
 		#endregion Events
 
 		#region Constructors
-		private Form1()
+		private Main()
         {
             InitializeComponent();
             this.screenSize = Screen.FromControl(this).Bounds.Size;
@@ -48,12 +48,12 @@ namespace PhotoManager
         #endregion Constructors
 
         #region Properties
-        public static Form1 InstanceForm1
+        public static Main InstanceForm1
         {
             get
             {
                 if (instance == null)
-                    instance = new Form1();
+                    instance = new Main();
                 return instance;
             }
         }
@@ -172,17 +172,16 @@ namespace PhotoManager
 
         public void AddNewPhotoToList(Photo newPhoto)
         {
-            photos.Clear();
+            photos.Clear(); //nie dublują się zdjęcia po wybraniu drugi raz tego samego albumu (po dodaniu nowego zdjęcia)
             imageListMin.Images.Add(newPhoto.Image);
             KURWA.Add(newPhoto.Image);
             imgListView.Items.Add(newPhoto.Name, i);
-            Console.WriteLine("I: " + i);
             i++;
         }
 
         private void albumsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            fileNames.Clear();
+            fileNames.Clear();  //nazwy plików są odpowiednie
             imgListView.Items.Clear(); //czyszczenie listy obrazków
             imageListMin.Images.Clear(); //miniaturki są takie jak powinny być
             KURWA = new List<Image>();

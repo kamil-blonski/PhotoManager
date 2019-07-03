@@ -28,7 +28,7 @@ namespace PhotoManager
         {
             get
             {
-                return Form1.InstanceForm1;
+                return Main.InstanceForm1;
             }
         }
         #endregion Properties

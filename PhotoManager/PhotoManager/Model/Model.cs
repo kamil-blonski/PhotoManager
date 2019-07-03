@@ -83,7 +83,7 @@ namespace PhotoManager.Model
 
         public void LoadForm1Instance()
         {
-            Form1.InstanceForm1.ShowDialog();
+            Main.InstanceForm1.ShowDialog();
         }
 
         #endregion Login

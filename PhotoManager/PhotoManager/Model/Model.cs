@@ -439,6 +439,11 @@ namespace PhotoManager.Model
         {
             return CurrentUser.Login;
         }
+
+        public string GetAlbumName()
+        {
+            return CurrentAlbum.Name;
+        }
         public string SHA1Hash(string s)
         {
             byte[] bytes = Encoding.UTF8.GetBytes(s);

@@ -23,6 +23,7 @@ namespace PhotoManager
 			this.view.IVievForm.GetPhotosFromDB += GetPhotosFromDB;
             this.view.IVievForm.SaveAlbum += SaveAlbumEvent;
             this.view.IVievForm.GetUserName += GetUserNameEvent;
+            this.view.IVievForm.GetCurrentAlbum += GetAlbumName;
 		}
 
 		private List<Album> GetAlbums()
@@ -106,7 +107,7 @@ namespace PhotoManager
         private void SaveAlbumEvent(string destinationPath)
         {
             if (model.SaveAlbum(destinationPath))
-                view.IVievForm.ShowMessage(true, "All photos saved at: " + destinationPath + ".");
+                view.IVievForm.ShowMessage(true, "All photos saved at: " + destinationPath + "!");
         }
 
         private void GetUserNameEvent()
@@ -114,6 +115,10 @@ namespace PhotoManager
             view.IVievForm.UserName = model.GetUserName() + ".";
         }
 
+        private void GetAlbumName()
+        {
+            view.IVievForm.AlbumName = "You are currently in the album named: " +  model.GetAlbumName() + ".";
+        }
 
     }
 }

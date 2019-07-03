@@ -35,6 +35,7 @@ namespace PhotoManager
 		public event Action<Album> GetPhotosFromDB;
         public event Action<string> SaveAlbum;
         public event Action GetUserName;
+        public event Action GetCurrentAlbum;
         #endregion Events
 
         #region Constructors
@@ -77,6 +78,11 @@ namespace PhotoManager
         public string UserName
         {
             set { UserNameInfoLabel.Text += value; }
+        }
+
+        public string AlbumName
+        {
+            set { AlbumInfoLabel.Text = value; }
         }
         #endregion Properties
 
@@ -185,17 +191,18 @@ namespace PhotoManager
 
         void GetPhotosFromDBForAlbumWithIndex(int index)
         {
-            GetPhotosFromDB(albums[index]);
+            
         }
         #endregion OtherMethods
         private void LoadPhotosForAlbumWithIndex(int index)
         {
+
             IfAlbumSelected = true;
             fileNames.Clear();  //nazwy plików są odpowiednie
             imgListView.Items.Clear(); //czyszczenie listy obrazków
             imageListMin.Images.Clear(); //miniaturki są takie jak powinny być
             KURWA = new List<Image>();
-            GetPhotosFromDBForAlbumWithIndex(index);
+            GetPhotosFromDB(albums[index]);
             i = 0;
             foreach (Photo photo in photos)
             {
@@ -205,6 +212,8 @@ namespace PhotoManager
                 i++;
             }
             photos.Clear(); //wybranie tego samego albumu nie powoduje dodania do widoku niepotrzebnego zdjęcia
+            if (GetCurrentAlbum != null)
+                GetCurrentAlbum();
         }
         private void albumListToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {

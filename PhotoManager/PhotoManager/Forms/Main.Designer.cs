@@ -47,6 +47,7 @@ namespace PhotoManager
             this.AlbumInfoLabel = new System.Windows.Forms.Label();
             this.ImageMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.delateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AlbumDescriptionLabel = new System.Windows.Forms.Label();
             this.menuStrip.SuspendLayout();
             this.ImageMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -60,10 +61,10 @@ namespace PhotoManager
             // imgListView
             // 
             this.imgListView.LargeImageList = this.imageListMin;
-            this.imgListView.Location = new System.Drawing.Point(16, 89);
+            this.imgListView.Location = new System.Drawing.Point(16, 147);
             this.imgListView.Margin = new System.Windows.Forms.Padding(4);
             this.imgListView.Name = "imgListView";
-            this.imgListView.Size = new System.Drawing.Size(1335, 523);
+            this.imgListView.Size = new System.Drawing.Size(1335, 632);
             this.imgListView.TabIndex = 0;
             this.imgListView.UseCompatibleStateImageBehavior = false;
             this.imgListView.ItemActivate += new System.EventHandler(this.imgListView_ItemActivate);
@@ -176,20 +177,31 @@ namespace PhotoManager
             this.ImageMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.delateToolStripMenuItem});
             this.ImageMenuStrip.Name = "ImageMenuStrip";
-            this.ImageMenuStrip.Size = new System.Drawing.Size(176, 56);
+            this.ImageMenuStrip.Size = new System.Drawing.Size(123, 28);
             // 
             // delateToolStripMenuItem
             // 
             this.delateToolStripMenuItem.Name = "delateToolStripMenuItem";
-            this.delateToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.delateToolStripMenuItem.Size = new System.Drawing.Size(122, 24);
             this.delateToolStripMenuItem.Text = "Delate";
             this.delateToolStripMenuItem.Click += new System.EventHandler(this.delateToolStripMenuItem_Click);
+            // 
+            // AlbumDescriptionLabel
+            // 
+            this.AlbumDescriptionLabel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.AlbumDescriptionLabel.Font = new System.Drawing.Font("Times New Roman", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.AlbumDescriptionLabel.Location = new System.Drawing.Point(0, 84);
+            this.AlbumDescriptionLabel.Name = "AlbumDescriptionLabel";
+            this.AlbumDescriptionLabel.Size = new System.Drawing.Size(1365, 23);
+            this.AlbumDescriptionLabel.TabIndex = 4;
+            this.AlbumDescriptionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1365, 624);
+            this.ClientSize = new System.Drawing.Size(1365, 792);
+            this.Controls.Add(this.AlbumDescriptionLabel);
             this.Controls.Add(this.AlbumInfoLabel);
             this.Controls.Add(this.UserNameInfoLabel);
             this.Controls.Add(this.imgListView);
@@ -230,6 +242,7 @@ namespace PhotoManager
         private System.Windows.Forms.Label AlbumInfoLabel;
         private System.Windows.Forms.ContextMenuStrip ImageMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem delateToolStripMenuItem;
+        private System.Windows.Forms.Label AlbumDescriptionLabel;
     }
 }
 

@@ -19,9 +19,6 @@ namespace PhotoManager.Model
         private Photo CurrentPhoto;
 		#endregion Fields
 
-		#region Propetries
-		#endregion Properties
-
 		#region Login
 		public bool checkPassword(User user)
         {
@@ -47,7 +44,7 @@ namespace PhotoManager.Model
             }
             if (passwdFromDatabase != null && SHA1Hash(user.Password) == passwdFromDatabase)
             {
-                CurrentUser = CurrentUserFullData(user); //żeby była referencja do obiektu aktualnie zalogowanego uzytkownika w modelu
+                CurrentUser = CurrentUserFullData(user);
                 return true;
             }
             else
@@ -100,7 +97,6 @@ namespace PhotoManager.Model
                 return true;
             return false;
         }
-
         public bool CreateAccount(User user)
         {
             var dbCon = Database.Instance();
@@ -130,7 +126,7 @@ namespace PhotoManager.Model
                         }
                         catch (Exception exc)
                         {
-                            MessageBox.Show(exc.ToString());
+                            MessageBox.Show(exc.ToString(), "Error");
                         }
                     }
                 }
@@ -141,7 +137,6 @@ namespace PhotoManager.Model
         #endregion Register
 
         #region Album
-
         private void AddCreation()
         {
             try
@@ -167,7 +162,7 @@ namespace PhotoManager.Model
                             }
                             catch (Exception exc)
                             {
-                                MessageBox.Show(exc.ToString(), "Problem podczas dodawania albumu.");
+                                MessageBox.Show(exc.ToString(), "Error.");
                             }
                         }
                     }                   
@@ -175,12 +170,10 @@ namespace PhotoManager.Model
             }
             catch (Exception ex)
             {
-                MessageBox.Show("DODAWANIE ZDJĘCIA BŁĄD", "Error", MessageBoxButtons.OK); //tego tu nie bedzie
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK); 
             }
 
         }
-
-		// załadowanie albumów do comboBoxa z bazy
 		public List<Album> GetAlbums()
 		{
 			var dbCon = Database.Instance();
@@ -202,11 +195,9 @@ namespace PhotoManager.Model
                     CurrentUser.addAlbum((new Album(int.Parse(reader.GetString(0)), reader.GetString(1), DateTime.Parse(reader.GetString(2)), reader.GetString(3), reader.GetString(4))));
 				}
 				dbCon.Close();
-                //CurrentAlbum = CurrentUser.Albums[0]; //domyślnie załadowany album to zawsze pierwszy, to trzeba USUNC
 			}
 			return CurrentUser.Albums;
 		}
-
         public bool AddAlbum(Album album)
         {
             try
@@ -244,7 +235,7 @@ namespace PhotoManager.Model
                             }
                             catch (Exception exc)
                             {
-                                MessageBox.Show(exc.ToString(), "Problem podczas dodawania albumu.");
+                                MessageBox.Show(exc.ToString(), "Error");
                             }
                         }
                     }
@@ -254,17 +245,15 @@ namespace PhotoManager.Model
             }
             catch (Exception ex)
             {
-                MessageBox.Show("DODAWANIE ZDJĘCIA BŁĄD", "Error", MessageBoxButtons.OK); //tego tu nie bedzie
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK); 
             }
             return true;
         }
-
         public Album NewAlbumListElement()
         {
             CurrentUser.addAlbum(CurrentAlbum);
             return CurrentAlbum;
         }
-    
         private int GetLastID(string column)//pobranie ID dodanego właśnie albumu
         {
             int id = 0;
@@ -292,7 +281,6 @@ namespace PhotoManager.Model
         #endregion Album
 
         #region Photos
-
         public Photo AddPhoto(string path, Photo photo)
         {
             try
@@ -329,7 +317,7 @@ namespace PhotoManager.Model
                             }
                             catch (Exception exc)
                             {
-                                MessageBox.Show(exc.ToString(), "Problem podczas dodawania zdjęcia.");
+                                MessageBox.Show(exc.ToString(), "Error");
                             }
                         }
                     }
@@ -390,7 +378,6 @@ namespace PhotoManager.Model
 			dbCon.DatabaseName = "photomanager";
 			if (dbCon.IsConnect())
 			{
-				//daj blobiki
 				string query = "select p.id, p.name, p.creationdate, p.format, p.size, p.pictureB  from photos p join ownership  o on p.id = o.id_p where o.id_a = " + CurrentAlbum.ID + ";";
 				if (dbCon.Connection.State != System.Data.ConnectionState.Open)
 				{
@@ -410,8 +397,7 @@ namespace PhotoManager.Model
 
         public bool SaveAlbum(string destinationPath)
         {
-
-            CurrentAlbum.PhotoList = LoadPhotosToAlbum(CurrentAlbum);//brzydko, bo musi sie wywołać drugi raz, ale inaczej nie działa
+            CurrentAlbum.PhotoList = LoadPhotosToAlbum(CurrentAlbum); //fu
             Bitmap bitmap;
             foreach (Photo photo in CurrentAlbum.PhotoList)
             {
@@ -458,7 +444,7 @@ namespace PhotoManager.Model
                                 }
                                 catch (Exception exc)
                                 {
-                                    MessageBox.Show(exc.ToString(), "Problem podczas usuwania zdjęcia.");
+                                    MessageBox.Show(exc.ToString(), "Error");
                                 }
                             }
                         }
@@ -468,7 +454,7 @@ namespace PhotoManager.Model
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("DODAWANIE ZDJĘCIA BŁĄD", "Error", MessageBoxButtons.OK); //tego tu nie bedzie
+                    MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK); 
                 }
             }
         }
@@ -503,7 +489,7 @@ namespace PhotoManager.Model
                                 }
                                 catch (Exception exc)
                                 {
-                                    MessageBox.Show(exc.ToString(), "Problem podczas usuwania zdjęcia.");
+                                    MessageBox.Show(exc.ToString(), "Error");
                                 }
                             }
                         }
@@ -513,14 +499,12 @@ namespace PhotoManager.Model
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("DODAWANIE ZDJĘCIA BŁĄD", "Error", MessageBoxButtons.OK); //tego tu nie bedzie
+                    MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK); 
                 }
             }
             return true;
             
         }
-
-
         #endregion Photos
 
         #region Other
@@ -532,6 +516,11 @@ namespace PhotoManager.Model
         public string GetAlbumName()
         {
             return CurrentAlbum.Name;
+        }
+
+        public string GetDescriptionForAlbum()
+        {
+            return CurrentAlbum.Description;
         }
         public string SHA1Hash(string s)
         {

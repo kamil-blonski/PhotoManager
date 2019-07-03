@@ -22,13 +22,10 @@ namespace PhotoManager
             this.view.IVievForm.GetUserName += GetUserNameEvent;
             this.view.IVievForm.GetCurrentAlbum += GetAlbumName;
             this.view.IVievForm.DeletePhoto += DeletePhoto;
+            this.view.IVievForm.GetDescriptionForAlbum += GetDescriptionForAlbum;
 		}
 
-		private List<Album> GetAlbums()
-		{
-           return model.GetAlbums();
-		}
-
+        #region view
         private void LoggingEvent(User user)
         {
             view.ClearTextBoxes();
@@ -51,7 +48,9 @@ namespace PhotoManager
                 view.ShowMessage(false, exc.ToString());
             }
         }
+        #endregion view
 
+        #region IVievRegister
         private void CreateAccountEvent(User user)
         {
             if (model.UserExists(user))
@@ -59,7 +58,7 @@ namespace PhotoManager
                 view.IVievRegister.ShowMessage(false, "A user with the same login already exists.");
                 return;
             }
-            if(model.EmailExists(user))
+            if (model.EmailExists(user))
             {
                 view.IVievRegister.ShowMessage(false, "An account with the same e-mail address already exists.");
                 return;
@@ -68,16 +67,21 @@ namespace PhotoManager
             {
                 view.IVievRegister.ClearTextBoxes();
                 view.IVievRegister.ShowMessage(true, "An account was created sucessfully.");
-                
+
             }
             else
                 view.IVievRegister.ShowMessage(false, "Account creation failed. Try one more time.");
         }
+        #endregion IVievRegister
 
+        #region IViewForm
+        private List<Album> GetAlbums()
+        {
+            return model.GetAlbums();
+        }
         private void AddPhotoEvent(string imgPath, Photo photo)
         {
             view.IVievForm.AddNewPhotoToList(model.AddPhoto(imgPath, photo));
-                //view.IVievForm.ShowMessage(false, "Error during adding a photo: " + photo.Name + ".");
         }
 
         private void AddAlbumEvent(Album album)
@@ -87,7 +91,7 @@ namespace PhotoManager
                 view.IVievForm.IAddAlbumView.ClearTextBoxes();
                 view.IVievForm.IAddAlbumView.ShowMessage(true, "Album created successfully.");
             }
-                
+
             else
                 view.IVievForm.IAddAlbumView.ShowMessage(false, "Error during creating an album.");
         }
@@ -97,10 +101,10 @@ namespace PhotoManager
             this.view.IVievForm.AddNewAlbumToList(model.NewAlbumListElement());
         }
 
-		private void GetPhotosFromDB(Album album)
-		{
-			view.IVievForm.PhotoList = model.LoadPhotosToAlbum(album);
-		}
+        private void GetPhotosFromDB(Album album)
+        {
+            view.IVievForm.PhotoList = model.LoadPhotosToAlbum(album);
+        }
 
         private void SaveAlbumEvent(string destinationPath)
         {
@@ -115,7 +119,7 @@ namespace PhotoManager
 
         private void GetAlbumName()
         {
-             view.IVievForm.AlbumName = "You are currently in the album named: " + model.GetAlbumName() + ".";
+            view.IVievForm.AlbumName = "You are currently in the album named: " + model.GetAlbumName() + ".";
         }
 
         private void DeletePhoto(List<Photo> photosToDelete)
@@ -126,5 +130,11 @@ namespace PhotoManager
                 view.IVievForm.ShowMessage(true, "Something is wrong.");
         }
 
+        private void GetDescriptionForAlbum()
+        {
+            view.IVievForm.AlbumDescription = model.GetDescriptionForAlbum();
+        }
+
     }
+    #endregion IVievForm
 }

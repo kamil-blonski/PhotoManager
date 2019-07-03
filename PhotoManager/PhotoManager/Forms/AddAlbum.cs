@@ -13,9 +13,16 @@ namespace PhotoManager.View
 {
     public partial class AddAlbum : Form, IAddAlbumView
     {
+        #region Fields
+        private static AddAlbum instance = null;
+        #endregion Fields
+
+        #region Events
         public event Action<Album> AddAlbumEvent;
         public event Action RefreshAlbumListInForm1Event;
-        private static AddAlbum instance = null;
+        #endregion Events
+
+        #region Constructors
         private AddAlbum()
         {
             InitializeComponent();
@@ -23,7 +30,9 @@ namespace PhotoManager.View
             TypeComboBox.Items.Add("Public");
             TypeComboBox.SelectedIndex = 0;
         }
+        #endregion Constructors
 
+        #region Properties
         public static AddAlbum AddAlbumInstance
         {
             get
@@ -33,6 +42,7 @@ namespace PhotoManager.View
                 return instance;
             }
         }
+        #endregion Properties
 
         #region Methods
         private void AddButton_Click(object sender, EventArgs e)
@@ -52,12 +62,10 @@ namespace PhotoManager.View
             }
    
         }
-
         public void ShowMessage(bool success, string message)
         {
             MessageBox.Show(message, success ? "Message" : "Error", MessageBoxButtons.OK);
         }
-
         public void ClearTextBoxes()
         {
             NameTextBox.Text = string.Empty;

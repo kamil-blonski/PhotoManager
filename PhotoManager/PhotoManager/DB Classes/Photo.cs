@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Windows.Media.Imaging;
 using System.IO;
-/*
-https://docs.microsoft.com/en-us/dotnet/framework/wpf/graphics-multimedia/how-to-encode-and-decode-a-jpeg-image
-*/
+
 
 namespace PhotoManager.Model
 {
-	public class Photo
+    public class Photo
 	{
 		#region Fields
 		private int? id;

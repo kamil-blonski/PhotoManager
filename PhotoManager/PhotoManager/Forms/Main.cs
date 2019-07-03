@@ -24,8 +24,7 @@ namespace PhotoManager
 		private List<Photo> photos; //from db
 		private List<Image> ImageList;
 		private bool IfAlbumSelected = false;
-		private int indexForMiniPhoto = 0; //indekser do wyświetlania zdjęć
-        //private int indexOfLastActiveMenuSTripItem = -1;
+		private int indexForMiniPhoto = 0; //indekser do wyświetlania miniaturek
 		#endregion Fields
 
 		#region Events
@@ -36,10 +35,11 @@ namespace PhotoManager
 		public event Action GetUserName;
 		public event Action GetCurrentAlbum;
         public event Action<List<Photo>> DeletePhoto;
-		#endregion Events
+        public event Action GetDescriptionForAlbum;
+        #endregion Events
 
-		#region Constructors
-		private Main()
+        #region Constructors
+        private Main()
 		{
 			InitializeComponent();
 		}
@@ -56,12 +56,10 @@ namespace PhotoManager
 				return instance;
 			}
 		}
-
 		public static Main Instance
 		{
 			set { instance = value; }
 		}
-
 		public IAddAlbumView IAddAlbumView
 		{
 			get
@@ -69,21 +67,22 @@ namespace PhotoManager
 				return AddAlbum.AddAlbumInstance;
 			}
 		}
-
 		public List<Photo> PhotoList
 		{
 			set { photos = value; }
 		}
-
 		public string UserName
 		{
 			set { UserNameInfoLabel.Text += value; }
 		}
-
 		public string AlbumName
 		{
 			set { AlbumInfoLabel.Text = value; }
 		}
+        public string AlbumDescription
+        {
+            set { AlbumDescriptionLabel.Text = "Description: " + value; }
+        }
 		#endregion Properties
 
 		#region MenuMethods
@@ -124,7 +123,6 @@ namespace PhotoManager
                         }
                         else
                             MessageBox.Show("File with name " + fi.Name + " is already exists in this album", "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
-
 					}
 				}
 			}
@@ -176,32 +174,23 @@ namespace PhotoManager
 			}
 
 		}
-
 		public void AddNewAlbumToList(Album album)
 		{
 			albumListToolStripMenuItem.DropDownItems.Add(album.Name);
 			albumListToolStripMenuItem.Enabled = true;
 		}
-
 		public void AddNewPhotoToList(Photo newPhoto)
 		{
-			//photos.Clear(); //nie dublują się zdjęcia po wybraniu drugi raz tego samego albumu (po dodaniu nowego zdjęcia)
 			imageListMin.Images.Add(newPhoto.Image);
 			ImageList.Add(newPhoto.Image);
 			imgListView.Items.Add(newPhoto.Name, indexForMiniPhoto);
             fileNames.Add(newPhoto.Name);
 			indexForMiniPhoto++;
-		}
-
-		#endregion OtherMethods
+		}	
 		private void LoadPhotosForAlbumWithIndex(int index)
 		{
-           /* if (indexOfLastActiveMenuSTripItem != index)
-            {*/
                 if (photos != null)
                     photos.Clear();
-                //try { photos.Clear(); } catch (Exception e) }
-                //indexOfLastActiveMenuSTripItem = index; 
                 IfAlbumSelected = true;
                 fileNames.Clear();  //nazwy plików są odpowiednie
                 imgListView.Items.Clear(); //czyszczenie listy obrazków
@@ -217,21 +206,15 @@ namespace PhotoManager
                     imgListView.Items.Add(photo.Name, indexForMiniPhoto);
                     indexForMiniPhoto++;
                 }
-
-                //photos.Clear(); //wybranie tego samego albumu nie powoduje dodania do widoku niepotrzebnego zdjęcia
                 if (GetCurrentAlbum != null)
                     GetCurrentAlbum();
-           /* }
-            else
-            {
-                return;
-            }*/
+                if (GetDescriptionForAlbum != null)
+                    GetDescriptionForAlbum();
 		}
 		private void albumListToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
 		{
 			LoadPhotosForAlbumWithIndex(albumListToolStripMenuItem.DropDownItems.IndexOf(e.ClickedItem));
 		}
-
 		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
 		{
             DialogResult result = MessageBox.Show("Do you want co close an application?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -243,7 +226,6 @@ namespace PhotoManager
             else
                 e.Cancel = true;
         }
-
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Do you want co close an application?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -253,22 +235,17 @@ namespace PhotoManager
                 Application.Exit();
             }
         }
-
 		private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-
             DialogResult result = MessageBox.Show("Do you want to log out?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (DialogResult.Yes == result)
             {
                 this.Dispose();
                 Application.Restart();
-            }
-            
+            }         
 		}		
-
 		private void saveAlbumToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
+        {          
             using (FolderBrowserDialog ofd = new FolderBrowserDialog())
             {
                 if(ofd.ShowDialog() == DialogResult.OK)
@@ -277,10 +254,8 @@ namespace PhotoManager
                     if (SaveAlbum != null)
                         SaveAlbum(destinationPath);
                 }
-
             }
         }
-
         private bool FileWithThisNameExists(string newFileName)
         {
             foreach(string fName in fileNames)
@@ -290,9 +265,7 @@ namespace PhotoManager
                     return false;
             }
             return true;
-
         }
-
         private void imgListView_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -300,7 +273,6 @@ namespace PhotoManager
                 ImageMenuStrip.Show(Cursor.Position);
             }
         }
-
         private void delateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int amount = imgListView.SelectedItems.Count;
@@ -324,8 +296,8 @@ namespace PhotoManager
 
             if (DeletePhoto != null)
                 DeletePhoto(photosToDelete);
-
             
         }
+        #endregion OtherMethods
     }
 }

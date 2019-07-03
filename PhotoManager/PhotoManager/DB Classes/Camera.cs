@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PhotoManager.Model
+﻿namespace PhotoManager.Model
 {
-	public class Camera
+    public class Camera
 	{
 		string type;
 		User owner;

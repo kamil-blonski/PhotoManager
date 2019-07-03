@@ -1,37 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PhotoManager
 {
     public partial class Register : Form, IRegisterView
     {
-        //Rejestracia wciśnięciem entera ??
-        private static Register registerInstance;
-        private Register()
-        {
-            InitializeComponent();
-            this.CenterToScreen();
-        }
-
-        public static Register RegisterInstance
-        {
-            get
-            {
-                if (registerInstance == null)
-                    registerInstance = new Register();
-                return registerInstance;
-            }
-        }
-
         #region Fields
+        private static Register registerInstance;
         private bool nameCorrect = false;
         private bool surnameCorrect = false;
         private bool emailCorrect = false;
@@ -39,38 +16,19 @@ namespace PhotoManager
         private bool passwordCorrect = false;
         #endregion Fields;
 
-        //być może niepotrzebne, ale nie usuwam jeszcze bo sie mogą przydac później
-        #region Properties 
-
-        public string TBName
-        {
-            set { tbName.Text = value; }
-        }
-        public string TBSurname
-        {
-            set { tbSurname.Text = value; }
-        }
-        public string TBEmail
-        {
-            set { tbEmail.Text = value; }
-        }
-        public string TBUserName
-        {
-            set { tbLogin.Text = value; }
-        }
-        public string TBPassword
-        {
-            set { tbPassword.Text = value; }
-        }
-        #endregion Properties
-
         #region Events
         public event Action<User> CreateAccountEvent;
         #endregion Events
 
+        #region Constructors
+        private Register()
+        {
+            InitializeComponent();
+            this.CenterToScreen();
+        }
+        #endregion Constructors
 
         #region Validation
-
         private bool IsEmpty(string tb)
         {
             if (tb.Trim() == string.Empty)
@@ -182,6 +140,15 @@ namespace PhotoManager
         #endregion Validation
 
         #region Methods
+        public static Register RegisterInstance
+        {
+            get
+            {
+                if (registerInstance == null)
+                    registerInstance = new Register();
+                return registerInstance;
+            }
+        }
         public void ShowMessage(bool success, string message)
         {
             MessageBox.Show(message, success ? "Message" : "Error", MessageBoxButtons.OK);

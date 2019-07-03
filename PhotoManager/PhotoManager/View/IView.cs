@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PhotoManager
 {
-	public interface IView
+    public interface IView
 	{
         event Action<User> LoggingEvent;
+        IRegisterView IVievRegister { get; }
+        IMainViev IVievForm { get; }
         void ClearTextBoxes();
         void hideLoggingWindow();
         void ShowMessage(bool success, string message);
-        IRegisterView IVievRegister { get; }
-        IMainViev IVievForm { get; }
-	}
+    }
 }

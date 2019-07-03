@@ -71,14 +71,18 @@ namespace PhotoManager
         #region MenuMethods
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-            if(!IfAlbumSelected)
+            if (albumListToolStripMenuItem.DropDownItems.Count == 0)
+            {
+                ShowMessage(false, "Create an album first!");
+                return;
+            }
+            if (!IfAlbumSelected)
             {
                 ShowMessage(false, "Select an album first!");
                 return;
             }
-            if(albumListToolStripMenuItem.DropDownItems.Count > 0)
-            {
-                using (OpenFileDialog ofd = new OpenFileDialog()
+
+            using (OpenFileDialog ofd = new OpenFileDialog()
                 {
                     Multiselect = true,
                     ValidateNames = true,
@@ -99,11 +103,7 @@ namespace PhotoManager
                         }
                     }
                 }
-            }
-            else
-            {
-                ShowMessage(false, "Create an album first!");
-            }
+
 		}
 
         private void createNewAlbumToolStripMenuItem_Click(object sender, EventArgs e)
@@ -143,7 +143,11 @@ namespace PhotoManager
             if (albumListToolStripMenuItem.DropDownItems.Count < 1)
                 albumListToolStripMenuItem.Enabled = false;
             else
+            {
                 albumListToolStripMenuItem.Enabled = true;
+                LoadPhotosForAlbumWithIndex(0);
+            }
+                
         }
 
 		public void AddNewAlbumToList(Album album)
@@ -165,26 +169,32 @@ namespace PhotoManager
         {
             Application.Exit();
         }
-
+        void GetPhotosFromDBForAlbumWithIndex(int index)
+        {
+            GetPhotosFromDB(albums[index]);
+        }
         #endregion OtherMethods
-
-        private void albumListToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void LoadPhotosForAlbumWithIndex(int index)
         {
             IfAlbumSelected = true;
             fileNames.Clear();  //nazwy plików są odpowiednie
             imgListView.Items.Clear(); //czyszczenie listy obrazków
             imageListMin.Images.Clear(); //miniaturki są takie jak powinny być
             KURWA = new List<Image>();
-                GetPhotosFromDB(albums[albumListToolStripMenuItem.DropDownItems.IndexOf(e.ClickedItem)]);
-                i = 0;
-                foreach (Photo photo in photos)
-                {
-                    imageListMin.Images.Add(photo.Image);
-                    KURWA.Add(photo.Image);
-                    imgListView.Items.Add(photo.Name, i);
-                    i++;
-                }
+            GetPhotosFromDBForAlbumWithIndex(index);
+            i = 0;
+            foreach (Photo photo in photos)
+            {
+                imageListMin.Images.Add(photo.Image);
+                KURWA.Add(photo.Image);
+                imgListView.Items.Add(photo.Name, i);
+                i++;
+            }
             photos.Clear(); //wybranie tego samego albumu nie powoduje dodania do widoku niepotrzebnego zdjęcia
+        }
+        private void albumListToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            LoadPhotosForAlbumWithIndex(albumListToolStripMenuItem.DropDownItems.IndexOf(e.ClickedItem));
         }
     }
 }

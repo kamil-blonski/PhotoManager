@@ -19,15 +19,13 @@ namespace PhotoManager
 	{
         #region Fields
         private List<String> fileNames = new List<string>();
-		private int X;
-		private int Y;
 		private static Main instance = null;
 		private List<Album> albums;
 		private List<Photo> photos; //from db
-		private List<Image> KURWA;
+		private List<Image> ImageList;
 		private bool IfAlbumSelected = false;
 		private int i = 0; //indekser do wyświetlania zdjęć
-		private bool isLoggingOut = false;
+        //private int indexOfLastActiveMenuSTripItem = -1;
 		#endregion Fields
 
 		#region Events
@@ -151,7 +149,7 @@ namespace PhotoManager
 				using (imgViewer iv = new imgViewer())
 				{
 
-					Image img2 = KURWA[imgListView.FocusedItem.Index];
+					Image img2 = ImageList[imgListView.FocusedItem.Index];
 					iv.ImgBox = img2;
 					iv.ShowDialog();
 				}
@@ -189,40 +187,46 @@ namespace PhotoManager
 
 		public void AddNewPhotoToList(Photo newPhoto)
 		{
-			photos.Clear(); //nie dublują się zdjęcia po wybraniu drugi raz tego samego albumu (po dodaniu nowego zdjęcia)
+			//photos.Clear(); //nie dublują się zdjęcia po wybraniu drugi raz tego samego albumu (po dodaniu nowego zdjęcia)
 			imageListMin.Images.Add(newPhoto.Image);
-			KURWA.Add(newPhoto.Image);
+			ImageList.Add(newPhoto.Image);
 			imgListView.Items.Add(newPhoto.Name, i);
 			i++;
 		}
 
-
-		void GetPhotosFromDBForAlbumWithIndex(int index)
-		{
-
-		}
 		#endregion OtherMethods
 		private void LoadPhotosForAlbumWithIndex(int index)
 		{
+           /* if (indexOfLastActiveMenuSTripItem != index)
+            {*/
+                if (photos != null)
+                    photos.Clear();
+                //try { photos.Clear(); } catch (Exception e) }
+                //indexOfLastActiveMenuSTripItem = index; 
+                IfAlbumSelected = true;
+                fileNames.Clear();  //nazwy plików są odpowiednie
+                imgListView.Items.Clear(); //czyszczenie listy obrazków
+                imageListMin.Images.Clear(); //miniaturki są takie jak powinny być
+                ImageList = new List<Image>();
+                GetPhotosFromDB(albums[index]);
+                i = 0;
+                foreach (Photo photo in photos)
+                {
+                    imageListMin.Images.Add(photo.Image);
+                    ImageList.Add(photo.Image);
+                    fileNames.Add(photo.Name);
+                    imgListView.Items.Add(photo.Name, i);
+                    i++;
+                }
 
-			IfAlbumSelected = true;
-			fileNames.Clear();  //nazwy plików są odpowiednie
-			imgListView.Items.Clear(); //czyszczenie listy obrazków
-			imageListMin.Images.Clear(); //miniaturki są takie jak powinny być
-			KURWA = new List<Image>();
-			GetPhotosFromDB(albums[index]);
-			i = 0;
-			foreach (Photo photo in photos)
-			{
-				imageListMin.Images.Add(photo.Image);
-				KURWA.Add(photo.Image);
-                fileNames.Add(photo.Name);
-				imgListView.Items.Add(photo.Name, i);
-				i++;
-			}
-			photos.Clear(); //wybranie tego samego albumu nie powoduje dodania do widoku niepotrzebnego zdjęcia
-			if (GetCurrentAlbum != null)
-				GetCurrentAlbum();
+                //photos.Clear(); //wybranie tego samego albumu nie powoduje dodania do widoku niepotrzebnego zdjęcia
+                if (GetCurrentAlbum != null)
+                    GetCurrentAlbum();
+           /* }
+            else
+            {
+                return;
+            }*/
 		}
 		private void albumListToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
 		{
@@ -253,8 +257,14 @@ namespace PhotoManager
 
 		private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			isLoggingOut = true;
-			Application.Restart();
+
+            DialogResult result = MessageBox.Show("Do you want to log out?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (DialogResult.Yes == result)
+            {
+                this.Dispose();
+                Application.Restart();
+            }
+            
 		}		
 
 		private void saveAlbumToolStripMenuItem_Click(object sender, EventArgs e)
@@ -276,15 +286,34 @@ namespace PhotoManager
         {
             foreach(string fName in fileNames)
             {
-                Console.WriteLine(fName);
-                Console.WriteLine(newFileName );
-                Console.WriteLine();
                 FileInfo fi = new FileInfo(fName);
                 if (newFileName.Equals(fName))
                     return false;
             }
             return true;
 
+        }
+
+        private void DelateButton_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("LICZBA ZDJĘ: "+ photos.Count);
+            Console.Write(photos[imgListView.FocusedItem.Index].ID + " | " + photos[imgListView.FocusedItem.Index].Name);
+            //Console.WriteLine(imageListMin.);
+        }
+
+        private void imgListView_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                Console.WriteLine();
+                ImageMenuStrip.Show(Cursor.Position);
+            }
+        }
+
+        private void delateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+            Console.WriteLine(imgListView.SelectedItems.Count);
         }
     }
 }

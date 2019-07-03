@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PhotoManager.Model;
 namespace PhotoManager
 {
-	class Presenter
+    class Presenter
 	{
 		IView view;
 		Model.Model model;

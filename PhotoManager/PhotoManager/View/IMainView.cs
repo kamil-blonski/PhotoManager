@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PhotoManager.Model;
 
 namespace PhotoManager
 {
-	public interface IMainViev
+    public interface IMainViev
 	{
         event Action<string, Photo> AddPhotoEvent;
 		event Func<List<Album>> GetAlbums;
@@ -15,6 +12,7 @@ namespace PhotoManager
         event Action<string> SaveAlbum;
         event Action GetUserName;
         event Action GetCurrentAlbum;
+        //event Action DeletePhhoto()
 		IAddAlbumView IAddAlbumView { get; }
         List<Photo> PhotoList { set; }
         string UserName { set; }

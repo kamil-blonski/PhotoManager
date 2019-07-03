@@ -45,7 +45,10 @@ namespace PhotoManager
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.UserNameInfoLabel = new System.Windows.Forms.Label();
             this.AlbumInfoLabel = new System.Windows.Forms.Label();
+            this.ImageMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.delateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
+            this.ImageMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // imageListMin
@@ -58,12 +61,13 @@ namespace PhotoManager
             // 
             this.imgListView.LargeImageList = this.imageListMin;
             this.imgListView.Location = new System.Drawing.Point(16, 89);
-            this.imgListView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.imgListView.Margin = new System.Windows.Forms.Padding(4);
             this.imgListView.Name = "imgListView";
             this.imgListView.Size = new System.Drawing.Size(1335, 523);
             this.imgListView.TabIndex = 0;
             this.imgListView.UseCompatibleStateImageBehavior = false;
             this.imgListView.ItemActivate += new System.EventHandler(this.imgListView_ItemActivate);
+            this.imgListView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.imgListView_MouseClick);
             // 
             // imageListNormal
             // 
@@ -166,6 +170,21 @@ namespace PhotoManager
             this.AlbumInfoLabel.Text = "You do not have photo albums.";
             this.AlbumInfoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // ImageMenuStrip
+            // 
+            this.ImageMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.ImageMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.delateToolStripMenuItem});
+            this.ImageMenuStrip.Name = "ImageMenuStrip";
+            this.ImageMenuStrip.Size = new System.Drawing.Size(176, 56);
+            // 
+            // delateToolStripMenuItem
+            // 
+            this.delateToolStripMenuItem.Name = "delateToolStripMenuItem";
+            this.delateToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.delateToolStripMenuItem.Text = "Delate";
+            this.delateToolStripMenuItem.Click += new System.EventHandler(this.delateToolStripMenuItem_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -178,7 +197,7 @@ namespace PhotoManager
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -187,6 +206,7 @@ namespace PhotoManager
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
+            this.ImageMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -208,6 +228,8 @@ namespace PhotoManager
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Label UserNameInfoLabel;
         private System.Windows.Forms.Label AlbumInfoLabel;
+        private System.Windows.Forms.ContextMenuStrip ImageMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem delateToolStripMenuItem;
     }
 }
 

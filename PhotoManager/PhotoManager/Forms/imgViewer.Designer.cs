@@ -36,6 +36,7 @@
             // pictureBox
             // 
             this.pictureBox.Location = new System.Drawing.Point(5, 43);
+            this.pictureBox.Margin = new System.Windows.Forms.Padding(20, 15, 15, 15);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(256, 393);
             this.pictureBox.TabIndex = 0;

@@ -152,8 +152,8 @@
   <data name="&gt;&gt;loginTextBox.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="loginLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 13</value>
+  <data name="pictureBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
   </data>
   <data name="pictureBox1.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -186,8 +186,8 @@
   <data name="passwordLabel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;logInButton.Name" xml:space="preserve">
-    <value>logInButton</value>
+  <data name="&gt;&gt;loggingGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="&gt;&gt;registerButton.Parent" xml:space="preserve">
     <value>$this</value>
@@ -203,6 +203,9 @@
   </data>
   <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>187, 26</value>
+  </data>
+  <data name="loggingGroupBox.Text" xml:space="preserve">
+    <value>Log in</value>
   </data>
   <data name="&gt;&gt;registerButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -231,9 +234,6 @@
   <data name="logInButton.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="pictureBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
   <data name="registerButton.Text" xml:space="preserve">
     <value>Register</value>
   </data>
@@ -243,14 +243,11 @@
   <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
     <value>64, 64</value>
   </data>
-  <data name="&gt;&gt;loggingGroupBox.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;logInButton.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;loggingGroupBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;logInButton.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="registerButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>131, 233</value>
@@ -852,11 +849,11 @@
   <data name="&gt;&gt;loginTextBox.Name" xml:space="preserve">
     <value>loginTextBox</value>
   </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="logInButton.Text" xml:space="preserve">
     <value>Log in</value>
-  </data>
-  <data name="passwordTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
   </data>
   <data name="loginTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -888,14 +885,20 @@
   <data name="&gt;&gt;logInButton.Parent" xml:space="preserve">
     <value>loggingGroupBox</value>
   </data>
+  <data name="&gt;&gt;logInButton.Name" xml:space="preserve">
+    <value>logInButton</value>
+  </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>446, 286</value>
   </data>
   <data name="loginTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>94, 26</value>
   </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="passwordTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
   </data>
   <data name="passwordLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 13</value>
@@ -906,8 +909,8 @@
   <data name="&gt;&gt;loginTextBox.Parent" xml:space="preserve">
     <value>loggingGroupBox</value>
   </data>
-  <data name="loggingGroupBox.Text" xml:space="preserve">
-    <value>Log in</value>
+  <data name="loginLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 13</value>
   </data>
   <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
     <value>0</value>

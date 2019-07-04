@@ -71,6 +71,7 @@
             // 
             this.DescriptionRTextBox.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.DescriptionRTextBox.Location = new System.Drawing.Point(6, 134);
+            this.DescriptionRTextBox.MaxLength = 200;
             this.DescriptionRTextBox.Name = "DescriptionRTextBox";
             this.DescriptionRTextBox.Size = new System.Drawing.Size(492, 96);
             this.DescriptionRTextBox.TabIndex = 7;
@@ -90,6 +91,7 @@
             // 
             this.NameTextBox.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.NameTextBox.Location = new System.Drawing.Point(83, 37);
+            this.NameTextBox.MaxLength = 30;
             this.NameTextBox.Name = "NameTextBox";
             this.NameTextBox.Size = new System.Drawing.Size(415, 27);
             this.NameTextBox.TabIndex = 5;

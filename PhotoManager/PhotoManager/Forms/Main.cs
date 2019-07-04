@@ -245,7 +245,12 @@ namespace PhotoManager
             }         
 		}		
 		private void saveAlbumToolStripMenuItem_Click(object sender, EventArgs e)
-        {          
+        {    
+            if(albumListToolStripMenuItem.Enabled == false)
+            {
+                MessageBox.Show("This album does not comtain photos to save.!", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                return;
+            }      
             using (FolderBrowserDialog ofd = new FolderBrowserDialog())
             {
                 if(ofd.ShowDialog() == DialogResult.OK)
